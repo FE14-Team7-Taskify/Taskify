@@ -1,0 +1,48 @@
+// 폰트 weight 정의 (선택)
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+
+// 텍스트 스타일 믹스인
+@mixin text-3xl-bold {
+  font-size: 3.2rem;
+  line-height: 4.2rem;
+  font-weight: $weight-bold;
+}
+
+@mixin text-2xl-regular {
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  font-weight: $weight-regular;
+}
+
+@mixin text-xl-semibold {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  font-weight: $weight-semibold;
+}
+
+@mixin text-lg-medium {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: $weight-medium;
+}
+
+@mixin text-md-regular {
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  font-weight: $weight-regular;
+}
+
+@mixin text-sm-semibold {
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+  font-weight: $weight-semibold;
+}
+
+@mixin text-xs-regular {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  font-weight: $weight-regular;
+}
