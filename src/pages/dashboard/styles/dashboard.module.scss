@@ -3,9 +3,9 @@
 @use './column.module.scss';
 @use './tag.module.scss';
 
-@import '../../../styles/colors.scss';
-@import '../../../styles/typography.scss';
-@import '../../../styles/breakpoints.scss';
+@use '@/styles/colors' as *;
+@use '@/styles/typography' as *;
+@use '@/styles/breakpoints' as *;
 
 .dashboard {
   background-color: $gray-FAFAFA;
@@ -16,6 +16,10 @@
 
     .addColumn {
       padding: 0 12px 49px;
+
+      @include respond(sm) {
+        padding: 20px;
+      }
 
       .addBtn {
         display: flex;
