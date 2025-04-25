@@ -7,10 +7,12 @@ import {
   LoginResponse,
 } from './auth.schema';
 
+const PATH = '/auth';
+
 class AuthService {
   async login(body: LoginRequest) {
-    const { data } = await api.post<LoginResponse>('/auth/login', body);
-    const { user, accessToken } = data;
+    const result = await api.post<LoginResponse>(`${PATH}/login`, body);
+    const { user, accessToken } = result.data;
     if (accessToken) {
       const requestInterceptor = (config: InternalAxiosRequestConfig) => {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -19,9 +21,10 @@ class AuthService {
       };
       api.interceptors.request.use(requestInterceptor);
     }
+    return result;
   }
   changePassword(body: ChangePasswordRequest) {
-    return api.put<ChangePasswordResponse>('/auth/password', body);
+    return api.put<ChangePasswordResponse>(`${PATH}/password`, body);
   }
 }
 export const authService = new AuthService();

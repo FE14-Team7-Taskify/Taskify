@@ -8,19 +8,23 @@ import {
   UploadProfileImageRequest,
 } from './users.schema';
 
-class UserService {
+const PATH = '/users';
+
+class UsersService {
   createUser(body: CreateUserRequest) {
-    return api.post<CreateUserResponse>('/users', body);
+    return api.post<CreateUserResponse>(PATH, body);
   }
   getMyInfo() {
-    return api.get<GetMyInfoResponse>('/users/me');
+    return api.get<GetMyInfoResponse>(`${PATH}/me`);
   }
   updateMyInfo(body: UpdateMyInfoRequest) {
-    return api.post<UpdateMyInfoResponse>('/users/me', body);
+    return api.post<UpdateMyInfoResponse>(`${PATH}/me`, body);
   }
   uploadProfileImage(body: UploadProfileImageRequest) {
-    return api.post<UpdateMyInfoResponse>('/users/me/image', body);
+    return api.post<UpdateMyInfoResponse>(`${PATH}/me/image`, body, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 }
 
-export const userService = new UserService();
+export const usersService = new UsersService();
