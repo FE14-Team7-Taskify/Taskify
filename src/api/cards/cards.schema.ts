@@ -16,7 +16,7 @@ export type Card = {
   updatedAt: string;
 };
 
-export type CardResponse = Card | { message: string };
+type CardResponse = Card | { message: string };
 
 export type CreateCardRequest = {
   assigneeUserId: number;

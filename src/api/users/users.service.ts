@@ -18,7 +18,7 @@ class UsersService {
     return api.get<GetMyInfoResponse>(`${PATH}/me`);
   }
   updateMyInfo(body: UpdateMyInfoRequest) {
-    return api.post<UpdateMyInfoResponse>(`${PATH}/me`, body);
+    return api.put<UpdateMyInfoResponse>(`${PATH}/me`, body);
   }
   uploadProfileImage(body: UploadProfileImageRequest) {
     return api.post<UpdateMyInfoResponse>(`${PATH}/me/image`, body, {

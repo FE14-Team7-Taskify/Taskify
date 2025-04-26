@@ -10,7 +10,7 @@ export type Dashboard = {
   userId: number;
 };
 
-export type DashboardResponse = Dashboard | { message: string };
+type DashboardResponse = Dashboard | { message: string };
 
 export type CreateDashboardRequest = { title: string; color: string };
 

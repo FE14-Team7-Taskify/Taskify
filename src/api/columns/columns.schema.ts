@@ -6,7 +6,7 @@ export type Column = {
   updatedAt: string;
 };
 
-export type ColumnResponse = Column | { message: string };
+type ColumnResponse = Column | { message: string };
 
 export type CreateColumnRequest = { title: string; dashboardId: number };
 
@@ -18,6 +18,6 @@ export type UpdateColumnRequest = { columnId: number; title: string };
 
 export type UpdateColumnResponse = ColumnResponse;
 
-export type UpdateColumnImageRequest = { columnId: number; image: string };
+export type UploadColumnImageRequest = { columnId: number; image: string };
 
-export type UpdateColumnImageResponse = { imageUrl: string };
+export type UploadColumnImageResponse = { imageUrl: string };

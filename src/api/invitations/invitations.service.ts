@@ -9,7 +9,7 @@ import {
 const PATH = '/invitations';
 
 class InvitationsService {
-  getInvitations(params: FindInvitationsRequest) {
+  getMyInvitations(params: FindInvitationsRequest) {
     return api.get<FindInvitationsResponse>(PATH, { params });
   }
   updateInvitation({ invitationId, inviteAccepted }: UpdateInvitationsRequest) {

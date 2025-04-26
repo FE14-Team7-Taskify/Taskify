@@ -11,7 +11,7 @@ export type Comment = {
   };
 };
 
-export type CommentResponse = Comment | { message: string };
+type CommentResponse = Comment | { message: string };
 
 export type CreateCommentRequest = {
   content: string;

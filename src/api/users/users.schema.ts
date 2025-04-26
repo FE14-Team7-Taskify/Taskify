@@ -6,7 +6,7 @@ export type User = {
   createdAt: string;
   updatedAt: string;
 };
-export type UserResponse = User | { message: string };
+type UserResponse = User | { message: string };
 
 // region 회원가입
 export type CreateUserRequest = {
