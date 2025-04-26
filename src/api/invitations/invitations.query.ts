@@ -16,7 +16,7 @@ const QUERY_KEYS = {
 export const useInvitationsQuery = (params: FindInvitationsRequest) => {
   return useQuery<FindInvitationsResponse>({
     queryKey: [...QUERY_KEYS.invitations, params],
-    queryFn: () => invitationsService.getInvitations(params).then((res) => res.data),
+    queryFn: () => invitationsService.getMyInvitations(params).then((res) => res.data),
   });
 };
 // endregion 내가 받은 초대 목록 조회

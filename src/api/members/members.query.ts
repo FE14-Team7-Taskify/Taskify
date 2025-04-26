@@ -19,6 +19,7 @@ export const useDashboardMembersQuery = (params: FindMembersRequest) => {
 // region 대시보드 멤버 삭제
 export const useDeleteMemberMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation<void, Error, number>({
     mutationFn: (memberId) => membersService.deleteMember(memberId).then((res) => res.data),
     onSuccess: () => {

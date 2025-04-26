@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   CreateUserRequest,
   CreateUserResponse,
@@ -33,26 +33,27 @@ export const useMyInfoQuery = () => {
 
 // region 내 정보 수정
 export const useUpdateMyInfoMutation = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
+
   return useMutation<UpdateMyInfoResponse, Error, UpdateMyInfoRequest>({
     mutationFn: (body) => usersService.updateMyInfo(body).then((res) => res.data),
-    // onSuccess: () => {
-    //   // 수정 후 내 정보 다시 불러오기
-    //   queryClient.invalidateQueries({ queryKey: QUERY_KEYS.myInfo });
-    // },
+    onSuccess: () => {
+      // 수정 후 내 정보 다시 불러오기
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.myInfo });
+    },
   });
 };
 // endregion 내 정보 수정
 
 // region 프로필 이미지 업로드 (임시)
 export const useUploadProfileImageMutation = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   return useMutation<UpdateMyInfoResponse, Error, UploadProfileImageRequest>({
     mutationFn: (body) => usersService.uploadProfileImage(body).then((res) => res.data),
-    // onSuccess: () => {
-    //   // 업로드 후 내 정보 다시 불러오기
-    //   queryClient.invalidateQueries({ queryKey: QUERY_KEYS.myInfo });
-    // },
+    onSuccess: () => {
+      // 업로드 후 내 정보 다시 불러오기
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.myInfo });
+    },
   });
 };
 // endregion 프로필 이미지 업로드 (임시)
