@@ -1,13 +1,27 @@
-@import '../../../styles/colors.scss';
-@import '../../../styles/typography.scss';
-@import '../../../styles/breakpoints.scss';
+@use '@/styles/index.scss' as s;
 
 .column {
   padding: 16px 12px;
 
+  @include s.mq-sm() {
+    padding: 20px;
+    border-bottom: 1px solid s.$color-gray-EEEEEE;
+  }
+  @include s.mq-lg() {
+    width: 354px;
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1px solid s.$color-gray-EEEEEE;
+  }
+
   .inner {
     padding-bottom: 24px;
-    border-bottom: 1px solid $gray-EEEEEE;
+    border-bottom: 1px solid s.$color-gray-EEEEEE;
+
+    @include s.mq-sm() {
+      padding-bottom: 0;
+      border: none;
+    }
   }
 
   .head {
@@ -15,13 +29,19 @@
     justify-content: space-between;
     margin-bottom: 24px;
 
+    @include s.mq-sm() {
+      margin-bottom: 25px;
+    }
+
     .title {
       display: flex;
       align-items: center;
       position: relative;
       padding-left: 16px;
-      font-size: 1.6rem;
-      font-weight: $weight-bold;
+      @include s.text-style('lg', 700, s.$color-black-333236);
+      @include s.mq-sm() {
+        @include s.text-style('2lg', 700, s.$color-black-333236);
+      }
 
       &::before {
         content: '';
@@ -32,7 +52,7 @@
         transform: translateY(-50%);
         width: 8px;
         height: 8px;
-        background-color: $violet-5534DA;
+        background-color: s.$color-violet-5534DA;
         border-radius: 50%;
       }
 
@@ -41,10 +61,9 @@
         width: 20px;
         height: 20px;
         margin-left: 12px;
-        background: $gray-EEEEEE;
-        font-size: 1.2rem;
+        background: s.$color-gray-EEEEEE;
         text-align: center;
-        font-weight: $weight-medium;
+        @include s.text-style('xs', 500, s.$color-gray-787486);
       }
     }
   }
@@ -55,19 +74,23 @@
     align-items: center;
     justify-content: center;
     padding: 6px 0;
-    border: 1px solid $gray-D9D9D9;
+    border: 1px solid s.$color-gray-D9D9D9;
     border-radius: 6px;
-    background: $white-FFFFFF;
+    background: s.$color-white;
+
+    @include s.mq-sm() {
+      padding: 9px 0;
+    }
 
     .imgWrap {
       position: relative;
       display: inline-block;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
 
-      @include respond(xs) {
-        width: 20px;
-        height: 20px;
+      @include s.mq-sm() {
+        width: 22px;
+        height: 22px;
       }
     }
   }

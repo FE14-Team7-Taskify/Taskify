@@ -24,19 +24,21 @@ function Card({ card }: Props) {
       )}
       <div className={styles.cardTxt}>
         <p className={styles.title}>{card.title}</p>
-        {card.tags && (
-          <div className={styles.tagWrap}>
-            {card?.tags.map((tag) => <Tag key={tag} name={tag} />)}
+        <div className={styles.cardInfoWrap}>
+          {card.tags && (
+            <div className={styles.tagWrap}>
+              {card?.tags.map((tag) => <Tag key={tag} name={tag} />)}
+            </div>
+          )}
+          <div className={styles.cardInfo}>
+            <span className={styles.date}>
+              <Image src="/icon/calendar.svg" alt="달력 아이콘" width={18} height={18} />
+              {card.dueDate}
+            </span>
+            <span className={styles.profileImg}>
+              <Image src={card.assignee.profileImageUrl} alt="프로필" fill />
+            </span>
           </div>
-        )}
-        <div className={styles.cardInfo}>
-          <span className={styles.date}>
-            <Image src="/icon/calendar.svg" alt="달력 아이콘" width={18} height={18} />
-            {card.dueDate}
-          </span>
-          <span className={styles.profileImg}>
-            <Image src={card.assignee.profileImageUrl} alt="프로필" fill />
-          </span>
         </div>
       </div>
     </div>
