@@ -1,5 +1,7 @@
 import { useSetUser } from '@/contexts/AuthProvider';
+import api from '@/lib/axios';
 import { useMutation } from '@tanstack/react-query';
+import { InternalAxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/navigation';
 import {
   ChangePasswordRequest,
@@ -16,7 +18,14 @@ export const useLoginMutation = () => {
   return useMutation<LoginResponse, Error, LoginRequest>({
     mutationFn: (body) => authService.login(body).then((res) => res.data),
     onSuccess: (result) => {
-      const { user } = result;
+      const { user, accessToken } = result;
+      if (accessToken) {
+        const requestInterceptor = (config: InternalAxiosRequestConfig) => {
+          config.headers['Authorization'] = `Bearer ${accessToken}`;
+          return config;
+        };
+        api.interceptors.request.use(requestInterceptor);
+      }
       setUser(user);
       router.push('/mydashboard');
     },
