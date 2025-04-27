@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import {
   CreateUserRequest,
   CreateUserResponse,
@@ -16,8 +17,12 @@ const QUERY_KEYS = {
 
 // region 회원가입
 export const useCreateUserMutation = () => {
+  const router = useRouter();
   return useMutation<CreateUserResponse, Error, CreateUserRequest>({
     mutationFn: (body) => usersService.createUser(body).then((res) => res.data),
+    onSuccess: () => {
+      router.push('/login');
+    },
   });
 };
 // endregion 회원가입
