@@ -1,16 +1,17 @@
+import BaseButton from '../BaseButton';
 import styles from './loginButton.module.scss';
-import { LoginButtonProps } from '../type';
+import { BaseButtonProps } from '../type';
 
 const LoginButton = ({
   children,
   onClick,
   disabled = false,
   type = 'button',
-}: LoginButtonProps) => {
+}: Omit<BaseButtonProps, 'className'>) => {
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={styles.button}>
+    <BaseButton type={type} onClick={onClick} disabled={disabled} className={styles.button}>
       {children}
-    </button>
+    </BaseButton>
   );
 };
 
