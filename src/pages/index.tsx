@@ -1,7 +1,12 @@
+import LoginButton from '@/components/loginButton/LoginButton';
+
 export default function Home() {
   return (
     <>
-      <div>랜딩페이지 (테스트 중입니다!)</div>
+      <div>
+        <LoginButton>로그인 모바일</LoginButton>
+      </div>
+      <div></div>
     </>
   );
 }
