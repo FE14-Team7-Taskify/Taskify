@@ -8,9 +8,9 @@ export type BaseButtonProps = {
   className: string;
 };
 
-export type ModalButtonProps = {
+export type ButtonProps = {
   onCancel?: () => void;
   onConfirm?: () => void;
-  cancelText?: string;
-  confirmText?: string;
+  leftText?: string;
+  rightText?: string;
 };

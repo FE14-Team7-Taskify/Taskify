@@ -1,8 +1,8 @@
 import BaseButton from '../BaseButton';
-import styles from './modalButton.module.scss';
+import styles from './myDashBoardButton.module.scss';
 import { ButtonProps } from '../type';
 
-const ModalButton = ({
+const MyDashBoardButton = ({
   onCancel,
   onConfirm,
   leftText = '취소',
@@ -10,14 +10,14 @@ const ModalButton = ({
 }: ButtonProps) => {
   return (
     <div className={styles.wrapper}>
-      <BaseButton onClick={onCancel} className={`${styles.button} ${styles.cancelButton}`}>
+      <BaseButton onClick={onCancel} className={`${styles.button} ${styles.acceptButton}`}>
         {leftText}
       </BaseButton>
-      <BaseButton onClick={onConfirm} className={`${styles.button} ${styles.confirmButton}`}>
+      <BaseButton onClick={onConfirm} className={`${styles.button} ${styles.rejectButton}`}>
         {rightText}
       </BaseButton>
     </div>
   );
 };
 
-export default ModalButton;
+export default MyDashBoardButton;
