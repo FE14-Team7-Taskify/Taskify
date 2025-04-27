@@ -1,11 +1,18 @@
+//index.tsx
+
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import styles from './styles/mypage.module.scss';
+import PasswordCheck from './passwordCheck';
+import type { GetMyInfoResponse } from '@/api/auth/auth.schema';
+import axios from 'axios';
 
 export default function MyPage() {
   // const [user, setUser] = useState(null);
+  //const fileInputRef = useRef(null);
+  const [myInfo, setMyInfo] = useState<GetMyInfoResponse | null>(null);
 
   useEffect(() => {
     //const token = localStorage.getItem('accessToken');
@@ -15,6 +22,24 @@ export default function MyPage() {
     //   window.location.href = '/login';
     //   return;
     // }
+
+    async function fetchMyInfo() {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+
+        const response = await axios.get('https://sp-taskify-api.vercel.app/14-7/users/me', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: 'application/json',
+          },
+        });
+        setMyInfo(response.data);
+      } catch (error) {
+        setMyInfo({ message: '정보를 불러오는 데 실패했습니다.' });
+        console.log('에러', error);
+      }
+    }
+    fetchMyInfo();
 
     const fetchUser = async () => {
       //   try {
@@ -29,6 +54,10 @@ export default function MyPage() {
 
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    console.log('myInfo 바뀜:', myInfo);
+  }, [myInfo]);
 
   //if (!user) return <div>로딩 중...</div>;
 
@@ -77,44 +106,7 @@ export default function MyPage() {
           </div>
         </div>
       </div>
-      <div className={styles.passwordBox}>
-        <div className={styles.headfont}>비밀번호 변경</div>
-        <div>
-          <form action="/submit-url" method="POST" className={styles.formBox}>
-            <div>
-              현재 비밀번호
-              <div>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="비밀번호 입력"
-                  className={styles.inputBox}
-                />
-              </div>
-            </div>
-            <div>
-              <div>새 비밀번호</div>
-              <input
-                type="password"
-                name="password"
-                placeholder="새 비밀번호 입력"
-                className={styles.inputBox}
-              />
-            </div>
-            <div>
-              <div>새 비밀번호 확인</div>
-              <input
-                type="password"
-                name="password"
-                placeholder="새 비밀번호 입력"
-                className={styles.inputBox}
-              />
-            </div>
-          </form>
-          <button className={styles.saveChangeButton}>변경</button>
-        </div>
-      </div>
-
+      <PasswordCheck />
       {/* <p>이메일: {user.email}</p>
       <p>닉네임: {user.nickname}</p> */}
       {/* <img src={user.profileImage} alt="프로필" /> */}
