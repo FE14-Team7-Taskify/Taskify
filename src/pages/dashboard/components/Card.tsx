@@ -9,8 +9,12 @@ type Props = {
 };
 
 function Card({ card }: Props) {
+  const handleCardClick = () => {
+    console.log(`할 일 카드 상세 모달 - 카드 ID : ${card.id}`);
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleCardClick}>
       {card.imageUrl && (
         <div className={styles.cardImg}>
           <Image
