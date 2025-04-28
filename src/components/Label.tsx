@@ -6,7 +6,7 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 export default function Label({ className = '', text, ...rest }: LabelProps) {
-  const classNames = `${styles.Label} ${className}`;
+  const classNames = `${styles.Label} ${className}`.trim();
   return (
     <label className={classNames} {...rest}>
       {text}

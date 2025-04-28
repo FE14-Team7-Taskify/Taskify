@@ -15,4 +15,12 @@
   &::placeholder {
     color: s.$color-gray_9FA6B2;
   }
+
+  &.error {
+    border: 1px solid s.$color-red-D6173A;
+  }
+
+  &.error:focus {
+    border: 1px solid s.$color-red-D6173A;
+  }
 }

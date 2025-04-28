@@ -40,7 +40,7 @@ export default function InputForm({
           value={email}
           onChange={onChange}
           onBlur={onBlur}
-          className={errors.email ? styles.errorInput : ''}
+          error={!!errors.email}
         />
         {errors.email && <div className={styles.errorMessage}>{errors.email}</div>}
       </div>
@@ -56,7 +56,7 @@ export default function InputForm({
             value={password}
             onChange={onChange}
             onBlur={onBlur}
-            className={errors.password ? styles.errorInput : ''}
+            error={!!errors.password}
           />
           {errors.password && <div className={styles.errorMessage}>{errors.password}</div>}
 

@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function Button({ className = '', text, ...rest }: ButtonProps) {
-  const classNames = `${styles.Button} ${className}`;
+  const classNames = `${styles.Button} ${className}`.trim();
   return (
     <button className={classNames} {...rest}>
       {text}
