@@ -20,6 +20,7 @@ export const useLoginMutation = () => {
     onSuccess: (result) => {
       const { user, accessToken } = result;
       if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
         const requestInterceptor = (config: InternalAxiosRequestConfig) => {
           config.headers['Authorization'] = `Bearer ${accessToken}`;
           return config;
