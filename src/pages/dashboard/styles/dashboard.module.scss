@@ -8,12 +8,16 @@
   background-color: s.$color-gray-FAFAFA;
   min-height: 100vh;
   overflow: auto;
+  @include s.mq-lg() {
+    display: flex;
+  }
 
   .container {
     display: flex;
     flex-direction: column;
     @include s.mq-lg() {
       flex-direction: row;
+      flex-grow: 1;
     }
 
     .addColumn {

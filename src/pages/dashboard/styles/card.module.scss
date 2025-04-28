@@ -93,6 +93,11 @@
           display: inline-block;
           width: 22px;
           height: 22px;
+
+          img {
+            object-fit: cover;
+            border-radius: 50%;
+          }
         }
       }
     }

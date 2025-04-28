@@ -29,10 +29,10 @@ export const useCreateColumnMutation = (dashboardId: number) => {
 // endregion 컬럼 생성
 
 // region 컬럼 목록 조회
-export const useColumnsQuery = (dashboardId: number) => {
+export const useColumnsQuery = (dashboardId?: number) => {
   return useQuery<FindColumnsResponse>({
-    queryKey: QUERY_KEYS.columns(dashboardId),
-    queryFn: () => columnsService.getColumns(dashboardId).then((res) => res.data),
+    queryKey: QUERY_KEYS.columns(dashboardId!),
+    queryFn: () => columnsService.getColumns(dashboardId!).then((res) => res.data),
     enabled: !!dashboardId,
   });
 };
