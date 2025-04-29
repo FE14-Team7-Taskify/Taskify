@@ -17,7 +17,7 @@ export type CreateDashboardRequest = { title: string; color: string };
 export type CreateDashboardResponse = DashboardResponse;
 
 export type FindDashboardsRequest = {
-  navigationMethod: number;
+  navigationMethod: 'infiniteScroll' | 'pagination';
   cursorId?: number;
   page?: number;
   size?: number;
