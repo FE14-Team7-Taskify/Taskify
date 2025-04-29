@@ -1,4 +1,4 @@
-export type Comment = {
+export type CommentType = {
   id: number;
   content: string;
   createdAt: string;
@@ -11,8 +11,6 @@ export type Comment = {
   };
 };
 
-type CommentResponse = Comment | { message: string };
-
 export type CreateCommentRequest = {
   content: string;
   cardId: number;
@@ -20,12 +18,12 @@ export type CreateCommentRequest = {
   dashboardId: number;
 };
 
-export type CreateCommentResponse = CommentResponse;
+export type CreateCommentResponse = CommentType;
 
 export type FindCommentsRequest = { size?: number; cursorId?: number; cardId: number };
 
-export type FindCommentsResponse = { cursorId: number; comments: Comment[] } | { message: string };
+export type FindCommentsResponse = { cursorId: number; comments: CommentType[] };
 
 export type UpdateCommentRequest = { commentId: number; content: string };
 
-export type UpdateCommentResponse = CommentResponse;
+export type UpdateCommentResponse = CommentType;

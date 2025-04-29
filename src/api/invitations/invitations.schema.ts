@@ -1,4 +1,4 @@
-export type Invitation = {
+export type InvitationType = {
   id: number;
   inviter: { nickname: string; email: string; id: number };
   teamId: string;
@@ -11,10 +11,8 @@ export type Invitation = {
 
 export type FindInvitationsRequest = { size?: number; cursorId?: number; title?: string };
 
-export type FindInvitationsResponse =
-  | { cursorId: number; invitations: Invitation[] }
-  | { message: string };
+export type FindInvitationsResponse = { cursorId: number; invitations: InvitationType[] };
 
 export type UpdateInvitationsRequest = { invitationId: number; inviteAccepted: boolean };
 
-export type UpdateInvitationsResponse = Invitation | { message: string };
+export type UpdateInvitationsResponse = InvitationType;
