@@ -2,11 +2,11 @@
 
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './styles/mypage.module.scss';
 import PasswordCheck from './passwordCheck';
-import type { GetMyInfoResponse } from '@/api/auth/auth.schema';
+import type { GetMyInfoResponse } from '@/api/users/users.schema';
 import axios from 'axios';
 
 export default function MyPage() {

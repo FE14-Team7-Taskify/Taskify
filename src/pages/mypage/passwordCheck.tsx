@@ -1,31 +1,31 @@
-'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './styles/mypage.module.scss';
-import { usePasswordChange } from './passwordChange'; // 경로 맞춰
+import { usePasswordChange } from './PasswordChange'; // 경로 맞춰
+import { cn, cond } from '@/styles/styleUtil';
 
 export default function PasswordCheck() {
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
-  const { changePassword } = usePasswordChange();
+  const [passwordCheckForm, setPasswordCheckForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const isFormValid = Object.values(passwordCheckForm).every(Boolean);
 
-  useEffect(() => {
-    if (currentPassword && newPassword && confirmPassword) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  }, [currentPassword, newPassword, confirmPassword]);
+  const { changePassword } = usePasswordChange();
+  const handleChangeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { name, value } = e.currentTarget;
+
+    setPasswordCheckForm((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = () => {
     if (!isFormValid) return;
 
-    if (newPassword !== confirmPassword) {
+    if (passwordCheckForm.newPassword !== passwordCheckForm.confirmPassword) {
       alert('새 비밀번호가 일치하지 않습니다.');
       return;
     }
-    changePassword(currentPassword, newPassword);
+    changePassword(passwordCheckForm.currentPassword, passwordCheckForm.newPassword);
   };
 
   return (
@@ -38,10 +38,11 @@ export default function PasswordCheck() {
               현재 비밀번호
               <div>
                 <input
+                  name="currentPassword"
                   type="password"
                   placeholder="현재 비밀번호"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  value={passwordCheckForm.currentPassword}
+                  onChange={handleChangeInput}
                   className={styles.inputBox}
                 />
               </div>
@@ -50,10 +51,11 @@ export default function PasswordCheck() {
               새 비밀번호
               <div>
                 <input
+                  name="newPassword"
                   type="password"
                   placeholder="새 비밀번호"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  value={passwordCheckForm.newPassword}
+                  onChange={handleChangeInput}
                   className={styles.inputBox}
                 />
               </div>
@@ -62,12 +64,12 @@ export default function PasswordCheck() {
               새 비밀번호 확인
               <div>
                 <input
+                  name="confirmPassword"
                   type="password"
                   placeholder="새 비밀번호 확인"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={passwordCheckForm.confirmPassword}
+                  onChange={handleChangeInput}
                   className={styles.inputBox}
-                  ß
                 />
               </div>
             </div>
@@ -75,7 +77,10 @@ export default function PasswordCheck() {
           <button
             onClick={handleSubmit}
             disabled={!isFormValid}
-            className={`${styles.saveChangeButton} ${isFormValid ? styles.saveChangeButtonActive : ''}`}
+            className={cn(
+              styles.saveChangeButton,
+              cond(isFormValid, styles.saveChangeButtonActive),
+            )}
           >
             변경
           </button>

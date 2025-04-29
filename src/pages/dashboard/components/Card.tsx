@@ -1,14 +1,14 @@
 import React from 'react';
-import { Cards } from '../type';
 import styles from '../styles/dashboard.module.scss';
 import Image from 'next/image';
 import Tag from './Tag';
+import { Card as CardType } from '@/api/cards/cards.schema';
 
-type Props = {
-  card: Cards;
+type CardProps = {
+  card: CardType;
 };
 
-function Card({ card }: Props) {
+function Card({ card }: CardProps) {
   const handleCardClick = () => {
     console.log(`할 일 카드 상세 모달 - 카드 ID : ${card.id}`);
   };

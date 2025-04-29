@@ -1,16 +1,18 @@
 import { Invitation } from '../invitations/invitations.schema';
 
-export type Dashboard = {
-  id: number;
-  title: string;
-  color: string;
-  createdAt: string;
-  updatedAt: string;
-  createdByMe: boolean;
-  userId: number;
+export type DashboardAPIComponent = {
+  Dashboard: {
+    id: number;
+    title: string;
+    color: string;
+    createdAt: string;
+    updatedAt: string;
+    createdByMe: boolean;
+    userId: number;
+  };
 };
 
-type DashboardResponse = Dashboard | { message: string };
+type DashboardResponse = DashboardAPIComponent['Dashboard'];
 
 export type CreateDashboardRequest = { title: string; color: string };
 
@@ -27,7 +29,7 @@ export type FindDashboardsResponse =
   | {
       cursorId: number;
       totalCount: number;
-      dashboards: Dashboard[];
+      dashboards: Array<DashboardAPIComponent['Dashboard']>;
     }
   | { message: string };
 
