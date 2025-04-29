@@ -31,7 +31,7 @@ export default function InputForm({
   return (
     <form className={styles.inputFormContainer}>
       <div className={styles.inputForm}>
-        <Label htmlFor="email" text="이메일" />
+        <Label htmlFor="email">이메일</Label>
         <Input
           id="email"
           name="email"
@@ -46,7 +46,7 @@ export default function InputForm({
       </div>
 
       <div className={styles.inputForm}>
-        <Label htmlFor="password" text="비밀번호" />
+        <Label htmlFor="password">비밀번호</Label>
         <div className={styles.inputFormWrapper}>
           <Input
             id="password"
@@ -71,7 +71,9 @@ export default function InputForm({
         </div>
       </div>
 
-      <Button className={styles.authButton} text="로그인" disabled={!isFromValid} />
+      <Button className={styles.authButton} disabled={!isFromValid}>
+        로그인
+      </Button>
     </form>
   );
 }

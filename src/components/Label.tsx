@@ -1,15 +1,16 @@
+import { cn } from '@/styles/util/stylesUtil';
 import { LabelHTMLAttributes } from 'react';
 import styles from './Label.module.scss';
 
-interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  text: string;
-}
-
-export default function Label({ className = '', text, ...rest }: LabelProps) {
-  const classNames = `${styles.Label} ${className}`.trim();
+export default function Label({
+  className = '',
+  children,
+  ...props
+}: LabelHTMLAttributes<HTMLLabelElement>) {
+  const classNames = cn(styles.Label, className);
   return (
-    <label className={classNames} {...rest}>
-      {text}
+    <label className={classNames} {...props}>
+      {children}
     </label>
   );
 }

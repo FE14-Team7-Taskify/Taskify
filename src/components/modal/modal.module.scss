@@ -1,0 +1,24 @@
+@use '@/styles/index.scss' as common;
+
+.modalBackground {
+  @include common.flexbox();
+  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  .modalContainer {
+    background-color: common.$color-white;
+    border-radius: 16px;
+    .btnArea {
+      @include common.flexbox(stretch);
+    }
+  }
+  .oneButtonModal {
+    @include common.gridbox();
+    padding: 32px 40px;
+    gap: 32px;
+    > .messageContainer {
+      text-align: center;
+    }
+  }
+}
