@@ -3,8 +3,11 @@
 @use './card.module.scss';
 @use './table.module.scss';
 
-.container {
+.myDashboardPage {
+  @include common.flexbox(start, start);
   background-color: common.$color-gray-FAFAFA;
+}
+.container {
   min-height: 100vh;
   overflow: auto;
   padding: 24px;

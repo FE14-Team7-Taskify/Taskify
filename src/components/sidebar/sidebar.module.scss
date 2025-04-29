@@ -1,0 +1,47 @@
+@use '@/styles/index.scss' as common;
+
+.sidebarContainer {
+  @include common.flexbox(start, center);
+  flex-direction: column;
+  border-right: 1px solid common.$color-gray-D9D9D9;
+  background-color: common.$color-white;
+  padding: 20px 0;
+  height: 100vh;
+  width: 67px;
+
+  @include common.mq-md() {
+    width: 160px;
+    align-items: flex-start;
+    padding: 20px 12px;
+  }
+  @include common.mq-lg() {
+    width: 300px;
+    padding: 20px 8px;
+  }
+
+  > .logoArea {
+    width: 40px;
+    height: 27px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../../../public/images/logo/logo-small.svg');
+    @include common.mq-md() {
+      background-image: url('../../../public/images/logo/logo-large.svg');
+      width: 108px;
+      height: 33px;
+    }
+  }
+  > .cardsContainer {
+    > .cardsHeader {
+      @include common.flexbox(between);
+      h6 {
+        @include common.text-style('xs', 600);
+        color: common.$color-gray-787486;
+        display: none;
+        @include common.mq-md() {
+          display: block;
+        }
+      }
+    }
+  }
+}
