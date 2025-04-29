@@ -1,0 +1,26 @@
+@use '@/styles/index.scss' as s;
+
+.Input {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid s.$color-gray-D9D9D9;
+  border-radius: 8px;
+  @include s.text-style('lg', 400, s.$color-black-333236);
+
+  &:focus {
+    border: 1px solid s.$color-violet_5534DA;
+  }
+
+  &::placeholder {
+    color: s.$color-gray_9FA6B2;
+  }
+
+  &.error {
+    border: 1px solid s.$color-red-D6173A;
+  }
+
+  &.error:focus {
+    border: 1px solid s.$color-red-D6173A;
+  }
+}
