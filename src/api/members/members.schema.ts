@@ -1,4 +1,4 @@
-export type Member = {
+export type MemberType = {
   id: number;
   userId: number;
   email: string;
@@ -15,4 +15,4 @@ export type FindMembersRequest = {
   dashboardId: number;
 };
 
-export type FindMembersResponse = { members: Member[]; totalCount: number } | { message: string };
+export type FindMembersResponse = { members: MemberType[]; totalCount: number };

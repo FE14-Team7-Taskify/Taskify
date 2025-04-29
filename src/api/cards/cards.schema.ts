@@ -1,4 +1,4 @@
-export type Card = {
+export type CardType = {
   id: number;
   title: string;
   description: string;
@@ -16,8 +16,6 @@ export type Card = {
   updatedAt: string;
 };
 
-type CardResponse = Card | { message: string };
-
 export type CreateCardRequest = {
   assigneeUserId: number;
   dashboardId: number;
@@ -29,13 +27,11 @@ export type CreateCardRequest = {
   imageUrl: string;
 };
 
-export type CreateCardResponse = CardResponse;
+export type CreateCardResponse = CardType;
 
 export type FindCardsRequest = { size?: number; cursorId?: number; columnId: number };
 
-export type FindCardsResponse =
-  | { cursorId: number; totalCount: number; cards: Card[] }
-  | { message: string };
+export type FindCardsResponse = { cursorId: number; totalCount: number; cards: CardType[] };
 
 export type UpdateCardRequest = {
   cardId: number;
@@ -48,6 +44,6 @@ export type UpdateCardRequest = {
   imageUrl: string;
 };
 
-export type UpdateCardResponse = CardResponse;
+export type UpdateCardResponse = CardType;
 
-export type GetCardResponse = CardResponse;
+export type GetCardResponse = CardType;
