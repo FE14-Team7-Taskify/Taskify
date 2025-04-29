@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from '../styles/InputForm.module.scss';
 import Label from '@/components/Label';
 import Input from '@/components/Input';
@@ -12,6 +12,7 @@ interface InputFormProps {
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   errors: { email: string; password: string };
   isFromValid: boolean;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 export default function InputForm({
@@ -21,6 +22,7 @@ export default function InputForm({
   onBlur,
   errors,
   isFromValid,
+  onSubmit,
 }: InputFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,7 +31,7 @@ export default function InputForm({
   }
 
   return (
-    <form className={styles.inputFormContainer}>
+    <form className={styles.inputFormContainer} onSubmit={onSubmit}>
       <div className={styles.inputForm}>
         <Label htmlFor="email">이메일</Label>
         <Input
