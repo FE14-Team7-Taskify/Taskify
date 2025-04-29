@@ -5,7 +5,7 @@ export type CommentType = {
   updatedAt: string;
   cardId: number;
   author: {
-    profileImageUrl: string;
+    profileImageUrl?: string | null;
     nickname: string;
     id: number;
   };
