@@ -1,6 +1,6 @@
-import { Invitation } from '../invitations/invitations.schema';
+import { InvitationType } from '../invitations/invitations.schema';
 
-export type Dashboard = {
+export type DashboardType = {
   id: number;
   title: string;
   color: string;
@@ -10,11 +10,9 @@ export type Dashboard = {
   userId: number;
 };
 
-type DashboardResponse = Dashboard | { message: string };
-
 export type CreateDashboardRequest = { title: string; color: string };
 
-export type CreateDashboardResponse = DashboardResponse;
+export type CreateDashboardResponse = DashboardType;
 
 export type FindDashboardsRequest = {
   navigationMethod: 'infiniteScroll' | 'pagination';
@@ -23,28 +21,24 @@ export type FindDashboardsRequest = {
   size?: number;
 };
 
-export type FindDashboardsResponse =
-  | {
-      cursorId: number;
-      totalCount: number;
-      dashboards: Dashboard[];
-    }
-  | { message: string };
+export type FindDashboardsResponse = {
+  cursorId: number;
+  totalCount: number;
+  dashboards: DashboardType[];
+};
 
-export type GetDashboardResponse = DashboardResponse;
+export type GetDashboardResponse = DashboardType;
 
 export type UpdateDashboardRequest = { dashboardId: number; title: string; color: string };
 
-export type UpdateDashboardResponse = DashboardResponse;
+export type UpdateDashboardResponse = DashboardType;
 
 export type CreateInvitationRequest = { dashboardId: number; email: string };
 
-export type CreateInvitationResponse = Invitation | { message: string };
+export type CreateInvitationResponse = InvitationType;
 
 export type GetInvitationsRequest = { dashboardId: number; page?: number; size?: number };
 
-export type GetInvitationsResponse =
-  | { totalCount: number; invitations: Invitation[] }
-  | { message: string };
+export type GetInvitationsResponse = { totalCount: number; invitations: InvitationType[] };
 
 export type DeleteInvitationRequest = { dashboardId: number; invitationId: number };

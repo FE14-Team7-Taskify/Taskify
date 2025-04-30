@@ -1,22 +1,20 @@
-export type Card = {
+export type CardType = {
   id: number;
   title: string;
   description: string;
   tags: string[];
   dueDate: string;
   assignee: {
-    profileImageUrl: string;
+    profileImageUrl?: string | null;
     nickname: string;
     id: number;
   };
-  imageUrl: string;
+  imageUrl?: string | null;
   teamId: string;
   columnId: number;
   createdAt: string;
   updatedAt: string;
 };
-
-type CardResponse = Card | { message: string };
 
 export type CreateCardRequest = {
   assigneeUserId: number;
@@ -26,16 +24,14 @@ export type CreateCardRequest = {
   description: string;
   dueDate: string;
   tags: string[];
-  imageUrl: string;
+  imageUrl?: string;
 };
 
-export type CreateCardResponse = CardResponse;
+export type CreateCardResponse = CardType;
 
 export type FindCardsRequest = { size?: number; cursorId?: number; columnId: number };
 
-export type FindCardsResponse =
-  | { cursorId: number; totalCount: number; cards: Card[] }
-  | { message: string };
+export type FindCardsResponse = { cursorId: number; totalCount: number; cards: CardType[] };
 
 export type UpdateCardRequest = {
   cardId: number;
@@ -45,9 +41,9 @@ export type UpdateCardRequest = {
   description: string;
   dueDate: string;
   tags: string[];
-  imageUrl: string;
+  imageUrl?: string;
 };
 
-export type UpdateCardResponse = CardResponse;
+export type UpdateCardResponse = CardType;
 
-export type GetCardResponse = CardResponse;
+export type GetCardResponse = CardType;

@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from '../styles/InputForm.module.scss';
-import Label from '@/components/Label';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import Label from '@/components/common/Label';
+import Input from '@/components/common/Input';
+import Button from '@/components/common/Button';
 import Image from 'next/image';
 
 interface InputFormProps {
@@ -11,7 +11,8 @@ interface InputFormProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   errors: { email: string; password: string };
-  isFromValid: boolean;
+  isFormValid: boolean;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 export default function InputForm({
@@ -20,7 +21,8 @@ export default function InputForm({
   onChange,
   onBlur,
   errors,
-  isFromValid,
+  isFormValid,
+  onSubmit,
 }: InputFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,9 +31,9 @@ export default function InputForm({
   }
 
   return (
-    <form className={styles.inputFormContainer}>
+    <form className={styles.inputFormContainer} onSubmit={onSubmit}>
       <div className={styles.inputForm}>
-        <Label htmlFor="email" text="이메일" />
+        <Label htmlFor="email">이메일</Label>
         <Input
           id="email"
           name="email"
@@ -46,7 +48,7 @@ export default function InputForm({
       </div>
 
       <div className={styles.inputForm}>
-        <Label htmlFor="password" text="비밀번호" />
+        <Label htmlFor="password">비밀번호</Label>
         <div className={styles.inputFormWrapper}>
           <Input
             id="password"
@@ -71,7 +73,9 @@ export default function InputForm({
         </div>
       </div>
 
-      <Button className={styles.authButton} text="로그인" disabled={!isFromValid} />
+      <Button className={styles.authButton} disabled={!isFormValid}>
+        로그인
+      </Button>
     </form>
   );
 }

@@ -1,39 +1,32 @@
-export type User = {
+export type UserType = {
   id: number;
   email: string;
   nickname: string;
-  profileImageUrl: string | null;
+  profileImageUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 };
-type UserResponse = User | { message: string };
 
-// region 회원가입
 export type CreateUserRequest = {
   email: string;
   nickname: string;
   password: string;
 };
-export type CreateUserResponse = UserResponse;
-// endregion 회원가입
+export type CreateUserResponse = UserType;
 
-// region 내 정보 조회
-export type GetMyInfoResponse = UserResponse;
-// endregion 내 정보 조회
+export type GetMyInfoResponse = UserType;
 
-// region 내 정보 수정
 export type UpdateMyInfoRequest = {
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl?: string;
 };
-export type UpdateMyInfoResponse = UserResponse;
-// endregion 내 정보 수정
 
-// region 프로필 이미지 업로드
+export type UpdateMyInfoResponse = UserType;
+
 export type UploadProfileImageRequest = {
   image: string;
 };
+
 export type UploadProfileImageResponse = {
   profileImageUrl: string;
 };
-// endregion 프로필 이미지 업로드
