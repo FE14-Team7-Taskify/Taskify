@@ -1,3 +1,5 @@
+@use '@/styles/index.scss' as s;
+
 .backButton {
   display: flex;
   align-items: center;
@@ -22,12 +24,23 @@
 
 .headfont {
   font-size: 2rem;
+  margin-bottom: 20px;
+  position: relative;
+  left: -20px; // profileBox의 padding-left 무효화
+  top: -30px; // profileBox의 padding-top 무효화
+}
+
+.profileBox {
+  background-color: #ffffff;
+  max-width: 600px;
+  padding: 50px;
+  margin-left: 160px;
 }
 
 .profileButton {
   width: 150px;
   height: 150px;
-  background-color: #d9d9d9;
+  background-color: s.$color-gray-D9D9D9;
   color: white;
   font-weight: bold;
   font-size: 1rem;
@@ -41,7 +54,7 @@
     transform 0.1s ease;
 
   &:hover {
-    background-color: #9fa6b2;
+    background-color: s.$color-gray-9FA6B2;
   }
 
   &:active {
@@ -51,8 +64,8 @@
 
 .rowWrapper {
   display: flex;
-  align-items: flex-start; // 또는 center, baseline 등 필요에 따라
-  gap: 16px; // 버튼과 폼 사이 간격
+  align-items: flex-start;
+  gap: 16px;
 }
 .formBox {
   display: flex; // 이게 중요!
@@ -64,14 +77,38 @@
   box-sizing: border-box;
   border: 2px solid #333;
   padding: 16px;
+  width: 100% !important;
+  height: 20%;
+}
+
+.saveButton {
   width: 300px;
-  height: 10px;
+  max-width: 300px;
+  height: 40px;
+  background-color: s.$color-violet-5534DA;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 20px !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .saveChangeButton {
-  width: 300px;
-  height: 40px;
-  background-color: #9fa6b2;
+  width: 100%;
+  background-color: s.$color-gray-D9D9D9;
   color: white;
   font-weight: bold;
   font-size: 1rem;
@@ -83,16 +120,17 @@
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  line-height: 20px !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
 }
 
 .saveChangeButtonActive {
-  width: 300px;
-  height: 40px;
-  background-color: #5534da;
+  width: 100%;
+  background-color: s.$color-violet-5534DA;
   color: white;
   font-weight: bold;
   font-size: 1rem;
@@ -113,4 +151,17 @@
 .passwordBox {
   margin-top: 50px;
   margin-left: 160px;
+  background-color: #ffffff;
+  max-width: 600px;
+  padding: 50px;
+}
+
+.profileTextBox {
+  margin-left: 20px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.passwordInputBox {
+  margin-top: -30px;
 }
