@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from './styles/mypage.module.scss';
-import { usePasswordChange } from './passwordChange'; // 경로 맞춰
+import { usePasswordChange } from './passwordChange';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
 
 export default function PasswordCheck() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -32,12 +34,12 @@ export default function PasswordCheck() {
     <div>
       <div className={styles.passwordBox}>
         <div className={styles.headfont}>비밀번호 변경</div>
-        <div>
+        <div className={styles.passwordInputBox}>
           <form action="/submit-url" method="POST" className={styles.formBox}>
             <div>
               현재 비밀번호
               <div>
-                <input
+                <Input
                   type="password"
                   placeholder="현재 비밀번호"
                   value={currentPassword}
@@ -49,7 +51,7 @@ export default function PasswordCheck() {
             <div>
               새 비밀번호
               <div>
-                <input
+                <Input
                   type="password"
                   placeholder="새 비밀번호"
                   value={newPassword}
@@ -61,24 +63,22 @@ export default function PasswordCheck() {
             <div>
               새 비밀번호 확인
               <div>
-                <input
+                <Input
                   type="password"
                   placeholder="새 비밀번호 확인"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={styles.inputBox}
-                  ß
                 />
               </div>
             </div>
           </form>
-          <button
+          <Button
             onClick={handleSubmit}
             disabled={!isFormValid}
+            text="변경"
             className={`${styles.saveChangeButton} ${isFormValid ? styles.saveChangeButtonActive : ''}`}
-          >
-            변경
-          </button>
+          />
         </div>
       </div>
     </div>
