@@ -1,0 +1,33 @@
+@use '@/styles/index.scss' as s;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  @include s.flexbox(center, center);
+}
+
+.modal {
+  padding: 32px 40px;
+  white-space: nowrap;
+  border-radius: 16px;
+  text-align: center;
+  background: s.$color-white;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  @include s.text-style('lg', 500, s.$color-black-333236);
+
+  @include s.mq-md {
+    padding: 40px 64px;
+    @include s.text-style-xl();
+  }
+}
+.message {
+  margin-bottom: 32px;
+  @include s.mq-md {
+    @include s.text-style-xl();
+  }
+}

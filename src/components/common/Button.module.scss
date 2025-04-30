@@ -11,7 +11,7 @@
   @include s.text-style('2lg', 500, s.$color-white);
 
   &:hover {
-    background-color: s.$color-purple-760DDE;
+    background-color: rgba(s.$color-violet-5534DA, 0.8);
   }
 
   &:disabled {
