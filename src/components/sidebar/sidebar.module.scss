@@ -36,11 +36,15 @@
       @include common.flexbox(between);
       h6 {
         @include common.text-style('xs', 600);
+        line-height: 20px;
         color: common.$color-gray-787486;
         display: none;
         @include common.mq-md() {
           display: block;
         }
+      }
+      button {
+        @include common.flexbox();
       }
     }
   }
