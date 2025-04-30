@@ -1,20 +1,44 @@
 @charset 'uft-8';
 @use '@/styles/index.scss' as common;
 
+.tableEmpty {
+  @include common.flexbox(end);
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  flex-grow: 1;
+  > .tableMessage {
+    @include common.text-style('xs', 400, common.$color-gray-9FA6B2);
+    margin-bottom: 80px;
+  }
+  @include common.mq-md() {
+    > .tableMessage {
+      @include common.text-style('2lg', 400, common.$color-gray-9FA6B2);
+      margin-bottom: 120px;
+    }
+  }
+  @include common.mq-lg() {
+    max-width: 1022px;
+  }
+}
+
 .invitationsContainer {
+  @include common.flexbox(start, start);
+  flex-direction: column;
   padding: 24px 0;
   border-radius: 8px;
   background-color: common.$color-white;
   min-height: 327px;
-  min-width: 220px;
+  min-width: 260px;
 
   @include common.mq-md() {
     min-height: 390px;
-    width: 504px;
+    min-width: 504px;
     padding: 24px 40px;
   }
   @include common.mq-lg() {
-    min-width: 960px;
+    // min-width: 960px;
+    max-width: 1022px;
   }
 
   > .tableHeader {
@@ -28,18 +52,6 @@
     }
   }
   > .invitationsTable {
-    // height: 100%;
-    // justify-self: stretch;
-    // align-self: stretch;
     margin: 105px auto 56px;
-    > .tableEmpty {
-      @include common.flexbox();
-      flex-direction: column;
-      gap: 16px;
-      > h6 {
-        @include common.text-style('xs');
-        color: common.$color-gray-9FA6B2;
-      }
-    }
   }
 }

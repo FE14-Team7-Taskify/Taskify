@@ -3,15 +3,16 @@
 @use './card.module.scss';
 @use './table.module.scss';
 
-.myDashboardPage {
-  @include common.flexbox(start, start);
-  background-color: common.$color-gray-FAFAFA;
-}
 .container {
+  overflow: hidden;
+  max-width: 1022px;
   min-height: 100vh;
-  overflow: auto;
-  padding: 24px;
   @include common.flexbox(start, start);
   flex-direction: column;
-  gap: 40px;
+  gap: 24px;
+  padding: 24px;
+  @include common.mq-md() {
+    gap: 48px;
+    padding: 40px;
+  }
 }

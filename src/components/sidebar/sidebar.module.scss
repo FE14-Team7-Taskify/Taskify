@@ -1,6 +1,14 @@
 @use '@/styles/index.scss' as common;
 
+.sidebarWrapper {
+  @include common.flexbox(start, start);
+  background-color: common.$color-gray-FAFAFA;
+  > .componentWrapper {
+    flex-grow: 1;
+  }
+}
 .sidebarContainer {
+  flex-shrink: 0;
   @include common.flexbox(start, center);
   flex-direction: column;
   border-right: 1px solid common.$color-gray-D9D9D9;
@@ -17,6 +25,7 @@
   @include common.mq-lg() {
     width: 300px;
     padding: 20px 8px;
+    border: none;
   }
 
   > .logoArea {
