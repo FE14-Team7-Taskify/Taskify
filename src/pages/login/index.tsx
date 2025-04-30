@@ -1,8 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './styles/login.module.scss';
 import Image from 'next/image';
 import InputForm from './components/InputForm';
 import Link from 'next/link';
+import { useLoginMutation } from '@/api/auth/auth.query';
+import { useOverlay } from '@toss/use-overlay';
+import ErrorModal from '@/components/modal/ErrorModal';
 
 export default function Login() {
   const [values, setValues] = useState({
@@ -13,6 +16,14 @@ export default function Login() {
     email: '',
     password: '',
   });
+  const loginMutation = useLoginMutation();
+  const overlay = useOverlay();
+
+  function isFormValid() {
+    return (
+      values.email !== '' && values.password !== '' && errors.email === '' && errors.password === ''
+    );
+  }
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -20,12 +31,6 @@ export default function Login() {
       ...prev,
       [name]: value,
     }));
-  }
-
-  function isFormValid() {
-    return (
-      values.email !== '' && values.password !== '' && errors.email === '' && errors.password === ''
-    );
   }
 
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
@@ -46,6 +51,26 @@ export default function Login() {
     }
   }
 
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!isFormValid()) return;
+
+    loginMutation.mutate(
+      { email: values.email, password: values.password },
+      {
+        onError: () => {
+          overlay.open(({ isOpen, close }) => (
+            <ErrorModal
+              isOpen={isOpen}
+              onClose={close}
+              message="아이디 또는 비밀번호가 일치하지 않습니다."
+            />
+          ));
+        },
+      },
+    );
+  }
+
   return (
     <div className={styles.authContainer}>
       <div className={styles.logoWrapper}>
@@ -61,7 +86,8 @@ export default function Login() {
         onChange={handleInputChange}
         onBlur={handleInputBlur}
         errors={errors}
-        isFromValid={isFormValid()}
+        isFormValid={isFormValid()}
+        onSubmit={handleSubmit}
       />
 
       <div className={styles.switchAuthWrapper}>
