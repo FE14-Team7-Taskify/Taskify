@@ -1,36 +1,38 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   FindInvitationsRequest,
-  FindInvitationsResponse,
   UpdateInvitationsRequest,
   UpdateInvitationsResponse,
 } from './invitations.schema';
 import { invitationsService } from './invitations.service';
 
-// key 정의
-const QUERY_KEYS = {
-  invitations: ['invitations'],
+const invitationsQuery = {
+  all: () => ['invitations'],
+  invitationListKey: (params: FindInvitationsRequest) => [...invitationsQuery.all(), params],
+  invitationList: (params: FindInvitationsRequest) =>
+    queryOptions({
+      queryKey: invitationsQuery.invitationListKey(params),
+      queryFn: () => invitationsService.getMyInvitations(params),
+    }),
 };
 
-// region 내가 받은 초대 목록 조회
+/**
+ * 내가 받은 초대 목록 조회 쿼리
+ */
 export const useInvitationsQuery = (params: FindInvitationsRequest) => {
-  return useQuery<FindInvitationsResponse>({
-    queryKey: [...QUERY_KEYS.invitations, params],
-    queryFn: () => invitationsService.getMyInvitations(params).then((res) => res.data),
-  });
+  return useQuery({ ...invitationsQuery.invitationList(params), select: (res) => res.data });
 };
-// endregion 내가 받은 초대 목록 조회
 
-// region 초대 응답
+/**
+ * 초대 응답 뮤테이션
+ */
 export const useUpdateInvitationMutation = () => {
   const queryClient = useQueryClient();
-
   return useMutation<UpdateInvitationsResponse, Error, UpdateInvitationsRequest>({
     mutationFn: (data) => invitationsService.updateInvitation(data).then((res) => res.data),
     onSuccess: () => {
       // 업데이트 후 초대 목록을 다시 불러옴
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.invitations });
+      queryClient.invalidateQueries({ queryKey: invitationsQuery.all() });
     },
   });
 };
-// endregion 초대 응답

@@ -11,7 +11,9 @@ import {
 } from './auth.schema';
 import { authService } from './auth.service';
 
-// region 로그인
+/**
+ * 로그인 뮤테이션
+ */
 export const useLoginMutation = () => {
   const setUser = useSetUser();
   const router = useRouter();
@@ -32,12 +34,11 @@ export const useLoginMutation = () => {
     },
   });
 };
-// endregion 로그인
-
-// region 비밀번호 변경
+/**
+ * 비밀번호 변경 뮤테이션
+ */
 export const useChangePasswordMutation = () => {
   return useMutation<ChangePasswordResponse, Error, ChangePasswordRequest>({
     mutationFn: (body) => authService.changePassword(body).then((res) => res.data),
   });
 };
-// endregion 비밀번호 변경

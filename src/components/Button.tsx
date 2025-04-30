@@ -1,15 +1,16 @@
+import { cn } from '@/styles/util/stylesUtil';
 import { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
-}
-
-export default function Button({ className = '', text, ...rest }: ButtonProps) {
-  const classNames = `${styles.Button} ${className}`.trim();
+export default function Button({
+  className = '',
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
+  const classNames = cn(styles.Button, className);
   return (
-    <button className={classNames} {...rest}>
-      {text}
+    <button className={classNames} {...props}>
+      {children}
     </button>
   );
 }

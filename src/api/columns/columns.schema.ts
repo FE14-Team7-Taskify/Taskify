@@ -1,4 +1,4 @@
-export type Column = {
+export type ColumnType = {
   id: number;
   title: string;
   teamId: string;
@@ -6,17 +6,15 @@ export type Column = {
   updatedAt: string;
 };
 
-type ColumnResponse = Column | { message: string };
-
 export type CreateColumnRequest = { title: string; dashboardId: number };
 
-export type CreateColumnResponse = ColumnResponse;
+export type CreateColumnResponse = ColumnType;
 
-export type FindColumnsResponse = { result: 'SUCCESS'; data: Column[] } | { message: string };
+export type FindColumnsResponse = { result: 'SUCCESS'; data: ColumnType[] };
 
 export type UpdateColumnRequest = { columnId: number; title: string };
 
-export type UpdateColumnResponse = ColumnResponse;
+export type UpdateColumnResponse = ColumnType;
 
 export type UploadColumnImageRequest = { columnId: number; image: string };
 
