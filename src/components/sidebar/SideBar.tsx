@@ -18,12 +18,12 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
     router.push(`/dashboard/${dashboardId}`);
   }
 
-  const [pagination, setPagination] = useState<{ page: number } & FindDashboardsRequest>({
+  const [page, setPage] = useState<number>(1);
+  const { isSuccess, data } = useDashboardsQuery({
     navigationMethod: 'pagination',
     size: 10,
-    page: 1,
+    page,
   });
-  const { isSuccess, data } = useDashboardsQuery(pagination);
   const totalPage = Math.ceil((data?.totalCount || 10) / 10);
 
   const pathname = usePathname();
@@ -85,11 +85,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
             </div>
             <div className={styles.cardPagination}>
               {isSuccess && (
-                <Pagination
-                  totalPage={totalPage}
-                  currentPage={pagination.page}
-                  setPage={(page) => setPagination({ ...pagination, page })}
-                />
+                <Pagination totalPage={totalPage} currentPage={page} setPage={setPage} />
               )}
             </div>
           </div>

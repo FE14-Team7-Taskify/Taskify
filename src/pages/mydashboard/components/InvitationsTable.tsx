@@ -21,9 +21,16 @@ export default function InvitationTable() {
       {isSuccess &&
         (invitationsResult?.invitations?.length > 0 ? (
           <div className={styles.invitationsTable}>
-            {invitationsResult?.invitations.map((invitation: InvitationType) => (
-              <InvitationRow key={invitation.id} {...invitation} />
-            ))}
+            <div className={styles.invitationTableHeader}>
+              <label>이름</label>
+              <label>초대자</label>
+              <label>수락 여부</label>
+            </div>
+            <div className={styles.invitationList}>
+              {invitationsResult?.invitations.map((invitation: InvitationType) => (
+                <InvitationRow key={invitation.id} {...invitation} />
+              ))}
+            </div>
           </div>
         ) : (
           <TableEmpty />
