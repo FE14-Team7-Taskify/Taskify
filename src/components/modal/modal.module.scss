@@ -1,4 +1,4 @@
-@use '@/styles/index.scss' as common;
+@use '@/styles/index.scss' as *;
 
 .modalWrapper {
   position: fixed;
@@ -8,42 +8,61 @@
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
   height: 100vh;
-  @include common.flexbox();
+  @include flexbox();
   .modal {
-    @include common.gridbox(center, center);
+    @include gridbox(center, center);
     gap: 16px;
     min-width: 272px;
     min-height: 164px;
     max-width: 327px;
     padding: 24px 16px;
     border-radius: 16px;
-    background: common.$color-white;
+    background: $color-white;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-    @include common.text-style('lg', 500, common.$color-black-333236);
-    @include common.mq-md {
+    @include text-style('lg', 500, $color-black-333236);
+    @include mq-md {
       gap: 24px;
       max-width: 568px;
       padding: 32px 40px;
-      @include common.text-style-xl();
+      @include text-style-xl();
     }
     .modalHeader {
-      @include common.text-style('xl', 700, common.$color-black-333236);
-      @include common.mq-md {
-        @include common.text-style('2xl', 700, common.$color-black-333236);
+      @include text-style('xl', 700, $color-black-333236);
+      @include mq-md {
+        @include text-style('2xl', 700, $color-black-333236);
       }
     }
     .modalBtns {
-      @include common.flexbox();
-      gap: 7px;
-      @include common.mq-md {
-        gap: 8px;
+      @include flexbox();
+      gap: 1rem; // 버튼 사이 간격
+      > button {
+        width: 14.4rem;
+        height: 5.4rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 8px;
+        @include mq-sm {
+          width: 25.6rem;
+        }
+      }
+      button:first-child {
+        background-color: $color-white;
+        border: 1px solid $color-gray-D9D9D9;
+        @include text-style('lg', 500, $color-gray-787486);
+      }
+      button:last-child {
+        border: none;
+        background-color: $color-violet-5534DA;
+        @include text-style('lg', 600, $color-white);
       }
     }
   }
 }
 .messagesWrapper {
   text-align: center;
-  @include common.mq-md {
-    @include common.text-style-xl();
+  @include mq-md {
+    @include text-style-xl();
   }
 }
