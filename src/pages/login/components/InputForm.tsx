@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from '../styles/InputForm.module.scss';
 import Label from '@/components/common/Label';
 import Input from '@/components/common/Input';
-import Button from '@/components/common/Button';
+import Button from '@/components/common/button/loginButton/LoginButton';
 import Image from 'next/image';
 
 interface InputFormProps {

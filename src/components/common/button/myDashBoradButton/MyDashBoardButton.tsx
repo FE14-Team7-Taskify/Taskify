@@ -5,8 +5,8 @@ import { ButtonProps } from '../type';
 const MyDashBoardButton = ({
   onCancel,
   onConfirm,
-  leftText = '취소',
-  rightText = '생성',
+  leftText = '수락',
+  rightText = '거절',
 }: ButtonProps) => {
   return (
     <div className={styles.wrapper}>

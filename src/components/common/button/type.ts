@@ -14,3 +14,9 @@ export type ButtonProps = {
   leftText?: string;
   rightText?: string;
 };
+
+export interface PaginationProps {
+  totalPage?: number;
+  currentPage?: number;
+  setPage: (page: number) => void;
+}

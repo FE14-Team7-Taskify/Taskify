@@ -1,5 +1,4 @@
-@use '../variables/variables.scss' as *;
-
+@use '@/styles/variables/variables.scss' as *;
 // 반응형 미디어 쿼리 믹스인
 @mixin mq-sm {
   @media (min-width: $breakpoint-sm) {
@@ -25,7 +24,7 @@
   }
 }
 
-// 간단한 텍스트 스타일 믹스인 (사이즈별)
+// 간단한 텍스트 스타일 믹스인
 @mixin text-style-xs {
   font-size: $font-size-xs;
   line-height: $line-height-xs;

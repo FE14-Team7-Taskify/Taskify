@@ -1,18 +1,18 @@
-import LoginButton from '@/components/loginButton/LoginButton';
-import ModalButton from '@/components/modalButton/ModalButton';
-import MyDashBoardButton from '@/components/myDashBoradButton/MyDashBoardButton';
+import styles from './home.module.scss';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <div>
-        <LoginButton>로그인</LoginButton>
-      </div>
-      <div>
-        <ModalButton leftText="취소" rightText="생성" />
-      </div>
-      <div>
-        <MyDashBoardButton leftText="수락" rightText="거절" />
+      <div style={{ padding: '2rem' }}>
+        <div className={styles['test-xs']}>Text XS</div>
+        <div className={styles['test-sm']}>Text SM</div>
+        <div className={styles['test-md']}>Text MD</div>
+        <div className={styles['test-lg']}>Text LG</div>
+        <div className={styles['test-2lg']}>Text 2LG</div>
+        <div className={styles['test-xl']}>Text XL</div>
+        <div className={styles['test-2xl']}>Text 2XL</div>
+        <div className={styles['test-3xl']}>Text 3XL</div>
+        <div className={styles['test-responsive']}>Responsive Test</div>
       </div>
     </>
   );
