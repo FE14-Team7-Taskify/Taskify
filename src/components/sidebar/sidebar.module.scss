@@ -36,6 +36,7 @@
   }
 
   > .logoArea {
+    flex-shrink: 0;
     width: 40px;
     height: 27px;
     background-repeat: no-repeat;
@@ -79,12 +80,16 @@
     flex-direction: column;
     gap: 56px;
     > .cardList {
-      width: 100%;
       @include common.gridbox(center, center);
       gap: 14px;
+      width: 100%;
+      max-height: calc(100vh - 100px);
+      overflow-y: scroll;
       @include common.mq-md {
         justify-content: stretch;
         gap: 2px;
+        overflow-y: inherit;
+        max-height: none;
       }
       @include common.mq-lg {
         gap: 8px;

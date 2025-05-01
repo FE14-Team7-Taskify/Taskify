@@ -37,8 +37,6 @@ export default function InvitationTable() {
   }, [cursorId, invitationsResult]);
 
   useEffect(() => {
-    console.log(!!targetRef.current);
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
