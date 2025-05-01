@@ -1,15 +1,25 @@
 import Image from 'next/image';
 import styles from './sidebar.module.scss';
 import { useUser } from '@/contexts/AuthProvider';
+import { useRouter } from 'next/router';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
+  const router = useRouter();
   const user = useUser();
+
+  function handleClickLogo() {
+    router.push('/');
+  }
   return !user ? (
     <>{children}</>
   ) : (
     <div className={styles.sidebarWrapper}>
       <div className={styles.sidebarContainer}>
-        <div className={styles.logoArea} aria-description="로고 이미지 영역" />
+        <button
+          className={styles.logoArea}
+          aria-description="로고 이미지 영역"
+          onClick={handleClickLogo}
+        />
         <div className={styles.cardsContainer}>
           <div className={styles.cardsHeader}>
             <h6>Dash Boards</h6>
