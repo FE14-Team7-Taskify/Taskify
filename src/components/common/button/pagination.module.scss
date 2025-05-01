@@ -1,0 +1,24 @@
+@use '@/styles/index.scss' as common;
+
+.paginationBtns {
+  @include common.flexbox();
+  > button {
+    @include common.flexbox();
+    width: 40px;
+    height: 40px;
+    background-color: common.$color-white;
+    border: 1px solid common.$color-gray-D9D9D9;
+  }
+  > button:disabled > img {
+    opacity: 20%;
+  }
+  .btnLeft {
+    border-radius: 4px 0 0 4px;
+    > img {
+      transform: rotate(180deg);
+    }
+  }
+  .btnRight {
+    border-radius: 0 4px 4px 0;
+  }
+}
