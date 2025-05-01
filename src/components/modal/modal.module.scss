@@ -1,0 +1,49 @@
+@use '@/styles/index.scss' as common;
+
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  @include common.flexbox();
+  .modal {
+    @include common.gridbox(center, center);
+    gap: 16px;
+    min-width: 272px;
+    min-height: 164px;
+    max-width: 327px;
+    padding: 24px 16px;
+    border-radius: 16px;
+    background: common.$color-white;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    @include common.text-style('lg', 500, common.$color-black-333236);
+    @include common.mq-md {
+      gap: 24px;
+      max-width: 568px;
+      padding: 32px 40px;
+      @include common.text-style-xl();
+    }
+    .modalHeader {
+      @include common.text-style('xl', 700, common.$color-black-333236);
+      @include common.mq-md {
+        @include common.text-style('2xl', 700, common.$color-black-333236);
+      }
+    }
+    .modalBtns {
+      @include common.flexbox();
+      gap: 7px;
+      @include common.mq-md {
+        gap: 8px;
+      }
+    }
+  }
+}
+.messagesWrapper {
+  text-align: center;
+  @include common.mq-md {
+    @include common.text-style-xl();
+  }
+}

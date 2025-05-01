@@ -1,18 +1,113 @@
 @charset 'uft-8';
 @use '@/styles/index.scss' as common;
 
-.myDashboardsContainer {
-  .buttonCreateDashboard {
+.dashboardCard {
+  @include common.flexbox(between);
+  gap: 12px;
+  height: 58px;
+  min-width: 260px;
+  border-radius: 8px;
+  border: 1px solid common.$color-gray-D9D9D9;
+  background-color: common.$color-white;
+  @include common.text-style('md', 600);
+  padding: 20px 17px;
+  @include common.mq-md() {
+    padding: 21px 20px;
+    gap: 10px;
+    max-width: 247px;
+    @include common.text-style('lg', 600);
+  }
+  @include common.mq-lg() {
+    padding: 22px 20px;
+    max-width: 332px;
+  }
+  .dashboardTitleArea {
+    @include common.flexbox(start);
+    flex-shrink: 1;
+    gap: 12px;
+    @include common.mq-md() {
+      gap: 10px;
+    }
+    .dashboardColor {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+    }
+    .color-7AC555 {
+      background-color: #7ac555;
+    }
+    .color-760DDE {
+      background-color: #760dde;
+    }
+    .color-FFA500 {
+      background-color: #ffa500;
+    }
+    .color-76A5EA {
+      background-color: #76a5ea;
+    }
+    .color-E876EA {
+      background-color: #e876ea;
+    }
+    .dashboardNm {
+      max-width: 164px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .dashboardCrown {
+      padding-right: 20px;
+      background-image: url('../../../../public/icon/crown.svg');
+      background-repeat: no-repeat;
+      background-size: 15px;
+      background-position: right;
+
+      @include common.mq-md() {
+        padding-right: 24px;
+        background-size: 18px;
+      }
+      @include common.mq-lg() {
+        padding-right: 28px;
+        background-size: 20px;
+      }
+    }
+  }
+  > img {
+    flex-shrink: 0;
+  }
+}
+.createDashboardButton {
+  gap: 10px;
+  padding: 0px;
+  justify-content: center;
+}
+
+.cardListContainer {
+  @include common.flexbox(start, start);
+  flex-direction: column;
+  gap: 12px;
+  .cardListWrapper {
+    @include common.gridbox(stretch);
+    gap: 8px;
+    @include common.mq-md() {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @include common.mq-lg() {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    > button {
+      justify-self: stretch;
+    }
+  }
+  .paginationArea {
     width: 100%;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > div {
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    @include common.flexbox(end);
+    gap: 16px;
+    @include common.text-style('xs', 400, common.$color-black-333236);
+    @include common.mq-md() {
+      @include common.text-style('md', 400, common.$color-black-333236);
     }
   }
 }
