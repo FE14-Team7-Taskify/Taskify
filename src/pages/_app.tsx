@@ -12,12 +12,12 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        {/* <OverlayProvider> */}
-        <SideBar>
-          <Header />
-          <Component {...pageProps} />
-        </SideBar>
-        {/* </OverlayProvider> */}
+        <OverlayProvider>
+          <SideBar>
+            <Header />
+            <Component {...pageProps} />
+          </SideBar>
+        </OverlayProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
