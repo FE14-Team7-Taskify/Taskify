@@ -4,8 +4,8 @@ import Image from 'next/image';
 import InputForm from './components/InputForm';
 import Link from 'next/link';
 import { useLoginMutation } from '@/api/auth/auth.query';
-import { useOverlay } from '@toss/use-overlay';
-import ErrorModal from '@/components/modal/ErrorModal';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import OneButtonModal from '@/components/modal/OneButtonModal';
 
 export default function Login() {
   const [values, setValues] = useState({
@@ -17,7 +17,7 @@ export default function Login() {
     password: '',
   });
   const loginMutation = useLoginMutation();
-  const overlay = useOverlay();
+  const { close, overlay } = useOverlay();
 
   function isFormValid() {
     return (
@@ -58,15 +58,10 @@ export default function Login() {
     loginMutation.mutate(
       { email: values.email, password: values.password },
       {
-        onError: () => {
-          overlay.open(({ isOpen, close }) => (
-            <ErrorModal
-              isOpen={isOpen}
-              onClose={close}
-              message="아이디 또는 비밀번호가 일치하지 않습니다."
-            />
-          ));
-        },
+        onError: () =>
+          overlay(
+            <OneButtonModal onClose={close} message="아이디 또는 비밀번호가 일치하지 않습니다." />,
+          ),
       },
     );
   }
