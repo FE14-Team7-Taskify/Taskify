@@ -12,6 +12,11 @@
     flex-shrink: 0;
     border-bottom: none;
     border-right: 1px solid s.$color-gray-EEEEEE;
+    border-left: 2px solid transparent;
+
+    &.isOver {
+      border-left: 2px solid #5534da;
+    }
   }
 
   .inner {
