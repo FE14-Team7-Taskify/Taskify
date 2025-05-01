@@ -8,11 +8,14 @@ interface OneButtonModalProps {
 
 export default function OneButtonModal({ message, onClose }: OneButtonModalProps) {
   return (
-    <ModalWrapper btns={[{ text: '확인', onClick: onClose }]}>
+    <ModalWrapper>
       <div className={styles.messagesWrapper}>
         {message.split('\n').map((line: string, idx: number) => (
           <p key={idx}>{line}</p>
         ))}
+      </div>
+      <div className={styles.modalBtns}>
+        <button onClick={onClose}>확인</button>
       </div>
     </ModalWrapper>
   );
