@@ -7,6 +7,7 @@ import { useInfiniteCardsQuery } from '@/api/cards/cards.query';
 import { useInView } from 'react-intersection-observer';
 import { useDrop } from 'react-dnd';
 import { UpdateCardRequest } from '@/api/cards/cards.schema';
+import { cn, cond } from '@/styles/util/stylesUtil';
 
 interface Props {
   column: ColumnType;
@@ -16,7 +17,7 @@ interface Props {
 
 function Column({ column, dashboardId, onCardDrop }: Props) {
   // Drag and Drop
-  const [, drop] = useDrop(() => ({
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: 'card',
     drop: (item: UpdateCardRequest) => {
       const updatedItem = {
@@ -25,6 +26,10 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
       };
       onCardDrop(updatedItem);
     },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
   }));
 
   // 무한 스크롤
@@ -70,7 +75,7 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
           ref={(node) => {
             if (node) drop(node);
           }}
-          className={styles.column}
+          className={cn(styles.column, cond(isOver, styles.isOver))}
         >
           <div className={styles.inner}>
             <div className={styles.head}>

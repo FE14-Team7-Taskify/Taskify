@@ -5,6 +5,7 @@ import Tag from './Tag';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { CardType } from '@/api/cards/cards.schema';
+import { cn, cond } from '@/styles/util/stylesUtil';
 
 interface CardProps {
   card: CardType;
@@ -46,12 +47,11 @@ function Card({ card, isPreview = false }: CardProps) {
       ref={(node) => {
         drag(node);
       }}
-      style={{
-        scale: isPreview ? 1.1 : isDragging ? 1.1 : 1,
-        opacity: isPreview ? 0.9 : 1,
-        cursor: isPreview ? 'grabbing' : 'pointer',
-      }}
-      className={styles.card}
+      className={cn(
+        styles.card,
+        cond(isPreview, styles.preview),
+        cond(isDragging, styles.isDragging),
+      )}
       onClick={handleCardClick}
     >
       {card.imageUrl && (
