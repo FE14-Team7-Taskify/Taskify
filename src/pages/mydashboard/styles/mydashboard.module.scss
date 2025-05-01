@@ -6,7 +6,6 @@
 .container {
   overflow: hidden;
   max-width: 1022px;
-  min-height: 100vh;
   @include common.flexbox(start, start);
   flex-direction: column;
   gap: 24px;

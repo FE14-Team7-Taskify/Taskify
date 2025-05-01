@@ -46,8 +46,4 @@
   @include common.mq-md {
     @include common.text-style-xl();
   }
-  > p {
-    font-size: inherit;
-    font-weight: inherit;
-  }
 }

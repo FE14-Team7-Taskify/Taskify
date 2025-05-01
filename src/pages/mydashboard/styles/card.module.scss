@@ -21,12 +21,15 @@
     padding: 22px 20px;
     max-width: 332px;
   }
-  .dashboardNm {
+  .dashboardTitleArea {
     @include common.flexbox(start);
-    font-size: inherit;
-    font-weight: inherit;
+    flex-shrink: 1;
     gap: 12px;
+    @include common.mq-md() {
+      gap: 10px;
+    }
     .dashboardColor {
+      flex-shrink: 0;
       width: 8px;
       height: 8px;
       border-radius: 100%;
@@ -46,22 +49,31 @@
     .color-E876EA {
       background-color: #e876ea;
     }
-  }
-  .dashboardCrown {
-    padding-right: 20px;
-    background-image: url('../../../../public/icon/crown.svg');
-    background-repeat: no-repeat;
-    background-size: 15px;
-    background-position: right;
+    .dashboardNm {
+      max-width: 164px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .dashboardCrown {
+      padding-right: 20px;
+      background-image: url('../../../../public/icon/crown.svg');
+      background-repeat: no-repeat;
+      background-size: 15px;
+      background-position: right;
 
-    @include common.mq-md() {
-      padding-right: 24px;
-      background-size: 18px;
+      @include common.mq-md() {
+        padding-right: 24px;
+        background-size: 18px;
+      }
+      @include common.mq-lg() {
+        padding-right: 28px;
+        background-size: 20px;
+      }
     }
-    @include common.mq-lg() {
-      padding-right: 28px;
-      background-size: 20px;
-    }
+  }
+  > img {
+    flex-shrink: 0;
   }
 }
 .createDashboardButton {
@@ -78,7 +90,7 @@
     @include common.gridbox(stretch);
     gap: 8px;
     @include common.mq-md() {
-      grid-auto-flow: column;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
     @include common.mq-lg() {
@@ -96,28 +108,6 @@
     @include common.text-style('xs', 400, common.$color-black-333236);
     @include common.mq-md() {
       @include common.text-style('md', 400, common.$color-black-333236);
-    }
-    .paginationBtns {
-      @include common.flexbox();
-      > button {
-        @include common.flexbox();
-        width: 40px;
-        height: 40px;
-        background-color: common.$color-white;
-        border: 1px solid common.$color-gray-D9D9D9;
-      }
-      > button:disabled > img {
-        opacity: 20%;
-      }
-      .btnLeft {
-        border-radius: 4px 0 0 4px;
-        > img {
-          transform: rotate(180deg);
-        }
-      }
-      .btnRight {
-        border-radius: 0 4px 4px 0;
-      }
     }
   }
 }

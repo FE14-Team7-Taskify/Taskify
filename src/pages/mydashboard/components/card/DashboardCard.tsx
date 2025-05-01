@@ -13,9 +13,11 @@ export default function DashboardCard({ id, color, title, createdByMe }: Dashboa
   }
   return (
     <button className={styles.dashboardCard} onClick={handleClickCard}>
-      <div className={cn(styles.dashboardNm, cond(createdByMe, styles.dashboardCrown))}>
+      <div className={styles.dashboardTitleArea}>
         <div className={cn(styles.dashboardColor, styles[`color-${color.replace('#', '')}`])} />
-        {title}
+        <div className={cn(styles.dashboardNm, cond(createdByMe, styles.dashboardCrown))}>
+          {title}
+        </div>
       </div>
       <Image src="/icon/arrow_right.svg" alt="대시보드 바로가기 아이콘" width={18} height={18} />
     </button>
