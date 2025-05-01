@@ -1,10 +1,10 @@
 import { useInvitationsQuery } from '@/api/invitations/invitations.query';
 import { InvitationType } from '@/api/invitations/invitations.schema';
-import Image from 'next/image';
 import { useState } from 'react';
 import styles from '../styles/mydashboard.module.scss';
-import TableEmpty from './table/TableEmpty';
+import InvitationRow from './table/InvitationRow';
 import SearchInput from './table/SearchInput';
+import TableEmpty from './table/TableEmpty';
 
 export default function InvitationTable() {
   const [title, setTitle] = useState<string>();
@@ -22,14 +22,7 @@ export default function InvitationTable() {
         (invitationsResult?.invitations?.length > 0 ? (
           <div className={styles.invitationsTable}>
             {invitationsResult?.invitations.map((invitation: InvitationType) => (
-              <div className={styles.invitationRow}>
-                <div>{invitation.dashboard.title}</div>
-                <div>{invitation.inviter.nickname}</div>
-                <div>
-                  <button>수락</button>
-                  <button>거절</button>
-                </div>
-              </div>
+              <InvitationRow key={invitation.id} {...invitation} />
             ))}
           </div>
         ) : (

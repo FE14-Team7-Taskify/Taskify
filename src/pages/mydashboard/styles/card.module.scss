@@ -14,7 +14,7 @@
   @include common.mq-md() {
     padding: 21px 20px;
     gap: 10px;
-    min-width: 247px;
+    max-width: 247px;
     @include common.text-style('lg', 600);
   }
   @include common.mq-lg() {

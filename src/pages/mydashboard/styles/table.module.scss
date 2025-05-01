@@ -9,12 +9,10 @@
   flex-grow: 1;
   > .tableMessage {
     @include common.text-style('xs', 400, common.$color-gray-9FA6B2);
-    margin-bottom: 80px;
-  }
-  @include common.mq-md() {
-    > .tableMessage {
+    margin-bottom: 56px;
+    @include common.mq-md() {
       @include common.text-style('2lg', 400, common.$color-gray-9FA6B2);
-      margin-bottom: 120px;
+      margin-bottom: 96px;
     }
   }
   @include common.mq-lg() {
@@ -23,8 +21,9 @@
 }
 
 .invitationsContainer {
-  @include common.flexbox(start, start);
+  @include common.flexbox(center, start);
   flex-direction: column;
+  width: 100%;
   padding: 24px 0;
   border-radius: 8px;
   background-color: common.$color-white;
@@ -37,7 +36,7 @@
     padding: 24px 40px;
   }
   @include common.mq-lg() {
-    // min-width: 960px;
+    max-width: 960px;
     max-width: 1022px;
   }
 
@@ -52,6 +51,7 @@
     }
   }
   > .invitationsTable {
+    flex-grow: 1;
     margin: 105px auto 56px;
   }
 }
