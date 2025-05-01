@@ -1,0 +1,42 @@
+@use '@/styles/index.scss' as s;
+
+.test-xs {
+  @include s.text-style('xs', 400, s.$color-gray-9FA6B2);
+}
+.test-sm {
+  @include s.text-style('sm', 500, s.$color-blue-76A5EA);
+}
+.test-md {
+  @include s.text-style('md', 600, s.$color-green-7AC555);
+}
+.test-lg {
+  @include s.text-style('lg', 700, s.$color-orange-FFA500);
+}
+.test-2lg {
+  @include s.text-style('2lg', 100, s.$color-violet-5534DA);
+}
+.test-xl {
+  @include s.text-style('xl', 200, s.$color-red-D6173A);
+}
+.test-2xl {
+  @include s.text-style('2xl', 900, s.$color-purple-760DDE);
+}
+.test-3xl {
+  @include s.text-style('3xl', 900, s.$color-pink-E876EA);
+}
+
+.test-responsive {
+  @include s.text-style('md', 600, s.$color-violet-5534DA);
+
+  @include s.mq-sm {
+    @include s.text-style('lg', 600, s.$color-blue-76A5EA);
+  }
+
+  @include s.mq-md {
+    @include s.text-style('xl', 700, s.$color-red-D6173A);
+  }
+
+  @include s.mq-lg {
+    @include s.text-style('2xl', 700, s.$color-green-7AC555);
+  }
+}
