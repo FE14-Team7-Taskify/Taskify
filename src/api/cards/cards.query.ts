@@ -1,8 +1,15 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  queryOptions,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   CreateCardRequest,
   CreateCardResponse,
   FindCardsRequest,
+  FindCardsResponse,
   UpdateCardRequest,
   UpdateCardResponse,
 } from './cards.schema';
@@ -33,6 +40,21 @@ export const useCardsQuery = (params: FindCardsRequest) => {
     select: (res) => res.data,
   });
 };
+
+export const useInfiniteCardsQuery = (params: Omit<FindCardsRequest, 'cursorId'>) => {
+  return useInfiniteQuery<FindCardsResponse>({
+    queryKey: cardsQuery.cardListKey(params),
+    queryFn: ({ pageParam }) =>
+      cardsService
+        .getCards({ ...params, cursorId: pageParam as number | undefined })
+        .then((res) => res.data),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return 'cursorId' in lastPage ? lastPage.cursorId : undefined;
+    },
+  });
+};
+
 /**
  * 카드 상세 조회 쿼리
  */
