@@ -5,7 +5,6 @@
   background-color: common.$color-gray-FAFAFA;
   > .componentWrapper {
     flex-grow: 1;
-    // overflow-y: scroll;
   }
 }
 .sidebarContainer {
@@ -24,13 +23,13 @@
   height: 100vh;
   width: 67px;
 
-  @include common.mq-md() {
+  @include common.mq-md {
     gap: 56px;
     width: 160px;
     align-items: flex-start;
     padding: 20px 12px;
   }
-  @include common.mq-lg() {
+  @include common.mq-lg {
     width: 300px;
     padding: 20px 8px;
     border: none;
@@ -42,7 +41,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-image: url('../../../public/images/logo/logo-small.svg');
-    @include common.mq-md() {
+    @include common.mq-md {
       background-image: url('../../../public/images/logo/logo-large.svg');
       width: 108px;
       height: 33px;
@@ -54,12 +53,12 @@
   flex-direction: column;
   gap: 14px;
   width: 100%;
-  @include common.mq-md() {
+  @include common.mq-md {
     gap: 16px;
   }
   > .cardsHeader {
     @include common.flexbox();
-    @include common.mq-md() {
+    @include common.mq-md {
       justify-content: space-between;
     }
     h6 {
@@ -67,7 +66,7 @@
       line-height: 20px;
       color: common.$color-gray-787486;
       display: none;
-      @include common.mq-md() {
+      @include common.mq-md {
         display: block;
       }
     }
@@ -83,11 +82,11 @@
       width: 100%;
       @include common.gridbox(center, center);
       gap: 14px;
-      @include common.mq-md() {
+      @include common.mq-md {
         justify-content: stretch;
         gap: 2px;
       }
-      @include common.mq-lg() {
+      @include common.mq-lg {
         gap: 8px;
       }
     }
@@ -95,7 +94,7 @@
       @include common.flexbox(start);
       visibility: hidden;
       width: 100%;
-      @include common.mq-md() {
+      @include common.mq-md {
         visibility: inherit;
       }
     }
@@ -105,16 +104,16 @@
   width: 100%;
   height: 40px;
   border-radius: 4px;
+  gap: 16px;
   @include common.flexbox(start);
-  @include common.mq-md() {
+  @include common.mq-md {
     height: 43px;
     padding: 8px 10px;
   }
-  @include common.mq-lg() {
+  @include common.mq-lg {
     height: 50px;
     padding: 12px;
   }
-  gap: 16px;
   .dashboardColor {
     width: 8px;
     height: 8px;
@@ -141,32 +140,32 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    @include common.mq-md() {
+    @include common.mq-md {
       display: block;
       max-width: 80px;
       @include common.text-style('lg', 500, common.$color-gray-787486);
     }
-    @include common.mq-lg() {
+    @include common.mq-lg {
       max-width: 200px;
       @include common.text-style('2lg', 500, common.$color-gray-787486);
     }
   }
   .dashboardCrown {
-    @include common.mq-md() {
+    @include common.mq-md {
       padding-right: 20px;
       background-size: 15px;
       background-image: url('../../../public/icon/crown.svg');
       background-position: right;
       background-repeat: no-repeat;
     }
-    @include common.mq-lg() {
+    @include common.mq-lg {
       padding-right: 24px;
       background-size: 18px;
     }
   }
 }
 .cardRowActive {
-  @include common.mq-md() {
+  @include common.mq-md {
     background-color: common.$color-violet-8;
   }
 }

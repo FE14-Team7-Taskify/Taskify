@@ -2,19 +2,19 @@ import Image from 'next/image';
 import styles from '../../styles/table.module.scss';
 
 export default function SearchInput({
-  title = '',
-  setTitle,
+  keyword = '',
+  setKeyword,
 }: {
-  title?: string;
-  setTitle: (value: string) => void;
+  keyword?: string;
+  setKeyword: (value: string) => void;
 }) {
   return (
     <div className={styles.searchTitle}>
       <Image src="/icon/search.svg" alt="검색 아이콘" width={24} height={24} />
       <input
-        value={title}
+        value={keyword}
         placeholder="검색"
-        onChange={(e) => setTitle((e.target as HTMLInputElement).value)}
+        onChange={(e) => setKeyword((e.target as HTMLInputElement).value)}
       />
     </div>
   );
