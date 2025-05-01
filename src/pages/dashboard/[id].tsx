@@ -3,12 +3,24 @@ import Column from './components/Column';
 import styles from './styles/dashboard.module.scss';
 import Image from 'next/image';
 import { useColumnsQuery } from '@/api/columns/columns.query';
+import { useUpdateCardMutation } from '@/api/cards/cards.query';
+import dynamic from 'next/dynamic';
+import { UpdateCardRequest } from '@/api/cards/cards.schema';
 
 export default function DashBoard() {
   const router = useRouter();
   const { id } = router.query;
-  const dashboardId = typeof id === 'string' ? Number(id) : undefined;
+  const dashboardId = typeof id === 'string' ? Number(id) : 0;
   const { data, isLoading, isError } = useColumnsQuery(dashboardId);
+  const updateCardMutation = useUpdateCardMutation();
+
+  const ClientOnlyDndProvider = dynamic(() => import('./components/ClientOnlyDndProvider'), {
+    ssr: false,
+  });
+
+  const handleCardDrop = (request: UpdateCardRequest) => {
+    updateCardMutation.mutate(request);
+  };
 
   const openAddColumnModal = () => {
     console.log(`컬럼 추가 모달 - 대시보드 ID : ${id}`);
@@ -22,21 +34,26 @@ export default function DashBoard() {
     return (
       <>
         <div className={styles.dashboard}>
-          <div className={styles.container}>
-            {data?.data.map((column) => (
-              <Column key={column.id} column={column} dashboardId={id as string} />
-            ))}
-            <div className={styles.addColumn}>
-              <button className={styles.addBtn} onClick={openAddColumnModal}>
-                새로운 컬럼 추가하기
-                <Image src="/icon/add_color.svg" alt="추가 아이콘" width={22} height={22} />
-              </button>
+          <ClientOnlyDndProvider>
+            <div className={styles.container}>
+              {data?.data.map((column) => (
+                <Column
+                  key={column.id}
+                  column={column}
+                  dashboardId={id as string}
+                  onCardDrop={handleCardDrop}
+                />
+              ))}
+              <div className={styles.addColumn}>
+                <button className={styles.addBtn} onClick={openAddColumnModal}>
+                  새로운 컬럼 추가하기
+                  <Image src="/icon/add_color.svg" alt="추가 아이콘" width={22} height={22} />
+                </button>
+              </div>
             </div>
-          </div>
+          </ClientOnlyDndProvider>
         </div>
       </>
     );
-  } else {
-    return <div>{data.message}</div>;
   }
 }
