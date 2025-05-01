@@ -1,4 +1,6 @@
 import styles from './home.module.scss';
+import ModalButton from '@/components/common/button/modalButton/ModalButton';
+import MyDashBoardButton from '@/components/common/button/myDashBoradButton/MyDashBoardButton';
 
 export default function HomePage() {
   return (
@@ -14,6 +16,9 @@ export default function HomePage() {
         <div className={styles['test-3xl']}>Text 3XL</div>
         <div className={styles['test-responsive']}>Responsive Test</div>
       </div>
+
+      <ModalButton leftText="취소" rightText="생성"></ModalButton>
+      <MyDashBoardButton leftText="수락" rightText="거절"></MyDashBoardButton>
     </>
   );
 }
