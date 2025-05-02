@@ -1,5 +1,4 @@
 import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
-import { useUser } from '@/contexts/AuthProvider';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
@@ -12,19 +11,17 @@ import styles from './sidebar.module.scss';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
-  const user = useUser();
-  if (!user) return <>{children}</>;
+  const { overlay, close } = useOverlay();
 
   function handleClickLogo() {
     router.push('/');
   }
-  function handleClickCard(dashboardId: number) {
-    router.push(`/dashboard/${dashboardId}`);
-  }
-
-  const { overlay, close } = useOverlay();
   function handelClickCreateBtn() {
     overlay(<CreateDashboardModal onClose={close} />);
+  }
+
+  function handleClickCard(dashboardId: number) {
+    router.push(`/dashboard/${dashboardId}`);
   }
 
   const [page, setPage] = useState<number>(1);
