@@ -65,6 +65,11 @@
   line-height: $line-height-3xl;
 }
 
+@mixin text-style-4xl {
+  font-size: $font-size-3xl;
+  line-height: $line-height-3xl;
+}
+
 // 통합 텍스트 스타일 믹스인
 @mixin text-style($size, $weight: 400, $color: $color-black-333236) {
   @if ($size == 'xs') {
@@ -83,6 +88,10 @@
     @include text-style-2xl;
   } @else if ($size == '3xl') {
     @include text-style-3xl;
+  } @else if ($size == '4xl') {
+    @include text-style-4xl;
+  } @else if ($size == '5xl') {
+    @include text-style-5xl;
   }
 
   font-weight: $weight;
