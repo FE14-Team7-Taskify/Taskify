@@ -12,17 +12,19 @@ import styles from './sidebar.module.scss';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
-  const { overlay, close } = useOverlay();
+  const user = useUser();
+  if (!user) return <>{children}</>;
 
   function handleClickLogo() {
     router.push('/');
   }
-  function handelClickCreateBtn() {
-    overlay(<CreateDashboardModal onClose={close} />);
-  }
-
   function handleClickCard(dashboardId: number) {
     router.push(`/dashboard/${dashboardId}`);
+  }
+
+  const { overlay, close } = useOverlay();
+  function handelClickCreateBtn() {
+    overlay(<CreateDashboardModal onClose={close} />);
   }
 
   const [page, setPage] = useState<number>(1);
@@ -37,11 +39,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   const isCurrentDashboard = (dashboardId: number) =>
     pathname.startsWith(`/dashboard/${dashboardId}`);
 
-  const user = useUser();
-
-  return !user ? (
-    <>{children}</>
-  ) : (
+  return (
     <div className={styles.sidebarWrapper}>
       <div className={styles.sidebarContainer}>
         <button

@@ -27,15 +27,9 @@ export default function InvitationTable() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            entry.intersectionRatio >= 1 &&
-            !!invitationsResult?.pages[0].cursorId
-          )
-            setParams({ ...params, cursorId: invitationsResult?.pages[0].cursorId });
-        });
+      ([{ isIntersecting, intersectionRatio }]) => {
+        if (isIntersecting && intersectionRatio >= 1 && !!invitationsResult?.pages[0].cursorId)
+          setParams({ ...params, cursorId: invitationsResult?.pages[0].cursorId });
       },
       { threshold: 1 },
     );
