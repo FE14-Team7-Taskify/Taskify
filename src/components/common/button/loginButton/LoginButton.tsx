@@ -1,6 +1,6 @@
 import { cn } from '@/styles/util/stylesUtil';
 import { ButtonHTMLAttributes } from 'react';
-import styles from './Button.module.scss';
+import styles from './loginButton.module.scss';
 
 export default function Button({
   className = '',

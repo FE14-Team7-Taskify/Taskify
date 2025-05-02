@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Pagination from '../common/button/Pagination';
+import Pagination from '../common/button/pagination/Pagination';
 import styles from './sidebar.module.scss';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
