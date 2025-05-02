@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import styles from '../../styles/card.module.scss';
 import { cn } from '@/styles/util/stylesUtil';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import CreateDashboardModal from '@/components/modal/CreateDashboardModal';
 
 export default function CreateDashboardButton() {
+  const { overlay, close } = useOverlay();
   function handelCreateClick() {
-    // 대시보드 생성 모달 팝업
+    overlay(<CreateDashboardModal onClose={close} />);
   }
   return (
     <button
