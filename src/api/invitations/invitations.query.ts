@@ -1,27 +1,32 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { dashboardsQuery } from '../dashboards/dashboards.query';
 import {
   FindInvitationsRequest,
   UpdateInvitationsRequest,
   UpdateInvitationsResponse,
 } from './invitations.schema';
 import { invitationsService } from './invitations.service';
-import { dashboardsQuery } from '../dashboards/dashboards.query';
 
 const invitationsQuery = {
   all: () => ['invitations'],
   invitationListKey: (params: FindInvitationsRequest) => [...invitationsQuery.all(), params],
-  invitationList: (params: FindInvitationsRequest) =>
-    queryOptions({
-      queryKey: invitationsQuery.invitationListKey(params),
-      queryFn: () => invitationsService.getMyInvitations(params),
-    }),
 };
 
 /**
  * 내가 받은 초대 목록 조회 쿼리
  */
 export const useInvitationsQuery = (params: FindInvitationsRequest) => {
-  return useQuery({ ...invitationsQuery.invitationList(params), select: (res) => res.data });
+  return useInfiniteQuery({
+    queryKey: invitationsQuery.invitationListKey(params),
+    queryFn: async () => await invitationsService.getMyInvitations(params).then((res) => res.data),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => lastPage.cursorId,
+    select: (data) => ({
+      pages: data.pages.reverse(),
+      pageParams: data.pageParams,
+      allInvitations: data.pages.flatMap((page) => page.invitations),
+    }),
+  });
 };
 
 /**
