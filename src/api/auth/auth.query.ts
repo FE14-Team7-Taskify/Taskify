@@ -21,6 +21,7 @@ export const useLoginMutation = () => {
     mutationFn: (body) => authService.login(body).then((res) => res.data),
     onSuccess: (result) => {
       const { user, accessToken } = result;
+      setUser(user);
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken);
         const requestInterceptor = (config: InternalAxiosRequestConfig) => {
@@ -29,7 +30,6 @@ export const useLoginMutation = () => {
         };
         api.interceptors.request.use(requestInterceptor);
       }
-      setUser(user);
       router.push('/mydashboard');
     },
   });

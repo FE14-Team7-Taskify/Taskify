@@ -1,5 +1,4 @@
 import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
-import { useUser } from '@/contexts/AuthProvider';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
@@ -37,11 +36,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   const isCurrentDashboard = (dashboardId: number) =>
     pathname.startsWith(`/dashboard/${dashboardId}`);
 
-  const user = useUser();
-
-  return !user ? (
-    <>{children}</>
-  ) : (
+  return (
     <div className={styles.sidebarWrapper}>
       <div className={styles.sidebarContainer}>
         <button

@@ -1,5 +1,5 @@
 import { useInvitationsQuery } from '@/api/invitations/invitations.query';
-import { InvitationType } from '@/api/invitations/invitations.schema';
+import { FindInvitationsRequest, InvitationType } from '@/api/invitations/invitations.schema';
 import { useDebounce } from '@/hooks/useDebounce';
 import { cond } from '@/styles/util/stylesUtil';
 import { useEffect, useRef, useState } from 'react';
@@ -10,55 +10,45 @@ import TableEmpty from './table/TableEmpty';
 
 export default function InvitationTable() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [cursorId, setCursorId] = useState<number>();
-
-  const [keyword, setKeyword] = useState<string>();
-  const debouncedKeyword = useDebounce(keyword, 250);
+  const [params, setParams] = useState<FindInvitationsRequest>({ size: 6, title: '' });
+  const debouncedKeyword = useDebounce(params.title, 250);
 
   const [invitationList, setInvitationList] = useState<InvitationType[]>([]);
-  const {
-    data: invitationsResult,
-    isFetching,
-    isSuccess,
-  } = useInvitationsQuery({
+  const { data: invitationsResult, isFetching } = useInvitationsQuery({
+    ...params,
     title: debouncedKeyword || undefined,
-    size: 6,
-    cursorId,
   });
 
   useEffect(() => {
-    setCursorId(undefined);
-  }, [debouncedKeyword]);
-
-  useEffect(() => {
-    const newList = invitationsResult?.invitations || [];
-    if (!cursorId) setInvitationList(newList);
+    const newList = invitationsResult?.allInvitations || [];
+    if (!params.cursorId) setInvitationList(newList);
     else setInvitationList((prev) => [...prev, ...newList]);
-  }, [cursorId, invitationsResult]);
+  }, [params.cursorId, invitationsResult?.allInvitations]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 1 && !!invitationsResult?.cursorId)
-            setCursorId(invitationsResult?.cursorId);
-        });
+      ([{ isIntersecting, intersectionRatio }]) => {
+        if (isIntersecting && intersectionRatio >= 1 && !!invitationsResult?.pages[0].cursorId)
+          setParams({ ...params, cursorId: invitationsResult?.pages[0].cursorId });
       },
       { threshold: 1 },
     );
     if (targetRef.current) observer.observe(targetRef.current as Element);
     return () => observer.disconnect();
-  }, [targetRef.current, invitationsResult?.cursorId]);
+  }, [targetRef.current, invitationsResult?.pages]);
 
   return (
     <div className={styles.invitationsContainer}>
       <div className={styles.tableHeader}>
         <h2>초대받은 대시보드</h2>
         {(!!debouncedKeyword || invitationList.length > 0) && (
-          <SearchInput {...{ keyword, setKeyword }} />
+          <SearchInput
+            keyword={params.title}
+            setKeyword={(title) => setParams({ ...params, cursorId: undefined, title })}
+          />
         )}
       </div>
-      {isSuccess &&
+      {!isFetching &&
         (invitationList.length > 0 ? (
           <div className={styles.invitationsTable}>
             <div className={styles.invitationTableHeader}>
@@ -76,7 +66,7 @@ export default function InvitationTable() {
           <TableEmpty />
         ))}
       <div
-        className={cond(!!invitationsResult?.cursorId, styles.invitationLoader)}
+        className={cond(!!invitationsResult?.pages[0].cursorId, styles.invitationLoader)}
         id="infinite-scroll"
         ref={targetRef}
       >

@@ -1,5 +1,4 @@
-import Header from '@/components/header/Header';
-import SideBar from '@/components/sidebar/SideBar';
+import AuthLayout from '@/components/layout/Layout';
 import { AuthProvider } from '@/contexts/AuthProvider';
 import { OverlayProvider } from '@/contexts/OverlayProvider';
 import '@/styles/globals.scss';
@@ -13,10 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <OverlayProvider>
-          <SideBar>
-            <Header />
+          <AuthLayout>
             <Component {...pageProps} />
-          </SideBar>
+          </AuthLayout>
         </OverlayProvider>
       </AuthProvider>
     </QueryClientProvider>
