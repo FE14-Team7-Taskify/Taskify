@@ -3,6 +3,10 @@ import styles from './styles/signup.module.scss';
 import Image from 'next/image';
 import InputForm from './components/InputForm';
 import Link from 'next/link';
+import { useCreateUserMutation } from '@/api/users/users.query';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import OneButtonModal from '@/components/modal/OneButtonModal';
+import { useRouter } from 'next/router';
 
 export default function Signup() {
   const [values, setValues] = useState({
@@ -20,7 +24,9 @@ export default function Signup() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false); // ✅ 추가
   const [agreed, setAgreed] = useState(false);
-
+  const signupMutation = useCreateUserMutation();
+  const { close, overlay } = useOverlay();
+  const router = useRouter();
   function isFormValid() {
     return (
       values.email !== '' &&
@@ -85,8 +91,24 @@ export default function Signup() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isFormValid()) return;
-    // 임시(추후 변경 예정)
-    alert('가입 성공!');
+
+    signupMutation.mutate(
+      { email: values.email, nickname: values.nickname, password: values.password },
+      {
+        onSuccess: () =>
+          overlay(
+            <OneButtonModal
+              onClose={() => {
+                close();
+                router.push('/login');
+              }}
+              message="가입이 완료되었습니다!"
+            />,
+          ),
+        onError: () =>
+          overlay(<OneButtonModal onClose={close} message="이미 사용중인 이메일입니다." />),
+      },
+    );
   }
 
   return (
