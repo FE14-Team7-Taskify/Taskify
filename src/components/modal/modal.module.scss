@@ -1,4 +1,4 @@
-@use '@/styles/index.scss' as common;
+@use '@/styles/index.scss' as *;
 
 .modalWrapper {
   position: fixed;
@@ -8,42 +8,81 @@
   background: rgba(0, 0, 0, 0.5);
   width: 100vw;
   height: 100vh;
-  @include common.flexbox();
+  @include flexbox();
   .modal {
-    @include common.gridbox(center, center);
+    @include gridbox(center, center);
     gap: 16px;
     min-width: 272px;
     min-height: 164px;
     max-width: 327px;
     padding: 24px 16px;
     border-radius: 16px;
-    background: common.$color-white;
+    background: $color-white;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-    @include common.text-style('lg', 500, common.$color-black-333236);
-    @include common.mq-md {
+    @include text-style('lg', 500, $color-black-333236);
+    @include mq-md {
       gap: 24px;
       max-width: 568px;
       padding: 32px 40px;
-      @include common.text-style-xl();
+      @include text-style-xl();
     }
     .modalHeader {
-      @include common.text-style('xl', 700, common.$color-black-333236);
-      @include common.mq-md {
-        @include common.text-style('2xl', 700, common.$color-black-333236);
-      }
-    }
-    .modalBtns {
-      @include common.flexbox();
-      gap: 7px;
-      @include common.mq-md {
-        gap: 8px;
+      @include text-style('xl', 700, $color-black-333236);
+      @include mq-md {
+        @include text-style('2xl', 700, $color-black-333236);
       }
     }
   }
 }
 .messagesWrapper {
   text-align: center;
-  @include common.mq-md {
-    @include common.text-style-xl();
+  @include mq-md {
+    @include text-style-xl();
+  }
+}
+.createDashboardModalContent {
+  @include gridbox(stretch);
+  gap: 16px;
+  margin: 8px 0 16px;
+  @include mq-md {
+    margin: 8px 0 24px;
+  }
+  > .dashboardTitleArea {
+    @include gridbox(stretch);
+    gap: 8px;
+  }
+  > .dashboardColorArea {
+    @include flexbox(start);
+    gap: 8px;
+    > input[type='radio'] {
+      margin: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      border: 0;
+      appearance: none;
+      cursor: pointer;
+    }
+    > input[type='radio']:checked {
+      background-image: url('../../../public/icon/confirm.svg');
+      background-repeat: no-repeat;
+      background-size: 24px;
+      background-position: center;
+    }
+    .color-7AC555 {
+      background-color: #7ac555;
+    }
+    .color-760DDE {
+      background-color: #760dde;
+    }
+    .color-FFA500 {
+      background-color: #ffa500;
+    }
+    .color-76A5EA {
+      background-color: #76a5ea;
+    }
+    .color-E876EA {
+      background-color: #e876ea;
+    }
   }
 }

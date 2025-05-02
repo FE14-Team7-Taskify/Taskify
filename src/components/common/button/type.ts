@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes, HtmlHTMLAttributes } from 'react';
 
 export type BaseButtonProps = {
-  children: React.ReactNode;
   onClick?: () => void;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  className: string;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type ButtonProps = {
   onCancel?: () => void;
   onConfirm?: () => void;
   leftText?: string;
   rightText?: string;
+  rightDisabled?: boolean;
 };
 
 export interface PaginationProps {
