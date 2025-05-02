@@ -30,6 +30,10 @@ $font-size-2xl: 24px;
 $font-size-3xl: 32px;
 $font-size-4xl: 40px;
 $font-size-5xl: 48px;
+$font-size-6xl: 56px;
+$font-size-7xl: 70px;
+$font-size-8xl: 76px;
+$font-size-9xl: 90px;
 
 // line-height
 $line-height-xs: 1.5; // 18px
@@ -40,8 +44,12 @@ $line-height-2lg: 1.556; // 28px
 $line-height-xl: 1.6; // 32px
 $line-height-2xl: 1.333; // 32px
 $line-height-3xl: 1.313; // 42px
-$line-height-4xl: 1.05; // 42px
-$line-height-5xl: 0.95; // 46px
+$line-height-4xl: 1.05; // 40px
+$line-height-5xl: 0.95; // 48px
+$line-height-6xl: 0.9; // 56px
+$line-height-7xl: 0.9; // 70px
+$line-height-8xl: 0.9; // 76px
+$line-height-9xl: 0.9; // 90px
 
 // 브레이크포인트 변수 - flat 구조
 $breakpoint-sm: 640px; // mobile landscape

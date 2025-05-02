@@ -66,8 +66,33 @@
 }
 
 @mixin text-style-4xl {
-  font-size: $font-size-3xl;
-  line-height: $line-height-3xl;
+  font-size: $font-size-4xl;
+  line-height: $line-height-4xl;
+}
+
+@mixin text-style-5xl {
+  font-size: $font-size-5xl;
+  line-height: $line-height-5xl;
+}
+
+@mixin text-style-6xl {
+  font-size: $font-size-6xl;
+  line-height: $line-height-6xl;
+}
+
+@mixin text-style-7xl {
+  font-size: $font-size-7xl;
+  line-height: $line-height-7xl;
+}
+
+@mixin text-style-8xl {
+  font-size: $font-size-8xl;
+  line-height: $line-height-8xl;
+}
+
+@mixin text-style-9xl {
+  font-size: $font-size-9xl;
+  line-height: $line-height-9xl;
 }
 
 // 통합 텍스트 스타일 믹스인
@@ -92,6 +117,14 @@
     @include text-style-4xl;
   } @else if ($size == '5xl') {
     @include text-style-5xl;
+  } @else if ($size == '6xl') {
+    @include text-style-6xl;
+  } @else if ($size == '7xl') {
+    @include text-style-7xl;
+  } @else if ($size == '8xl') {
+    @include text-style-8xl;
+  } @else if ($size == '9xl') {
+    @include text-style-9xl;
   }
 
   font-weight: $weight;
