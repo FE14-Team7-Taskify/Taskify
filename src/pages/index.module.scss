@@ -1,0 +1,100 @@
+@use '@/styles/index.scss' as s;
+
+.container {
+  padding: 4rem 2rem;
+  background-color: s.$color-black;
+  color: s.$color-white;
+}
+
+.hero {
+  text-align: center;
+  margin: 2rem 0;
+
+  h1 {
+    @include s.column-flexbox(center, center);
+    @include s.text-style('4xl', 700, s.$color-white);
+    margin: 1.5rem 0 7rem 0;
+
+    .highlight {
+      @include s.text-style('4xl', 700, s.$color-violet-5534DA);
+    }
+  }
+
+  .cta {
+    width: 23.5rem;
+    height: 4.6rem;
+    @include s.text-style('md', 500, s.$color-white);
+    background-color: s.$color-violet-5534DA;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+.feature,
+.featureReverse {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  margin: 6rem 0;
+
+  .textBox {
+    flex: 1;
+    font-size: 1.6rem;
+  }
+
+  .imageBox {
+    flex: 1;
+  }
+}
+
+.featureReverse {
+  flex-direction: row-reverse;
+}
+
+.settings {
+  margin: 8rem 0;
+
+  h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .settingCards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    .card {
+      background-color: #222;
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 30%;
+      text-align: center;
+
+      p {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+.footer {
+  margin-top: 6rem;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+  text-align: center;
+
+  nav {
+    margin-top: 1rem;
+
+    a {
+      margin: 0 0.8rem;
+      font-size: 1.2rem;
+      color: #aaa;
+      text-decoration: none;
+    }
+  }
+}
