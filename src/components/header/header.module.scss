@@ -1,0 +1,16 @@
+@use '@/styles/index.scss' as common;
+
+.headerWrapper {
+  @include common.flexbox(start);
+  width: 100%;
+  height: 70px;
+  background-color: common.$color-white;
+  border-bottom: 1px solid common.$color-gray-D9D9D9;
+  padding: 0 24px;
+  @include common.mq-md() {
+    padding: 0 40px;
+  }
+  @include common.mq-md() {
+    padding: 0 70px;
+  }
+}

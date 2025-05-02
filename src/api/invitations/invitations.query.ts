@@ -5,6 +5,7 @@ import {
   UpdateInvitationsResponse,
 } from './invitations.schema';
 import { invitationsService } from './invitations.service';
+import { dashboardsQuery } from '../dashboards/dashboards.query';
 
 const invitationsQuery = {
   all: () => ['invitations'],
@@ -33,6 +34,7 @@ export const useUpdateInvitationMutation = () => {
     onSuccess: () => {
       // 업데이트 후 초대 목록을 다시 불러옴
       queryClient.invalidateQueries({ queryKey: invitationsQuery.all() });
+      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
     },
   });
 };
