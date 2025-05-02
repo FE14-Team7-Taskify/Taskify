@@ -13,7 +13,7 @@
   h1 {
     @include s.column-flexbox(center, center);
     @include s.text-style('4xl', 700, s.$color-white);
-    margin: 1.5rem 0 7rem 0;
+    margin: 2rem 0 9rem 0;
 
     .highlight {
       @include s.text-style('4xl', 700, s.$color-violet-5534DA);
@@ -32,10 +32,29 @@
   @include s.mq-md {
     h1 {
       @include s.flexbox(center, center);
+      gap: 2rem;
+      flex-direction: row;
       @include s.text-style('6xl', 700, s.$color-white);
 
       .highlight {
         @include s.text-style('7xl', 700, s.$color-violet-5534DA);
+      }
+    }
+
+    .cta {
+      width: 28rem;
+      height: 5.4rem;
+      @include s.text-style('2lg', 500, s.$color-white);
+    }
+  }
+
+  @include s.mq-lg {
+    h1 {
+      @include s.flexbox(center, center);
+      @include s.text-style('8xl', 700, s.$color-white);
+
+      .highlight {
+        @include s.text-style('9xl', 700, s.$color-violet-5534DA);
       }
     }
 
