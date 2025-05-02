@@ -7,9 +7,17 @@ const api: AxiosInstance = axios.create({
   },
 });
 
+const requestInterceptor = async (config: InternalAxiosRequestConfig) => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) config.headers['Authorization'] = `Bearer ${accessToken}`;
+  return config;
+};
+
+api.interceptors.request.use(requestInterceptor);
+
 const responseInterceptorForError = async (error: AxiosError) => {
   if (error.response?.status === 401) {
-    // 토큰 만료로 로그아웃 처리(API 헤더 토큰 제거)
+    // 토큰 만료시 localStorage 비우기
     const requestInterceptor = (config: InternalAxiosRequestConfig) => {
       config.headers['Authorization'] = '';
       localStorage.clear();

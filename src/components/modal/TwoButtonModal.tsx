@@ -13,7 +13,7 @@ export default function TwoButtonModal({ title, children, btns }: TwoButtonModal
   return (
     <ModalWrapper title={title}>
       {children}
-      <div className={styles.modalBtns}>
+      <div>
         <ModalButton {...btns} />
       </div>
     </ModalWrapper>

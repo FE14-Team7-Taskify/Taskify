@@ -1,3 +1,4 @@
+import BaseButton from '../common/button/BaseButton';
 import ModalWrapper from './ModalWrapper';
 import styles from './modal.module.scss';
 
@@ -15,7 +16,9 @@ export default function OneButtonModal({ message, onClose }: OneButtonModalProps
         ))}
       </div>
       <div className={styles.modalBtns}>
-        <button onClick={onClose}>확인</button>
+        <BaseButton onClick={onClose} className={styles.btnCenter}>
+          확인
+        </BaseButton>
       </div>
     </ModalWrapper>
   );
