@@ -1,6 +1,6 @@
 import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
 import { DashboardType } from '@/api/dashboards/dashboards.schema';
-import Pagination from '@/components/common/button/Pagination';
+import Pagination from '@/components/common/button/pagination/Pagination';
 import { useState } from 'react';
 import styles from '../styles/mydashboard.module.scss';
 import CreateDashboardButton from './card/CreateDashboardButton';

@@ -1,11 +1,6 @@
 import Image from 'next/image';
 import styles from './pagination.module.scss';
-
-interface PaginationProps {
-  totalPage?: number;
-  currentPage?: number;
-  setPage: (page: number) => void;
-}
+import { PaginationProps } from '../type';
 
 export default function Pagination({ totalPage = 1, currentPage = 1, setPage }: PaginationProps) {
   return (

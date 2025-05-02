@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, Component, HTMLAttributes, JSX } from 'react';
 import styles from './modal.module.scss';
-import Button from '../common/Button';
+import Button from '../common/button/loginButton/LoginButton';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
