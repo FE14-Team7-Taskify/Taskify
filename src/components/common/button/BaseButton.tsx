@@ -1,15 +1,8 @@
-import React from 'react';
 import { BaseButtonProps } from './type';
 
-const BaseButton = ({
-  children,
-  onClick,
-  disabled = false,
-  type = 'button',
-  className,
-}: BaseButtonProps) => {
+const BaseButton = ({ children, onClick, ...props }: BaseButtonProps) => {
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={className}>
+    <button {...props} onClick={onClick}>
       {children}
     </button>
   );
