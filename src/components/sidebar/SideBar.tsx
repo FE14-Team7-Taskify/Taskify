@@ -1,19 +1,26 @@
 import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
-import { FindDashboardsRequest } from '@/api/dashboards/dashboards.schema';
 import { useUser } from '@/contexts/AuthProvider';
+import { useOverlay } from '@/contexts/OverlayProvider';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Pagination from '../common/button/pagination/Pagination';
+import CreateDashboardModal from '../modal/CreateDashboardModal';
 import styles from './sidebar.module.scss';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
+  const { overlay, close } = useOverlay();
+
   function handleClickLogo() {
     router.push('/');
   }
+  function handelClickCreateBtn() {
+    overlay(<CreateDashboardModal onClose={close} />);
+  }
+
   function handleClickCard(dashboardId: number) {
     router.push(`/dashboard/${dashboardId}`);
   }
@@ -45,7 +52,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
         <div className={styles.cardsContainer}>
           <div className={styles.cardsHeader}>
             <h6>Dash Boards</h6>
-            <button>
+            <button onClick={handelClickCreateBtn}>
               <Image
                 src="/icon/add_box.svg"
                 alt="대시보드 생성 바로가기 아이콘"
