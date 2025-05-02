@@ -1,4 +1,4 @@
-import AuthLayout from '@/components/layout/LayOut';
+import AuthLayout from '@/components/layout/Layout';
 import { AuthProvider } from '@/contexts/AuthProvider';
 import { OverlayProvider } from '@/contexts/OverlayProvider';
 import '@/styles/globals.scss';
