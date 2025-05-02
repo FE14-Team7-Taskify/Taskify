@@ -1,11 +1,10 @@
-//index.tsx
-
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import styles from './styles/mypage.module.scss';
 import PasswordCheck from './passwordCheck';
+import ProfileCheck from './profileCheck';
 import type { GetMyInfoResponse } from '@/api/auth/auth.schema';
 import axios from 'axios';
 
@@ -62,7 +61,7 @@ export default function MyPage() {
   //if (!user) return <div>로딩 중...</div>;
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#FAFAFA', minHeight: '100vh' }}>
       <div>
         <button className={styles.backButton}>
           <Image
@@ -75,37 +74,11 @@ export default function MyPage() {
           <span className={styles.text}>돌아가기</span>
         </button>
       </div>
-      <div>
-        <div className={styles.headfont}>프로필</div>
-        <div className={styles.rowWrapper}>
-          <button className={styles.profileButton}></button>
-          <div>
-            <form action="/submit-url" method="POST" className={styles.formBox}>
-              <div>
-                이메일
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="temp@naver.com"
-                    className={styles.inputBox}
-                  />
-                </div>
-              </div>
-              <div>
-                <div>닉네임</div>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="배유철"
-                  className={styles.inputBox}
-                />
-              </div>
-            </form>
-            <button className={styles.saveChangeButton}>저장</button>
-          </div>
-        </div>
-      </div>
+      <ProfileCheck
+        email={myInfo?.email}
+        imgUrl={myInfo?.profileImageUrl}
+        nickname={myInfo?.nickname}
+      />
       <PasswordCheck />
       {/* <p>이메일: {user.email}</p>
       <p>닉네임: {user.nickname}</p> */}

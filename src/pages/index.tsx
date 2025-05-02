@@ -17,8 +17,8 @@ export default function HomePage() {
         <div className={styles['test-responsive']}>Responsive Test</div>
       </div>
 
-      <ModalButton leftText="취소" rightText="생성"></ModalButton>
-      <MyDashBoardButton leftText="수락" rightText="거절"></MyDashBoardButton>
+      <ModalButton leftText="취소" rightText="생성" />
+      <MyDashBoardButton leftText="수락" rightText="거절" />
     </>
   );
 }
