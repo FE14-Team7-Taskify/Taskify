@@ -1,5 +1,6 @@
 // dashboards.query.ts
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import {
   CreateDashboardRequest,
   CreateDashboardResponse,
@@ -70,11 +71,13 @@ export const useInvitationsQuery = (params: GetInvitationsRequest) => {
  * 대시보드 생성 뮤테이션
  */
 export const useCreateDashboardMutation = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   return useMutation<CreateDashboardResponse, Error, CreateDashboardRequest>({
     mutationFn: (data) => dashboardsService.createDashboard(data).then((res) => res.data),
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
+      router.push(`/dashboard/${result.id}`);
     },
   });
 };
