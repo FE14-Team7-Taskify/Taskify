@@ -28,6 +28,23 @@
     border-radius: 8px;
     cursor: pointer;
   }
+
+  @include s.mq-md {
+    h1 {
+      @include s.flexbox(center, center);
+      @include s.text-style('6xl', 700, s.$color-white);
+
+      .highlight {
+        @include s.text-style('7xl', 700, s.$color-violet-5534DA);
+      }
+    }
+
+    .cta {
+      width: 28rem;
+      height: 5.4rem;
+      @include s.text-style('2lg', 500, s.$color-white);
+    }
+  }
 }
 
 .feature,

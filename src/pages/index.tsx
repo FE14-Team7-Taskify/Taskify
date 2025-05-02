@@ -1,18 +1,16 @@
 import Image from 'next/image';
 import styles from './index.module.scss';
 import Link from 'next/link';
+import useResponsiveIllustration from '@/hooks/useResponsiveIllustration';
 
 export default function HomePage() {
+  const { src, width, height } = useResponsiveIllustration();
+
   return (
     <div className={styles.container}>
       {/* 히어로 섹션 */}
       <section className={styles.hero}>
-        <Image
-          src="/images/landing/illustration/mobile.png"
-          alt="Illustration"
-          width={287}
-          height={168}
-        />
+        <Image src={src} alt="Illustration" width={width} height={height} />
         <h1>
           새로운 일정 관리 <span className={styles.highlight}>Taskify</span>
         </h1>
