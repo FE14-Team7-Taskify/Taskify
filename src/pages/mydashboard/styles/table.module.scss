@@ -95,6 +95,17 @@
       }
     }
   }
+  > .invitationLoader {
+    @include common.flexbox();
+    gap: 16px;
+    padding: 0px 16px 24px;
+    > div {
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: common.$color-gray-D9D9D9;
+    }
+  }
 }
 
 .searchTitle {
@@ -111,6 +122,9 @@
   @include common.mq-lg {
     height: 40px;
     gap: 8px;
+  }
+  > input {
+    width: 100%;
   }
 }
 .invitationRow {

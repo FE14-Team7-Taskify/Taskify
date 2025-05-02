@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $grid-map: (
   start: start,
   end: end,
@@ -8,7 +10,7 @@ $grid-map: (
 );
 
 @function get-grid-value($key) {
-  @return map-get($grid-map, $key);
+  @return map.get($grid-map, $key);
 }
 
 @mixin gridbox($js: start, $ai: start) {

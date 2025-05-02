@@ -1,5 +1,4 @@
 import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
-import { FindDashboardsRequest } from '@/api/dashboards/dashboards.schema';
 import { useUser } from '@/contexts/AuthProvider';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
