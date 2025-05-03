@@ -5,12 +5,27 @@
   max-height: calc(100vh - 100px);
   overflow-y: auto;
 
+  @include s.mq-md() {
+    padding-right: 194px;
+  }
+
+  @include s.mq-lg() {
+    padding-right: 204px;
+  }
+
   .cardHeader {
     position: sticky;
     top: 0;
     background-color: s.$color-white;
     padding-bottom: 8px;
     z-index: 100;
+
+    @include s.mq-sm() {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      margin-right: -194px;
+    }
 
     .btnWrap {
       position: relative;
@@ -46,7 +61,11 @@
         border: 1px solid s.$color-gray-D9D9D9;
         border-radius: 6px;
         background-color: s.$color-white;
-        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+
+        @include s.mq-md() {
+          right: 32px;
+        }
 
         button {
           padding: 4px 0;
@@ -75,6 +94,16 @@
     border-radius: 8px;
     border: 1px solid s.$color-gray-D9D9D9;
 
+    @include s.mq-md() {
+      padding: 14px 16px;
+      position: absolute;
+      top: 56px;
+      right: 0;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 181px;
+    }
+
     .meta {
       flex: 1;
       display: flex;
@@ -92,6 +121,10 @@
         margin-top: 5px;
         @include s.text-style('xs', 400);
         white-space: nowrap;
+
+        @include s.mq-md() {
+          @include s.text-style('md', 400);
+        }
 
         img {
           width: 24px;
@@ -153,6 +186,10 @@
   .description {
     margin-top: 16px;
     @include s.text-style('xs', 400, s.$color-black);
+
+    @include s.mq-md() {
+      @include s.text-style('md', 400, s.$color-black);
+    }
   }
 
   .imgWrap {
@@ -161,6 +198,14 @@
     width: 100%;
     max-height: 400px;
     aspect-ratio: 4/3;
+
+    @include s.mq-md() {
+      margin-top: 16px;
+    }
+
+    @include s.mq-md() {
+      margin-top: 8px;
+    }
 
     img {
       width: 100%;

@@ -22,7 +22,9 @@ function Comment({ comment }: comment) {
   const pad = (n: number) => String(n).padStart(2, '0');
 
   const date = new Date(comment.createdAt);
-  const dateFormat = `${date.getFullYear()}.${pad(date.getMonth() + 1)}.${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  const dateFormat = `${date.getUTCFullYear()}.${pad(date.getUTCMonth() + 1)}.${pad(date.getUTCDate())} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
+  console.log(comment.createdAt);
+  console.log(dateFormat);
 
   return (
     <div className={cn(styles.commentWrap)}>
