@@ -6,6 +6,8 @@ import { useColumnsQuery } from '@/api/columns/columns.query';
 import { useUpdateCardMutation } from '@/api/cards/cards.query';
 import dynamic from 'next/dynamic';
 import { UpdateCardRequest } from '@/api/cards/cards.schema';
+import CreateColumnModal from '@/components/modal/CreateColumnModal';
+import { useState } from 'react';
 
 export default function DashBoard() {
   const router = useRouter();
@@ -13,6 +15,9 @@ export default function DashBoard() {
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
   const { data, isLoading, isError } = useColumnsQuery(dashboardId);
   const updateCardMutation = useUpdateCardMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => setIsModalOpen(false);
 
   const ClientOnlyDndProvider = dynamic(() => import('./components/ClientOnlyDndProvider'), {
     ssr: false,
@@ -24,6 +29,7 @@ export default function DashBoard() {
 
   const openAddColumnModal = () => {
     console.log(`컬럼 추가 모달 - 대시보드 ID : ${id}`);
+    setIsModalOpen(true); //모달열기
   };
 
   if (!dashboardId) return <div>잘못된 접근입니다.</div>;
@@ -52,6 +58,7 @@ export default function DashBoard() {
               </div>
             </div>
           </ClientOnlyDndProvider>
+          {isModalOpen && <CreateColumnModal boardId={dashboardId} onClose={closeModal} />}
         </div>
       </>
     );

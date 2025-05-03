@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './styles/mypage.module.scss';
 import PasswordCheck from './passwordCheck';
 import ProfileCheck from './profileCheck';
-import type { GetMyInfoResponse } from '@/api/auth/auth.schema';
+import type { GetMyInfoResponse } from '@/api/users/users.schema';
 import axios from 'axios';
 
 export default function MyPage() {
@@ -14,14 +14,6 @@ export default function MyPage() {
   const [myInfo, setMyInfo] = useState<GetMyInfoResponse | null>(null);
 
   useEffect(() => {
-    //const token = localStorage.getItem('accessToken');
-
-    // if (!token) {
-    //   alert('로그인이 필요합니다.');
-    //   window.location.href = '/login';
-    //   return;
-    // }
-
     async function fetchMyInfo() {
       try {
         const accessToken = localStorage.getItem('accessToken');
@@ -34,24 +26,10 @@ export default function MyPage() {
         });
         setMyInfo(response.data);
       } catch (error) {
-        setMyInfo({ message: '정보를 불러오는 데 실패했습니다.' });
         console.log('에러', error);
       }
     }
     fetchMyInfo();
-
-    const fetchUser = async () => {
-      //   try {
-      //     const res = await axiosInstance.get('/api/user/me');
-      //     setUser(res.data);
-      //   } catch (error) {
-      //     console.error('유저 정보 불러오기 실패', error);
-      //     alert('세션이 만료되었거나 잘못된 접근입니다.');
-      //     window.location.href = '/login';
-      //   }
-    };
-
-    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -75,9 +53,9 @@ export default function MyPage() {
         </button>
       </div>
       <ProfileCheck
-        email={myInfo?.email}
-        imgUrl={myInfo?.profileImageUrl}
-        nickname={myInfo?.nickname}
+        email={myInfo?.email as string}
+        imgUrl={myInfo?.profileImageUrl as string}
+        nickname={myInfo?.nickname as string}
       />
       <PasswordCheck />
       {/* <p>이메일: {user.email}</p>

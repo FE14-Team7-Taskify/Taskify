@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react';
 import styles from './styles/mypage.module.scss';
 import { usePasswordChange } from './passwordChange';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
+import Button from '@/components/common/button/myPageButton/MypageButton';
+import Input from '@/components/common/Input';
+import buttonStyles from '@/components/common/button/myPageButton/myPageButton.module.scss';
+import CreateColumnModal from '@/components/modal/CreateColumnModal';
 
 export default function PasswordCheck() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -76,10 +78,12 @@ export default function PasswordCheck() {
           <Button
             onClick={handleSubmit}
             disabled={!isFormValid}
-            text="변경"
-            className={`${styles.saveChangeButton} ${isFormValid ? styles.saveChangeButtonActive : ''}`}
-          />
+            className={`${buttonStyles.saveChangeButton} ${isFormValid ? buttonStyles.saveChangeButtonActive : ''}`}
+          >
+            변경
+          </Button>
         </div>
+        <CreateColumnModal />
       </div>
     </div>
   );

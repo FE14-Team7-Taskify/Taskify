@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useProfileChange } from './profileChange';
 import styles from './styles/mypage.module.scss';
+import buttonStyles from '@/components/common/button/myPageButton/myPageButton.module.scss';
 import axios from 'axios';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
+import Button from '@/components/common/button/myPageButton/MypageButton';
+import Input from '@/components/common/Input';
 
 type ProfileChackProps = {
   email: string;
@@ -88,11 +89,9 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             style={{ display: 'none' }}
           />
           <button className={styles.profileButton} onClick={handleClick}>
-            <img
-              src={previewUrl}
-              alt="이미지 미리보기"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+            {previewUrl?.trim().startsWith('http') && (
+              <img src={previewUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            )}
           </button>
         </div>
         <div className={styles.profileTextBox}>
@@ -120,7 +119,9 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
               />
             </div>
           </form>
-          <Button onClick={handleChangeProfile} className={styles.saveButton} text="저장" />
+          <Button onClick={handleChangeProfile} className={buttonStyles.saveButton}>
+            저장
+          </Button>
         </div>
       </div>
     </div>
