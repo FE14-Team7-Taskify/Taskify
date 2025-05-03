@@ -54,38 +54,33 @@ export default function Signup() {
     }
   }
 
-  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
-    setAgreed(e.target.checked);
+  function validateField(name: string, value: string) {
+    switch (name) {
+      case 'email':
+        return emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요';
+      case 'nickname':
+        return value.length <= 10 ? '' : '10자 이하로 작성해주세요';
+      case 'password':
+        return value.length >= 8 ? '' : '8자 이상 입력해주세요';
+      case 'confirmPassword':
+        return value === values.password ? '' : '비밀번호가 일치하지 않습니다';
+      default:
+        return '';
+    }
   }
 
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
+    if (name === 'confirmPassword') setConfirmPasswordTouched(true);
 
-    if (name === 'email') {
-      setErrors((prev) => ({
-        ...prev,
-        email: emailRegex.test(value) ? '' : '이메일 형식으로 입력해주세요',
-      }));
-    }
-    if (name === 'nickname') {
-      setErrors((prev) => ({
-        ...prev,
-        nickname: value.length <= 10 ? '' : '10자 이하로 입력해주세요',
-      }));
-    }
-    if (name === 'password') {
-      setErrors((prev) => ({
-        ...prev,
-        password: value.length >= 8 ? '' : '8자 이상 입력해주세요',
-      }));
-    }
-    if (name === 'confirmPassword') {
-      setConfirmPasswordTouched(true);
-      setErrors((prev) => ({
-        ...prev,
-        confirmPassword: value === values.password ? '' : '비밀번호가 일치하지 않습니다',
-      }));
-    }
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
+  }
+
+  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    setAgreed(e.target.checked);
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {

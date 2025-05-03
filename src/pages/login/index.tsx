@@ -16,6 +16,7 @@ export default function Login() {
     email: '',
     password: '',
   });
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const loginMutation = useLoginMutation();
   const { close, overlay } = useOverlay();
 
@@ -33,22 +34,22 @@ export default function Login() {
     }));
   }
 
+  function validateField(name: string, value: string) {
+    switch (name) {
+      case 'email':
+        return emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요';
+      case 'password':
+        return value.length >= 8 ? '' : '8자 이상 작성해주세요';
+    }
+  }
+
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
 
-    if (name === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      setErrors((prev) => ({
-        ...prev,
-        email: emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요',
-      }));
-    }
-    if (name === 'password') {
-      setErrors((prev) => ({
-        ...prev,
-        password: value.length >= 8 ? '' : '8자 이상 작성해주세요',
-      }));
-    }
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
