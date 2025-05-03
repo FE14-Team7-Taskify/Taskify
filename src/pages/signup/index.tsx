@@ -22,7 +22,7 @@ export default function Signup() {
     confirmPassword: '',
   });
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false); // ✅ 추가
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const signupMutation = useCreateUserMutation();
   const { close, overlay } = useOverlay();
