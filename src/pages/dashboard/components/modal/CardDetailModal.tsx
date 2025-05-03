@@ -28,6 +28,8 @@ function CardDetailModal({ cardId, column }: Props) {
   if (isLoading) return <div>Loading..</div>;
   if (error || !data) return <div>에러</div>;
 
+  console.log(data);
+
   const handleEditCard = () => {
     console.log('할 일 카드 수정 모달');
   };

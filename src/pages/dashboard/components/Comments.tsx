@@ -23,8 +23,6 @@ function Comment({ comment }: comment) {
 
   const date = new Date(comment.createdAt);
   const dateFormat = `${date.getUTCFullYear()}.${pad(date.getUTCMonth() + 1)}.${pad(date.getUTCDate())} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
-  console.log(comment.createdAt);
-  console.log(dateFormat);
 
   return (
     <div className={cn(styles.commentWrap)}>
@@ -46,8 +44,6 @@ function Comment({ comment }: comment) {
 
 function Comments({ cardId, columnId, dashboardId }: comments) {
   const { data } = useCommentsQuery({ cardId });
-
-  console.log(data?.comments);
 
   return (
     <div className={cn(styles.commentArea)}>

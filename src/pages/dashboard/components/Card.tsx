@@ -43,10 +43,9 @@ function Card({ card, column, isPreview = false }: CardProps) {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
 
-  // 모달 연결 (예정)
+  // 할 일 카드 모달
   const handleCardClick = () => {
     if (isPreview) return;
-    console.log(`할 일 카드 상세 모달 - 카드 ID : ${card.id}`);
     overlay(<CardDetailModal cardId={card.id} column={column} />);
   };
 
