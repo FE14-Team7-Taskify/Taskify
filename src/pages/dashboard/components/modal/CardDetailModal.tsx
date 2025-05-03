@@ -29,11 +29,8 @@ function CardDetailModal({ cardId, column }: Props) {
   if (isLoading) return <div>Loading..</div>;
   if (error || !data) return <div>에러</div>;
 
-<<<<<<< HEAD
   console.log(data);
 
-=======
->>>>>>> 4b2999d (TAS-58 : 카드 삭제 기능 추가)
   const handleEditCard = () => {
     overlay(<CardUpdateModal {...{ dashboardId, ...data }} />);
   };
