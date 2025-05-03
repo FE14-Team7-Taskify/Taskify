@@ -5,6 +5,7 @@
   max-height: calc(100vh - 100px);
   overflow-y: auto;
 
+<<<<<<< HEAD
   @include s.mq-md() {
     padding-right: 194px;
   }
@@ -13,6 +14,8 @@
     padding-right: 204px;
   }
 
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
   .cardHeader {
     position: sticky;
     top: 0;
@@ -20,6 +23,7 @@
     padding-bottom: 8px;
     z-index: 100;
 
+<<<<<<< HEAD
     @include s.mq-sm() {
       display: flex;
       flex-direction: row-reverse;
@@ -27,6 +31,8 @@
       margin-right: -194px;
     }
 
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
     .btnWrap {
       position: relative;
       display: flex;
@@ -61,11 +67,15 @@
         border: 1px solid s.$color-gray-D9D9D9;
         border-radius: 6px;
         background-color: s.$color-white;
+<<<<<<< HEAD
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
 
         @include s.mq-md() {
           right: 32px;
         }
+=======
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
 
         button {
           padding: 4px 0;
@@ -94,6 +104,7 @@
     border-radius: 8px;
     border: 1px solid s.$color-gray-D9D9D9;
 
+<<<<<<< HEAD
     @include s.mq-md() {
       padding: 14px 16px;
       position: absolute;
@@ -104,6 +115,8 @@
       min-width: 181px;
     }
 
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
     .meta {
       flex: 1;
       display: flex;
@@ -122,10 +135,13 @@
         @include s.text-style('xs', 400);
         white-space: nowrap;
 
+<<<<<<< HEAD
         @include s.mq-md() {
           @include s.text-style('md', 400);
         }
 
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
         img {
           width: 24px;
           height: 24px;
@@ -186,10 +202,13 @@
   .description {
     margin-top: 16px;
     @include s.text-style('xs', 400, s.$color-black);
+<<<<<<< HEAD
 
     @include s.mq-md() {
       @include s.text-style('md', 400, s.$color-black);
     }
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
   }
 
   .imgWrap {
@@ -199,6 +218,7 @@
     max-height: 400px;
     aspect-ratio: 4/3;
 
+<<<<<<< HEAD
     @include s.mq-md() {
       margin-top: 16px;
     }
@@ -207,6 +227,8 @@
       margin-top: 8px;
     }
 
+=======
+>>>>>>> 1f84514 (TAS-56: 할 일 카드 UI 구현)
     img {
       width: 100%;
       height: auto;
