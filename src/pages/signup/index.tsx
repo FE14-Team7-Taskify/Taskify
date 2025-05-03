@@ -3,6 +3,10 @@ import styles from './styles/signup.module.scss';
 import Image from 'next/image';
 import InputForm from './components/InputForm';
 import Link from 'next/link';
+import { useCreateUserMutation } from '@/api/users/users.query';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import OneButtonModal from '@/components/modal/OneButtonModal';
+import { useRouter } from 'next/router';
 
 export default function Signup() {
   const [values, setValues] = useState({
@@ -18,9 +22,11 @@ export default function Signup() {
     confirmPassword: '',
   });
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false); // ✅ 추가
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
   const [agreed, setAgreed] = useState(false);
-
+  const signupMutation = useCreateUserMutation();
+  const { close, overlay } = useOverlay();
+  const router = useRouter();
   function isFormValid() {
     return (
       values.email !== '' &&
@@ -48,45 +54,56 @@ export default function Signup() {
     }
   }
 
-  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
-    setAgreed(e.target.checked);
+  function validateField(name: string, value: string) {
+    switch (name) {
+      case 'email':
+        return emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요';
+      case 'nickname':
+        return value.length <= 10 ? '' : '10자 이하로 작성해주세요';
+      case 'password':
+        return value.length >= 8 ? '' : '8자 이상 입력해주세요';
+      case 'confirmPassword':
+        return value === values.password ? '' : '비밀번호가 일치하지 않습니다';
+      default:
+        return '';
+    }
   }
 
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
+    if (name === 'confirmPassword') setConfirmPasswordTouched(true);
 
-    if (name === 'email') {
-      setErrors((prev) => ({
-        ...prev,
-        email: emailRegex.test(value) ? '' : '이메일 형식으로 입력해주세요',
-      }));
-    }
-    if (name === 'nickname') {
-      setErrors((prev) => ({
-        ...prev,
-        nickname: value.length <= 10 ? '' : '10자 이하로 입력해주세요',
-      }));
-    }
-    if (name === 'password') {
-      setErrors((prev) => ({
-        ...prev,
-        password: value.length >= 8 ? '' : '8자 이상 입력해주세요',
-      }));
-    }
-    if (name === 'confirmPassword') {
-      setConfirmPasswordTouched(true);
-      setErrors((prev) => ({
-        ...prev,
-        confirmPassword: value === values.password ? '' : '비밀번호가 일치하지 않습니다',
-      }));
-    }
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
+  }
+
+  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    setAgreed(e.target.checked);
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isFormValid()) return;
-    // 임시(추후 변경 예정)
-    alert('가입 성공!');
+
+    signupMutation.mutate(
+      { email: values.email, nickname: values.nickname, password: values.password },
+      {
+        onSuccess: () =>
+          overlay(
+            <OneButtonModal
+              onClose={() => {
+                close();
+                router.push('/login');
+              }}
+              message="가입이 완료되었습니다!"
+            />,
+          ),
+        onError: () =>
+          overlay(<OneButtonModal onClose={close} message="이미 사용중인 이메일입니다." />),
+      },
+    );
   }
 
   return (

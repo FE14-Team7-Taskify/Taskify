@@ -1,5 +1,4 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
 import {
   CreateUserRequest,
   CreateUserResponse,
@@ -30,12 +29,8 @@ export const useMyInfoQuery = () => {
  * 회원가입 뮤테이션
  */
 export const useCreateUserMutation = () => {
-  const router = useRouter();
   return useMutation<CreateUserResponse, Error, CreateUserRequest>({
     mutationFn: (body) => usersService.createUser(body).then((res) => res.data),
-    onSuccess: () => {
-      router.push('/login');
-    },
   });
 };
 /**
