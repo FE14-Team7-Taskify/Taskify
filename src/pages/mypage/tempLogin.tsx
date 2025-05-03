@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const TempLogin = () => {
   const router = useRouter();
-  const { mutate, isPending, isSuccess, isError, error, data } = useLoginMutation();
+  const { mutate, isPending, isError, error } = useLoginMutation();
 
   const handleLogin = () => {
     mutate(
