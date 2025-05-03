@@ -1,4 +1,4 @@
-import { useCardDetailQuery } from '@/api/cards/cards.query';
+import { useCardDetailQuery, useDeleteCardMutation } from '@/api/cards/cards.query';
 import ModalWrapper from '@/components/modal/ModalWrapper';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import React, { useState } from 'react';
@@ -21,11 +21,26 @@ function CardDetailModal({ cardId, column }: Props) {
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
   const { close } = useOverlay();
   const { data, isLoading, error } = useCardDetailQuery(cardId);
+  const mutation = useDeleteCardMutation();
 
   const [kebabOpen, setKebabOpen] = useState(false);
 
   if (isLoading) return <div>Loading..</div>;
   if (error || !data) return <div>에러</div>;
+
+  const handleEditCard = () => {
+    console.log('할 일 카드 수정 모달');
+  };
+
+  const handleDeleteCard = () => {
+    mutation.mutate(cardId, {
+      onSuccess: () => {
+        close();
+        alert('카드가 삭제되었습니다.');
+      },
+    });
+  };
+
   return (
     <ModalWrapper>
       <div className={cn(styles.cardDetail)}>
@@ -37,8 +52,8 @@ function CardDetailModal({ cardId, column }: Props) {
             ></button>
             {kebabOpen && (
               <div className={cn(styles.dropdown)}>
-                <button>수정하기</button>
-                <button>삭제하기</button>
+                <button onClick={handleEditCard}>수정하기</button>
+                <button onClick={handleDeleteCard}>삭제하기</button>
               </div>
             )}
             <button className={cn(styles.iconBtn, styles.closeBtn)} onClick={close}></button>
