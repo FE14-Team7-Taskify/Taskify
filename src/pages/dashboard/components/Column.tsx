@@ -93,7 +93,7 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
               </span>
             </button>
             {allCards.map((card) => (
-              <Card key={card.id} card={card} />
+              <Card key={card.id} card={card} column={column} />
             ))}
             <div ref={ref}>{isFetchingNextPage ? '불러오는 중...' : ''}</div>
           </div>
