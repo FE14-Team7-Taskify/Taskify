@@ -1,7 +1,7 @@
 import TwoButtonModal from './TwoButtonModal';
 import Input from '../common/Input';
-import { useState } from 'react';
-import { useCreateColumnMutation } from '@/api/columns/columns.query';
+import { useEffect, useState } from 'react';
+import { useColumnsQuery, useCreateColumnMutation } from '@/api/columns/columns.query';
 
 type CreacteColumnProps = {
   boardId: number;
@@ -10,24 +10,35 @@ type CreacteColumnProps = {
 
 export default function CreateColumnModal({ boardId, onClose }: CreacteColumnProps) {
   const createColumnMutation = useCreateColumnMutation(boardId);
+  const columnListMutation = useColumnsQuery(boardId);
   const [columTitle, setColumnTitle] = useState('');
 
   function handleCreateColumn() {
-    createColumnMutation.mutate(
-      {
-        title: columTitle,
-        dashboardId: boardId,
-      },
-      {
-        onSuccess: () => {
-          alert('컬럼이 생성되었습니다.');
+    const columnLength = columnListMutation.data?.data.length;
+    if ((columnLength ?? 0) < 10) {
+      createColumnMutation.mutate(
+        {
+          title: columTitle,
+          dashboardId: boardId,
         },
-        onError: () => {
-          alert('컬럼 생성 실패');
+        {
+          onSuccess: () => {
+            alert('컬럼이 생성되었습니다.');
+          },
+          onError: () => {
+            alert('컬럼 생성 실패');
+          },
         },
-      },
-    );
+      );
+    } else {
+      alert('컬럼이 10개입니다! 삭제 후 생성 요망!');
+    }
   }
+
+  useEffect(() => {
+    console.log('컬럼리스트!:', columnListMutation.data?.data.length);
+    console.log('컬럼리스트!:', columnListMutation.data?.data);
+  });
 
   return (
     <TwoButtonModal
