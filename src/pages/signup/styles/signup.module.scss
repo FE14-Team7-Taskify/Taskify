@@ -40,3 +40,10 @@
   color: s.$color-violet_5534DA;
   text-decoration: underline;
 }
+
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
