@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/dashboard.module.scss';
 import { ColumnType } from '../type';
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import { useDrop } from 'react-dnd';
 import { UpdateCardRequest } from '@/api/cards/cards.schema';
 import { cn, cond } from '@/styles/util/stylesUtil';
+import ManageColumnModal from '@/components/modal/ManageColumnModal';
 
 interface Props {
   column: ColumnType;
@@ -16,6 +17,10 @@ interface Props {
 }
 
 function Column({ column, dashboardId, onCardDrop }: Props) {
+  const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
+
+  const closeModal = () => setIsColumnModalOpen(false);
+
   // Drag and Drop
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: 'card',
@@ -50,6 +55,7 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
   // 모달 연결 (예정)
   const openEditColumnModal = () => {
     console.log(`컬럼 수정 모달 - 컬럼 ID : ${column.id}`);
+    setIsColumnModalOpen(true); //모달열기
   };
 
   const openAddCardModal = () => {
@@ -97,6 +103,13 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
             ))}
             <div ref={ref}>{isFetchingNextPage ? '불러오는 중...' : ''}</div>
           </div>
+          {isColumnModalOpen && (
+            <ManageColumnModal
+              boardId={Number(dashboardId)}
+              colId={column.id}
+              onClose={closeModal}
+            />
+          )}
         </div>
       );
     }

@@ -15,9 +15,9 @@ export default function DashBoard() {
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
   const { data, isLoading, isError } = useColumnsQuery(dashboardId);
   const updateCardMutation = useUpdateCardMutation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateColumnModalOpen, setIsCreateColumnModalOpen] = useState(false);
 
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => setIsCreateColumnModalOpen(false);
 
   const ClientOnlyDndProvider = dynamic(() => import('./components/ClientOnlyDndProvider'), {
     ssr: false,
@@ -29,7 +29,7 @@ export default function DashBoard() {
 
   const openAddColumnModal = () => {
     console.log(`컬럼 추가 모달 - 대시보드 ID : ${id}`);
-    setIsModalOpen(true); //모달열기
+    setIsCreateColumnModalOpen(true); //모달열기
   };
 
   if (!dashboardId) return <div>잘못된 접근입니다.</div>;
@@ -58,7 +58,9 @@ export default function DashBoard() {
               </div>
             </div>
           </ClientOnlyDndProvider>
-          {isModalOpen && <CreateColumnModal boardId={dashboardId} onClose={closeModal} />}
+          {isCreateColumnModalOpen && (
+            <CreateColumnModal boardId={dashboardId} onClose={closeModal} />
+          )}
         </div>
       </>
     );
