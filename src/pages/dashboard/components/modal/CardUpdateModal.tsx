@@ -4,13 +4,13 @@ import { useUploadColumnImageMutation } from '@/api/columns/columns.query';
 import TwoButtonModal from '@/components/modal/TwoButtonModal';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import { useState } from 'react';
+import styles from '../../styles/modal.module.scss';
+import ColumnDropdown from './dropdown/ColumnDropdown';
+import UserDropdown from './dropdown/UserDropdown';
 import DatetimePicker from './inputs/DatetimePicker';
 import ImageInput from './inputs/ImageInput';
 import TagInput from './inputs/TagInput';
 import TextFields from './inputs/TextFields';
-import styles from './modal.module.scss';
-import UserDropdown from './dropdown/UserDropdown';
-import ColumnDropdown from './dropdown/ColumnDropdown';
 
 interface CardUpdateModalProps extends CardType {
   dashboardId: number;
@@ -19,6 +19,7 @@ interface CardUpdateModalProps extends CardType {
 export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModalProps) {
   const [file, setFile] = useState<File>();
   const [formValue, setFormValue] = useState(card);
+  const [isImageChanged, setIsImageChanged] = useState(false);
 
   const { close } = useOverlay();
   const imageMutate = useUploadColumnImageMutation();
@@ -47,7 +48,7 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => close() });
     }
   }
-  const updateBtnDisabled = JSON.stringify(card) === JSON.stringify(formValue);
+  const updateBtnDisabled = JSON.stringify(card) === JSON.stringify(formValue) && !isImageChanged;
   return (
     <TwoButtonModal
       className={styles.cardUpdateModal}
@@ -82,7 +83,13 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
           onChangeDate={(dueDate) => setFormValue({ ...formValue, dueDate })}
         />
         <TagInput tags={formValue.tags} setTags={(tags) => setFormValue({ ...formValue, tags })} />
-        <ImageInput imageUrl={formValue.imageUrl} setFile={setFile} />
+        <ImageInput
+          imageUrl={formValue.imageUrl}
+          setFile={(file) => {
+            setFile(file);
+            !!file && setIsImageChanged(true);
+          }}
+        />
       </div>
     </TwoButtonModal>
   );

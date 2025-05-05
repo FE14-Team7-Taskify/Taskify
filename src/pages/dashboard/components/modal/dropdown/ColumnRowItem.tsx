@@ -1,5 +1,5 @@
 import { cn, cond } from '@/styles/util/stylesUtil';
-import styles from '../modal.module.scss';
+import styles from '../../../styles/modal.module.scss';
 import { ColumnType } from './ColumnDropdown';
 
 interface ColumnRowItemProps extends ColumnType {

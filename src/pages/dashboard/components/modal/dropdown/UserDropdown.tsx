@@ -2,7 +2,7 @@ import { useDashboardMembersQuery } from '@/api/members/members.query';
 import { MemberType } from '@/api/members/members.schema';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import { useEffect, useRef, useState } from 'react';
-import styles from '../modal.module.scss';
+import styles from '../../../styles/modal.module.scss';
 import UserRowItem from './UserRowItem';
 
 export type AssigneeType = {

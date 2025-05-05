@@ -1,7 +1,7 @@
 import { cn } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
-import styles from '../modal.module.scss';
+import styles from '../../../styles/modal.module.scss';
 
 export default function TagInput({
   tags = [],
@@ -33,10 +33,10 @@ export default function TagInput({
           ))}
           <input
             value={value}
-            onChange={(e) => setValue((e.target as HTMLInputElement).value)}
             id="tag-input"
-            onKeyDown={handleEnter}
             placeholder={tags.length > 0 ? '' : '입력 후 Enter'}
+            onChange={(e) => setValue((e.target as HTMLInputElement).value)}
+            onKeyDown={handleEnter}
           />
         </div>
       </div>
