@@ -10,8 +10,8 @@
   font-size: 2rem;
   color: #4b5563;
   cursor: pointer;
+  margin-left: 20px;
 
-  // 텍스트 hover 시 밑줄
   .text {
     text-decoration: none;
     transition: text-decoration 0.2s;
@@ -34,7 +34,10 @@
   background-color: #ffffff;
   max-width: 600px;
   padding: 50px;
-  margin-left: 160px;
+  margin-left: 15px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profileButton {
@@ -60,12 +63,19 @@
   &:active {
     transform: scale(0.98);
   }
+  @media (max-width: 767px) {
+    margin-left: 20px;
+  }
 }
 
 .rowWrapper {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    margin-left: -50px;
+  }
 }
 .formBox {
   display: flex; // 이게 중요!
@@ -83,7 +93,7 @@
 
 .passwordBox {
   margin-top: 50px;
-  margin-left: 160px;
+  margin-left: 15px;
   background-color: #ffffff;
   max-width: 600px;
   padding: 50px;
@@ -97,6 +107,9 @@
 
 .passwordInputBox {
   margin-top: -30px;
+  @media (max-width: 767px) {
+    margin-left: -20px;
+  }
 }
 .inputBox {
   border: 1px solid #ccc;

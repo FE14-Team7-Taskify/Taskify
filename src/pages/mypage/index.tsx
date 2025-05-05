@@ -7,11 +7,11 @@ import PasswordCheck from './passwordCheck';
 import ProfileCheck from './profileCheck';
 import type { GetMyInfoResponse } from '@/api/users/users.schema';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function MyPage() {
-  // const [user, setUser] = useState(null);
-  //const fileInputRef = useRef(null);
   const [myInfo, setMyInfo] = useState<GetMyInfoResponse | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchMyInfo() {
@@ -41,7 +41,7 @@ export default function MyPage() {
   return (
     <div style={{ backgroundColor: '#FAFAFA', minHeight: '100vh' }}>
       <div>
-        <button className={styles.backButton}>
+        <button className={styles.backButton} onClick={() => router.back()}>
           <Image
             src="/icon/arrow_right.svg"
             width={16}
