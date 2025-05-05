@@ -1,5 +1,39 @@
 @use '@/styles/index.scss' as *;
 
+.dateInputWrapper {
+  .dateInput {
+    position: relative;
+    padding-left: 46px !important;
+    background-image: url('../../../../../public/icon/calendar.svg');
+    background-size: 22px;
+    background-position: 16px;
+    background-repeat: no-repeat;
+    color: transparent;
+  }
+  input[type='datetime-local']:focus::before,
+  input[type='datetime-local']:valid::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    inset: 16px 46px;
+    color: $color-gray-9FA6B2;
+  }
+  input[type='datetime-local']::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+  }
+  .dateInputActive {
+    background-image: url('../../../../../public/icon/calendar_active.svg');
+    color: inherit;
+  }
+  .dateInputActive::before {
+    display: none !important;
+  }
+}
 .tagInputWrapper {
   .tagInput {
     @include flexbox(start);
