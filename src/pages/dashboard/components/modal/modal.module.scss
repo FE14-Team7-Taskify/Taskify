@@ -1,5 +1,53 @@
 @use '@/styles/index.scss' as *;
 
+.cardUpdateModal {
+  padding: 24px 16px !important;
+  gap: 32px !important;
+  @include mq-md {
+    padding: 32px !important;
+  }
+  > .modalContent {
+    @include gridbox(stretch);
+    gap: 32px;
+    max-height: calc(100vh - 192px - 20px);
+    overflow-y: scroll;
+  }
+}
+
+.inputWrapper {
+  @include gridbox(stretch);
+  gap: 8px;
+  * {
+    @include text-style('md');
+    @include mq-md {
+      @include text-style('2lg');
+    }
+  }
+  label {
+    font-weight: 500;
+  }
+  label.essential::after {
+    content: '*';
+    color: $color-violet-5534DA;
+    padding-left: 2px;
+  }
+  > input:not(input[type='file']),
+  > textarea,
+  .tagInput {
+    width: 100%;
+    padding: 15px 16px;
+    border-radius: 8px;
+    border: 1px solid $color-gray-D9D9D9;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: $color-gray-9FA6B2;
+  }
+  > textarea {
+    height: 126px;
+    resize: none;
+  }
+}
 .dateInputWrapper {
   .dateInput {
     position: relative;
