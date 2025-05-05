@@ -49,6 +49,12 @@
       @include s.text-style('xs', 500, s.$color-violet-5534DA);
       background: s.$color-white;
 
+      &:disabled {
+        color: s.$color-white;
+        background-color: s.$color-gray-D9D9D9;
+        cursor: default;
+      }
+
       @include s.mq-md() {
         right: 11px;
         bottom: 20px;
