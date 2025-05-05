@@ -9,8 +9,13 @@ import ImageInput from './inputs/ImageInput';
 import TagInput from './inputs/TagInput';
 import TextFields from './inputs/TextFields';
 import styles from './modal.module.scss';
+import UserDropdown from './dropdown/UserDropdown';
 
-export default function CardUpdateModal(card: CardType) {
+interface CardUpdateModalProps extends CardType {
+  dashboardId: number;
+}
+
+export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModalProps) {
   const [file, setFile] = useState<File>();
   const [formValue, setFormValue] = useState(card);
 
@@ -35,7 +40,7 @@ export default function CardUpdateModal(card: CardType) {
     if (card.assignee) {
       const { assignee, createdAt, id, updatedAt, ...reqBody } = {
         ...formValue,
-        assigneeUserId: card.assignee.id,
+        assigneeUserId: formValue.assignee?.id,
         imageUrl,
       };
       updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => close() });
@@ -54,6 +59,13 @@ export default function CardUpdateModal(card: CardType) {
       }}
     >
       <div className={styles.modalContent}>
+        <div>
+          <UserDropdown
+            dashboardId={dashboardId}
+            assignee={formValue.assignee}
+            onChangeAssignee={(assignee) => setFormValue({ ...formValue, assignee })}
+          />
+        </div>
         <TextFields
           title={formValue.title}
           description={formValue.description}
