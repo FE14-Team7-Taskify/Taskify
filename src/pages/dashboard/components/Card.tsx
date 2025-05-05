@@ -6,13 +6,17 @@ import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { CardType } from '@/api/cards/cards.schema';
 import { cn, cond } from '@/styles/util/stylesUtil';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import CardDetailModal from './modal/CardDetailModal';
+import { ColumnType } from '@/api/columns/columns.schema';
 
 interface CardProps {
   card: CardType;
+  column: ColumnType;
   isPreview?: boolean;
 }
 
-function Card({ card, isPreview = false }: CardProps) {
+function Card({ card, column, isPreview = false }: CardProps) {
   // Drag and Drop
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'card',
@@ -32,14 +36,17 @@ function Card({ card, isPreview = false }: CardProps) {
     }),
   }));
 
+  //overlay
+  const { overlay } = useOverlay();
+
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, [preview]);
 
-  // 모달 연결 (예정)
+  // 할 일 카드 모달
   const handleCardClick = () => {
     if (isPreview) return;
-    console.log(`할 일 카드 상세 모달 - 카드 ID : ${card.id}`);
+    overlay(<CardDetailModal cardId={card.id} column={column} />);
   };
 
   return (

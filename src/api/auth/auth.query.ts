@@ -2,7 +2,6 @@ import { useSetUser } from '@/contexts/AuthProvider';
 import api from '@/lib/axios';
 import { useMutation } from '@tanstack/react-query';
 import { InternalAxiosRequestConfig } from 'axios';
-import { useRouter } from 'next/navigation';
 import {
   ChangePasswordRequest,
   ChangePasswordResponse,
@@ -16,7 +15,7 @@ import { authService } from './auth.service';
  */
 export const useLoginMutation = () => {
   const setUser = useSetUser();
-  const router = useRouter();
+
   return useMutation<LoginResponse, Error, LoginRequest>({
     mutationFn: (body) => authService.login(body).then((res) => res.data),
     onSuccess: (result) => {
@@ -30,7 +29,6 @@ export const useLoginMutation = () => {
         };
         api.interceptors.request.use(requestInterceptor);
       }
-      router.push('/mydashboard');
     },
   });
 };
