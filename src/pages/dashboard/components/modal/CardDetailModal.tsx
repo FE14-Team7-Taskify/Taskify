@@ -9,6 +9,7 @@ import { ColumnType } from '../../type';
 import Tag from '../Tag';
 import Comments from '../Comments';
 import { useRouter } from 'next/router';
+import CardUpdateModal from './CardUpdateModal';
 
 interface Props {
   cardId: number;
@@ -19,7 +20,7 @@ function CardDetailModal({ cardId, column }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
-  const { close } = useOverlay();
+  const { overlay, close } = useOverlay();
   const { data, isLoading, error } = useCardDetailQuery(cardId);
   const mutation = useDeleteCardMutation();
 
@@ -31,7 +32,8 @@ function CardDetailModal({ cardId, column }: Props) {
   console.log(data);
 
   const handleEditCard = () => {
-    console.log('할 일 카드 수정 모달');
+    // console.log('할 일 카드 수정 모달');
+    overlay(<CardUpdateModal {...data} />);
   };
 
   const handleDeleteCard = () => {
@@ -67,12 +69,12 @@ function CardDetailModal({ cardId, column }: Props) {
             <span className={cn(styles.metaTitle)}>담당자</span>
             <div className={cn(styles.metaTxt)}>
               <Image
-                src={data?.assignee.profileImageUrl as string}
+                src={data?.assignee?.profileImageUrl as string}
                 width={26}
                 height={26}
                 alt="프로필"
               />
-              <span>{data?.assignee.nickname}</span>
+              <span>{data?.assignee?.nickname}</span>
             </div>
           </div>
           <div className={cn(styles.meta)}>
