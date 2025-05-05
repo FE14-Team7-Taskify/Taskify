@@ -1,0 +1,13 @@
+@use '@/styles/index.scss' as common;
+
+.pageContent {
+  margin-top: 70px;
+  margin-left: 67px;
+  height: 100vh;
+  @include common.mq-md() {
+    margin-left: 160px;
+  }
+  @include common.mq-lg() {
+    margin-left: 300px;
+  }
+}

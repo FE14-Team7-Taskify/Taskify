@@ -34,9 +34,13 @@ export function useUser() {
 
 export function useSetUser() {
   const { setUser } = useContext(AuthContext);
-  function handleSetUserData(newUser: UserType) {
+  function handleSetUserData(newUser: UserType | null | undefined) {
     setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
+    if (newUser) {
+      localStorage.setItem('user', JSON.stringify(newUser));
+    } else {
+      localStorage.removeItem('user');
+    }
   }
   return handleSetUserData;
 }
