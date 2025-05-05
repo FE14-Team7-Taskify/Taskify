@@ -22,8 +22,9 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
 
   const totalPage = Math.ceil((data?.totalCount || 10) / 10);
   const firstDashboardId = data?.dashboards?.[0]?.id;
+  const nextPathname = firstDashboardId ? `/dashboard/${firstDashboardId}` : '/mydashboard';
   function handleClickLogo() {
-    router.push(`/dashboard/${firstDashboardId}`);
+    router.push(nextPathname);
   }
 
   function handelClickCreateBtn() {
@@ -41,9 +42,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   };
 
   useEffect(() => {
-    const isPublicPage = pathname === '/' || pathname === '/login' || pathname === '/signup';
-    if (isSuccess && isPublicPage && firstDashboardId)
-      router.replace(`/dashboard/${firstDashboardId}`);
+    if (isSuccess && pathname === '/') router.replace(nextPathname);
   }, [pathname, isSuccess, data, router]);
 
   return (
@@ -96,7 +95,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
                 ))}
             </div>
             <div className={styles.cardPagination}>
-              {isSuccess && (
+              {isSuccess && !!data.dashboards.length && (
                 <Pagination totalPage={totalPage} currentPage={page} setPage={setPage} />
               )}
             </div>
