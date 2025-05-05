@@ -1,7 +1,7 @@
 import { cn, cond } from '@/styles/util/stylesUtil';
+import Image from 'next/image';
 import styles from '../modal.module.scss';
 import { AssigneeType } from './UserDropdown';
-import Image from 'next/image';
 
 interface UserRowItemProps {
   id: number;

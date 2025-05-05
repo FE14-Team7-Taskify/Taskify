@@ -14,6 +14,18 @@
     @include mq-md {
       max-height: calc(100vh - 150px - 62px - 40px);
     }
+    > .dropdownsRow {
+      @include flexbox(stretch);
+      flex-direction: column;
+      @include mq-md {
+        justify-content: space-evenly;
+        flex-direction: row;
+        gap: 32px;
+      }
+      > * {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -25,6 +37,21 @@
       flex-grow: 1;
       gap: 6px;
       cursor: pointer;
+      > .columnChip {
+        @include flexbox(start);
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 16px;
+        background-color: $color-violet-8;
+        color: $color-violet-5534DA;
+      }
+      > .columnChip::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background-color: $color-violet-5534DA;
+        border-radius: 100%;
+      }
       > .profileImageWrapper {
         overflow: hidden;
         width: 26px;
