@@ -66,17 +66,21 @@
     }
     > .dropdownInputWrapper {
       @include flexbox(stretch);
-      padding: 15px 16px;
+      height: 48px;
+      padding: 0 16px;
       border-radius: 8px;
       border: 1px solid $color-gray-D9D9D9;
       > input {
         width: 100%;
-        @include text-style('lg');
+        @include text-style('md');
+        @include mq-md {
+          @include text-style('lg');
+        }
       }
       > .inputArrow {
         width: 26px;
         height: 26px;
-        background-image: url('../../../../../public/icon/arrow_drop_down.svg');
+        background-image: url('../../../../public/icon/arrow_drop_down.svg');
         background-size: contain;
         background-position: center;
       }
@@ -105,7 +109,7 @@
         background-color: $color-gray-FAFAFA;
       }
       > .rowActive {
-        background-image: url('../../../../../public/icon/check.svg');
+        background-image: url('../../../../public/icon/check.svg');
         background-repeat: no-repeat;
         background-size: 22px;
         background-position: 16px;
@@ -119,7 +123,7 @@
   * {
     @include text-style('md');
     @include mq-md {
-      @include text-style('2lg');
+      @include text-style('lg');
     }
   }
   label {
@@ -131,12 +135,14 @@
     padding-left: 2px;
   }
   > input:not(input[type='file']),
-  > textarea,
-  .tagInput {
+  > textarea {
     width: 100%;
-    padding: 15px 16px;
     border-radius: 8px;
     border: 1px solid $color-gray-D9D9D9;
+    padding: 15px 16px;
+    @include mq-md {
+      padding: 12px 16px;
+    }
   }
   input::placeholder,
   textarea::placeholder {
@@ -151,7 +157,7 @@
   .dateInput {
     position: relative;
     padding-left: 46px !important;
-    background-image: url('../../../../../public/icon/calendar.svg');
+    background-image: url('../../../../public/icon/calendar.svg');
     background-size: 22px;
     background-position: 16px;
     background-repeat: no-repeat;
@@ -174,7 +180,7 @@
     color: transparent;
   }
   .dateInputActive {
-    background-image: url('../../../../../public/icon/calendar_active.svg');
+    background-image: url('../../../../public/icon/calendar_active.svg');
     color: inherit;
   }
   .dateInputActive::before {
@@ -183,12 +189,18 @@
 }
 .tagInputWrapper {
   .tagInput {
-    @include flexbox(start);
-    gap: 10px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid $color-gray-D9D9D9;
+    padding: 15px 16px;
+    @include mq-md {
+      padding: 12px 16px;
+    }
     > .tagList {
       @include flexbox(start);
       flex-wrap: wrap;
       gap: 10px;
+      flex-shrink: 0;
       > .tagChip {
         @include text-style('xs');
         padding: 4px 6px;
@@ -225,7 +237,7 @@
       }
     }
     > input {
-      flex-shrink: 1;
+      width: 100%;
       flex-grow: 1;
     }
   }
@@ -238,7 +250,7 @@
     height: 76px;
     overflow: hidden;
     border-radius: 6px;
-    background-image: url('../../../../../public/icon/add_box_lg.svg');
+    background-image: url('../../../../public/icon/add_box_lg.svg');
     > * {
       width: 100%;
       height: 100%;
@@ -254,8 +266,20 @@
       cursor: pointer;
       opacity: 0;
     }
+    button {
+      @include flexbox();
+      overflow: hidden;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: $color-white;
+      border: 1px solid $color-gray-9FA6B2;
+      border-radius: 100%;
+    }
   }
-  .imageWrapper:hover::before {
+  .imageWrapper:has(.thumbnail):hover::before {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -263,7 +287,7 @@
     width: 76px;
     height: 76px;
     background-color: rgba($color: #000000, $alpha: 0.6);
-    background-image: url('../../../../../public/icon/edit.svg');
+    background-image: url('../../../../public/icon/edit.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 23px;

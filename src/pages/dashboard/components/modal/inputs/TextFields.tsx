@@ -1,4 +1,4 @@
-import styles from '../modal.module.scss';
+import styles from '../../../styles/modal.module.scss';
 
 export default function TextFields({
   title = '',

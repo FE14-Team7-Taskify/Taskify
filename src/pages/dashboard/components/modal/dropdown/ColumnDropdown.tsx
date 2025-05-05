@@ -1,7 +1,7 @@
 import { useColumnsQuery } from '@/api/columns/columns.query';
 import { cn, cond } from '@/styles/util/stylesUtil';
-import { useEffect, useRef, useState } from 'react';
-import styles from '../modal.module.scss';
+import { useEffect, useState } from 'react';
+import styles from '../../../styles/modal.module.scss';
 import ColumnRowItem from './ColumnRowItem';
 
 export type ColumnType = {
