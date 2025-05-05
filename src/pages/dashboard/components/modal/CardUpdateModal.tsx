@@ -10,6 +10,7 @@ import TagInput from './inputs/TagInput';
 import TextFields from './inputs/TextFields';
 import styles from './modal.module.scss';
 import UserDropdown from './dropdown/UserDropdown';
+import ColumnDropdown from './dropdown/ColumnDropdown';
 
 interface CardUpdateModalProps extends CardType {
   dashboardId: number;
@@ -59,7 +60,12 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       }}
     >
       <div className={styles.modalContent}>
-        <div>
+        <div className={styles.dropdownsRow}>
+          <ColumnDropdown
+            dashboardId={dashboardId}
+            columnId={card.columnId}
+            onChangeColumn={(columnId) => setFormValue({ ...formValue, columnId })}
+          />
           <UserDropdown
             dashboardId={dashboardId}
             assignee={formValue.assignee}
