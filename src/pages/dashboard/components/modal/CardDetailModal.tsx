@@ -10,6 +10,7 @@ import Tag from '../Tag';
 import Comments from '../Comments';
 import { useRouter } from 'next/router';
 import CardUpdateModal from './CardUpdateModal';
+import OneButtonModal from '@/components/modal/OneButtonModal';
 
 interface Props {
   cardId: number;
@@ -39,7 +40,7 @@ function CardDetailModal({ cardId, column }: Props) {
     mutation.mutate(cardId, {
       onSuccess: () => {
         close();
-        alert('카드가 삭제되었습니다.');
+        overlay(<OneButtonModal message="카드가 삭제되었습니다." onClose={close} />);
       },
     });
   };

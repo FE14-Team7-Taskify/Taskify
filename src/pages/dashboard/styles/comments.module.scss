@@ -22,6 +22,11 @@
 
   .commentForm {
     position: relative;
+
+    &.commentEdit {
+      margin-top: 6px;
+      padding-left: 46px;
+    }
     .commentInput {
       width: 100%;
       height: 70px;
@@ -48,6 +53,22 @@
       border-radius: 4px;
       @include s.text-style('xs', 500, s.$color-violet-5534DA);
       background: s.$color-white;
+
+      &.editBtn {
+        right: 70px;
+
+        @include s.mq-md() {
+          right: 78px;
+        }
+      }
+
+      &.editing {
+        padding: 5px 12px;
+
+        @include s.mq-md() {
+          padding: 5px 20px;
+        }
+      }
 
       &:disabled {
         color: s.$color-white;

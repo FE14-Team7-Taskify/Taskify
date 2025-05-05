@@ -5,6 +5,7 @@ import {
   useCommentsQuery,
   useCreateCommentMutation,
   useDeleteCommentMutation,
+  useUpdateCommentMutation,
 } from '@/api/comments/comments.query';
 import { CommentType } from '@/api/comments/comments.schema';
 import Image from 'next/image';
@@ -26,6 +27,15 @@ function Comment({ comment }: comment) {
   const user = useUser();
   const commentDeleteMutation = useDeleteCommentMutation(comment.id);
   const queryClient = useQueryClient();
+
+  const [isEditing, setIsEdting] = useState(false);
+  const INIT_VALUES = {
+    commentId: comment.id,
+    content: comment.content,
+  };
+  const [values, setValues] = useState(INIT_VALUES);
+  const commentUpdateMutation = useUpdateCommentMutation(comment.id);
+
   const pad = (n: number) => String(n).padStart(2, '0');
   const date = new Date(comment.createdAt);
   const dateFormat = `${date.getUTCFullYear()}.${pad(date.getUTCMonth() + 1)}.${pad(date.getUTCDate())} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}`;
@@ -40,6 +50,36 @@ function Comment({ comment }: comment) {
     });
   };
 
+  const handleEditComment = () => {
+    setIsEdting(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+
+    setValues((prev) => ({
+      ...prev,
+      content: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    commentUpdateMutation.mutate(values, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['comments', comment.cardId],
+        });
+      },
+    });
+    setIsEdting(false);
+  };
+
+  const handleCancelEdit = () => {
+    setValues(INIT_VALUES);
+    setIsEdting(false);
+  };
+
   return (
     <div className={cn(styles.commentWrap)}>
       <div className={cn(styles.commentInfo)}>
@@ -47,10 +87,31 @@ function Comment({ comment }: comment) {
         <span className={cn(styles.nickname)}>{author.nickname}</span>
         <span className={cn(styles.date)}>{dateFormat}</span>
       </div>
-      <p className={cn(styles.comment)}>{comment.content}</p>
-      {user?.id === author.id && (
+      {isEditing && (
+        <form className={cn(styles.commentForm, styles.commentEdit)} onSubmit={handleSubmit}>
+          <textarea
+            className={cn(styles.commentInput)}
+            value={values.content}
+            onChange={handleInputChange}
+          ></textarea>
+          <button
+            type="submit"
+            className={cn(styles.editBtn, styles.editing)}
+            disabled={!values.content.trim()}
+          >
+            수정
+          </button>
+          <button type="button" className={cn(styles.editing)} onClick={handleCancelEdit}>
+            취소
+          </button>
+        </form>
+      )}
+      {isEditing || <p className={cn(styles.comment)}>{comment.content}</p>}
+      {user?.id === author.id && !isEditing && (
         <div className={cn(styles.commentControls)}>
-          <button type="button">수정</button>
+          <button type="button" onClick={handleEditComment}>
+            수정
+          </button>
           <button type="button" onClick={handleDeleteComment}>
             삭제
           </button>
