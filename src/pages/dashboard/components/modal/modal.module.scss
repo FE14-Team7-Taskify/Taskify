@@ -1,5 +1,54 @@
 @use '@/styles/index.scss' as *;
 
+.tagInputWrapper {
+  .tagInput {
+    @include flexbox(start);
+    gap: 10px;
+    > .tagList {
+      @include flexbox(start);
+      flex-wrap: wrap;
+      gap: 10px;
+      > .tagChip {
+        @include text-style('xs');
+        padding: 4px 6px;
+        border-radius: 4px;
+        @include flexbox();
+        @include mq-md {
+          @include text-style('md');
+          padding: 2px 6px;
+        }
+        > img {
+          display: none;
+        }
+      }
+      .tagChip:hover > img {
+        display: block;
+        @include flexbox();
+        mix-blend-mode: color-burn;
+      }
+      .tagChip:nth-child(1n) {
+        color: #d58d49;
+        background-color: #f9eee3;
+      }
+      .tagChip:nth-child(2n) {
+        color: #86d549;
+        background-color: #e7f7db;
+      }
+      .tagChip:nth-child(3n) {
+        color: #d549b6;
+        background-color: #f7dbf0;
+      }
+      .tagChip:nth-child(4n) {
+        color: #4981d5;
+        background-color: #dbe6f7;
+      }
+    }
+    > input {
+      flex-shrink: 1;
+      flex-grow: 1;
+    }
+  }
+}
 .imageInputWrapper {
   position: relative;
   .imageWrapper {
