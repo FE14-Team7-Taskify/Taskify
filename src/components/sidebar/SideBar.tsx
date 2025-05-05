@@ -4,7 +4,7 @@ import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '../common/button/pagination/Pagination';
 import CreateDashboardModal from '../modal/CreateDashboardModal';
 import styles from './sidebar.module.scss';
@@ -13,9 +13,19 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
   const { overlay, close } = useOverlay();
 
+  const [page, setPage] = useState<number>(1);
+  const { isSuccess, data } = useDashboardsQuery({
+    navigationMethod: 'pagination',
+    size: 10,
+    page,
+  });
+
+  const totalPage = Math.ceil((data?.totalCount || 10) / 10);
+  const firstDashboardId = data?.dashboards?.[0]?.id;
   function handleClickLogo() {
-    router.push('/');
+    router.push(`/dashboard/${firstDashboardId}`);
   }
+
   function handelClickCreateBtn() {
     overlay(<CreateDashboardModal onClose={close} />);
   }
@@ -24,17 +34,17 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
     router.push(`/dashboard/${dashboardId}`);
   }
 
-  const [page, setPage] = useState<number>(1);
-  const { isSuccess, data } = useDashboardsQuery({
-    navigationMethod: 'pagination',
-    size: 10,
-    page,
-  });
-  const totalPage = Math.ceil((data?.totalCount || 10) / 10);
-
   const pathname = usePathname();
-  const isCurrentDashboard = (dashboardId: number) =>
-    pathname.startsWith(`/dashboard/${dashboardId}`);
+  const isCurrentDashboard = (dashboardId: number) => {
+    const match = pathname?.match(/^\/dashboard\/(\d+)(\/|$)/);
+    return match?.[1] === String(dashboardId);
+  };
+
+  useEffect(() => {
+    const isPublicPage = pathname === '/' || pathname === '/login' || pathname === '/signup';
+    if (isSuccess && isPublicPage && firstDashboardId)
+      router.replace(`/dashboard/${firstDashboardId}`);
+  }, [pathname, isSuccess, data, router]);
 
   return (
     <div className={styles.sidebarWrapper}>
