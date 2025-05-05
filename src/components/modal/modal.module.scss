@@ -10,7 +10,8 @@
   height: 100vh;
   @include flexbox();
   .modal {
-    @include gridbox(center, center);
+    @include flexbox(center, stretch);
+    flex-direction: column;
     gap: 16px;
     min-width: 272px;
     min-height: 164px;
