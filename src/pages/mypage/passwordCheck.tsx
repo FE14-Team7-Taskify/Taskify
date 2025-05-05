@@ -33,6 +33,7 @@ export default function PasswordCheck() {
           router.refresh();
         },
         onError: (error: any) => {
+          console.log('비밀번호 변경 실패:', error);
           setIsModalOpen(true);
         },
       },
@@ -62,7 +63,7 @@ export default function PasswordCheck() {
       <div className={styles.passwordBox}>
         <div className={styles.headfont}>비밀번호 변경</div>
         <div className={styles.passwordInputBox}>
-          <form action="/submit-url" method="POST" className={styles.formBox}>
+          <div className={styles.formBox}>
             <div>
               현재 비밀번호
               <div>
@@ -106,7 +107,7 @@ export default function PasswordCheck() {
                 )}
               </div>
             </div>
-          </form>
+          </div>
           <Button
             onClick={handleSubmit}
             disabled={!isFormValid}
