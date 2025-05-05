@@ -33,7 +33,7 @@ function CardDetailModal({ cardId, column }: Props) {
 
   const handleEditCard = () => {
     // console.log('할 일 카드 수정 모달');
-    overlay(<CardUpdateModal {...data} />);
+    overlay(<CardUpdateModal {...{ dashboardId, ...data }} />);
   };
 
   const handleDeleteCard = () => {
