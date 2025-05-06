@@ -76,6 +76,14 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
     }
   }, [imgUrl]);
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl?.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   return (
     <div className={styles.profileBox}>
       <div className={styles.headfont}>프로필</div>
@@ -89,36 +97,34 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             style={{ display: 'none' }}
           />
           <button className={styles.profileButton} onClick={handleClick}>
-            {previewUrl?.trim().startsWith('http') && (
+            {previewUrl && (
               <img src={previewUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             )}
           </button>
         </div>
         <div className={styles.profileTextBox}>
-          <form action="/submit-url" method="POST" className={styles.formBox}>
+          <div>
+            이메일
             <div>
-              이메일
-              <div>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder={email}
-                  className={styles.inputBox}
-                  readOnly
-                />
-              </div>
-            </div>
-            <div>
-              <div>닉네임</div>
               <Input
-                type="text"
-                name="nickname"
-                placeholder={`기존 닉네임:${nickname}`}
+                type="email"
+                name="email"
+                placeholder={email}
                 className={styles.inputBox}
-                onChange={(e) => setConfirmNickname(e.target.value)}
+                readOnly
               />
             </div>
-          </form>
+          </div>
+          <div>
+            <div>닉네임</div>
+            <Input
+              type="text"
+              name="nickname"
+              placeholder={`기존 닉네임:${nickname}`}
+              className={styles.inputBox}
+              onChange={(e) => setConfirmNickname(e.target.value)}
+            />
+          </div>
           <Button onClick={handleChangeProfile} className={buttonStyles.saveButton}>
             저장
           </Button>
