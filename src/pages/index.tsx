@@ -108,11 +108,16 @@ export default function HomePage() {
 
       {/* 푸터 */}
       <footer className={styles.footer}>
-        <p>© Taskify - 2025</p>
+        <p>©codeit - 2023</p>
         <nav>
           <a href="#">Privacy Policy</a>
           <a href="#">FAQ</a>
         </nav>
+        <div className={styles.snsIcons}>
+          <Image src="/icon/email.svg" alt="email" width={24} height={24} />
+          <Image src="/icon/facebook.svg" alt="facebook" width={24} height={24} />
+          <Image src="/icon/instagram.svg" alt="instagram" width={24} height={24} />
+        </div>
       </footer>
     </div>
   );

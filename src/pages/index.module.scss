@@ -186,6 +186,7 @@
   }
 }
 
+/* 설정 UI */
 .settings {
   h3 {
     text-align: center;
@@ -264,20 +265,61 @@
   }
 }
 
+/* 푸터 UI */
 .footer {
-  margin-top: 6rem;
+  margin-top: 15rem;
   padding-top: 2rem;
-  border-top: 1px solid #333;
   text-align: center;
+
+  p {
+    @include s.text-style('lg', 700, s.$color-gray-9FA6B2);
+  }
 
   nav {
     margin-top: 1rem;
 
     a {
+      @include s.text-style('lg', 700, s.$color-gray-9FA6B2);
       margin: 0 0.8rem;
-      font-size: 1.2rem;
-      color: #aaa;
       text-decoration: none;
     }
+  }
+
+  .snsIcons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  @include s.mq-md {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 6rem 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 0;
+
+      a {
+        margin: 0 1.2rem;
+      }
+    }
+
+    .snsIcons {
+      margin-top: 0;
+    }
+  }
+
+  @include s.mq-lg {
   }
 }
