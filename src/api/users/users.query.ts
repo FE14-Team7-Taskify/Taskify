@@ -7,6 +7,7 @@ import {
   UploadProfileImageRequest,
 } from './users.schema';
 import { usersService } from './users.service';
+import { useSetUser } from '@/contexts/AuthProvider';
 
 const usersQuery = {
   all: () => ['user', 'me'],
@@ -38,12 +39,14 @@ export const useCreateUserMutation = () => {
  */
 export const useUpdateMyInfoMutation = () => {
   const queryClient = useQueryClient();
+  const setUser = useSetUser();
 
   return useMutation<UpdateMyInfoResponse, Error, UpdateMyInfoRequest>({
     mutationFn: (body) => usersService.updateMyInfo(body).then((res) => res.data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       // 수정 후 내 정보 다시 불러오기
       queryClient.invalidateQueries({ queryKey: usersQuery.all() });
+      setUser(data);
     },
   });
 };

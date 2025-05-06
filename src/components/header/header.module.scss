@@ -1,16 +1,109 @@
 @use '@/styles/index.scss' as common;
 
 .headerWrapper {
-  @include common.flexbox(start);
+  @include common.flexbox(between, center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
   width: 100%;
   height: 70px;
   background-color: common.$color-white;
   border-bottom: 1px solid common.$color-gray-D9D9D9;
-  padding: 0 24px;
+  padding: 13px 8px 13px 84px;
   @include common.mq-md() {
-    padding: 0 40px;
+    padding: 15px 32px 15px 200px;
   }
-  @include common.mq-md() {
-    padding: 0 70px;
+  @include common.mq-lg() {
+    padding: 15px 80px 15px 340px;
+  }
+
+  .headerTitle {
+    @include common.text-style('lg', 700);
+
+    @include common.mq-md() {
+      @include common.text-style-xl();
+    }
+  }
+
+  .userNameWrapper {
+    @include common.text-style('lg', 500);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    .userFirstName {
+      width: 38px;
+      height: 38px;
+      color: common.$color-white;
+      border: 2px solid common.$color-white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: #a3c4a2;
+      box-shadow: 0 0 5px rgba(132, 132, 132, 0.4);
+    }
+    .userName {
+      display: none;
+
+      @include common.mq-md() {
+        display: block;
+      }
+    }
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 60px;
+    right: 24px;
+    background-color: white;
+    padding: 6px;
+    border: 1px solid common.$color-gray-D9D9D9;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-5px);
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+
+    &.open {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    &.closed {
+      opacity: 0;
+      transform: translateY(-5px);
+      visibility: hidden;
+    }
+
+    @include common.mq-md() {
+      right: 40px;
+    }
+    @include common.mq-lg() {
+      right: 80px;
+    }
+
+    button {
+      padding: 4px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+      @include common.text-style-md();
+      &:hover {
+        color: common.$color-violet-5534DA;
+        background-color: common.$color-violet-8;
+      }
+    }
   }
 }
