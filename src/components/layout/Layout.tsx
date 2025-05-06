@@ -4,7 +4,6 @@ import Header from '../header/Header';
 import DashboardHeader from '../header/dashboardHeader';
 import SideBar from '../sidebar/SideBar';
 import styles from './layout.module.scss';
-
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const user = useUser();
   const pathname = usePathname();
