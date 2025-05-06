@@ -11,6 +11,7 @@
 
   @include s.mq-lg() {
     padding-right: 204px;
+    min-width: 488px;
   }
 
   .cardHeader {
@@ -183,6 +184,7 @@
 
   .description {
     margin-top: 16px;
+    white-space: pre-line;
     @include s.text-style('xs', 400, s.$color-black);
 
     @include s.mq-md() {

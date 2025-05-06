@@ -135,6 +135,7 @@
       .comment {
         padding-left: 34px;
         margin-bottom: 0;
+        white-space: pre-line;
         @include s.text-style('sm', 400);
 
         @include s.mq-md() {

@@ -11,6 +11,7 @@ import { CommentType } from '@/api/comments/comments.schema';
 import Image from 'next/image';
 import { useUser } from '@/contexts/AuthProvider';
 import { useQueryClient } from '@tanstack/react-query';
+import { useInView } from 'react-intersection-observer';
 
 interface comments {
   cardId: number;
@@ -35,6 +36,12 @@ function Comment({ comment }: comment) {
   };
   const [values, setValues] = useState(INIT_VALUES);
   const commentUpdateMutation = useUpdateCommentMutation(comment.id);
+
+  const [profileImg, setProfileImg] = useState(author.profileImageUrl || '/images/profile.svg');
+
+  const handleImgError = () => {
+    setProfileImg('/images/profile.svg');
+  };
 
   const pad = (n: number) => String(n).padStart(2, '0');
   const date = new Date(comment.createdAt);
@@ -83,7 +90,7 @@ function Comment({ comment }: comment) {
   return (
     <div className={cn(styles.commentWrap)}>
       <div className={cn(styles.commentInfo)}>
-        <Image src={author.profileImageUrl as string} alt="프로필" width={34} height={34} />
+        <Image src={profileImg} onError={handleImgError} alt="프로필" width={34} height={34} />
         <span className={cn(styles.nickname)}>{author.nickname}</span>
         <span className={cn(styles.date)}>{dateFormat}</span>
       </div>
@@ -122,7 +129,6 @@ function Comment({ comment }: comment) {
 }
 
 function Comments({ cardId, columnId, dashboardId }: comments) {
-  const { data } = useCommentsQuery({ cardId });
   const INITIAL_VALUES = {
     content: '',
     cardId,
@@ -131,6 +137,20 @@ function Comments({ cardId, columnId, dashboardId }: comments) {
   };
   const [values, setValues] = useState(INITIAL_VALUES);
   const createCommentMutation = useCreateCommentMutation(cardId);
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useCommentsQuery({
+    cardId: cardId,
+  });
+
+  React.useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -147,25 +167,39 @@ function Comments({ cardId, columnId, dashboardId }: comments) {
     setValues(INITIAL_VALUES);
   };
 
-  return (
-    <div className={cn(styles.commentArea)}>
-      <p>댓글</p>
-      <form className={cn(styles.commentForm)} onSubmit={handleSubmit}>
-        <textarea
-          className={cn(styles.commentInput)}
-          placeholder="댓글 작성하기"
-          onChange={handleInputChange}
-          value={values.content}
-        ></textarea>
-        <button type="submit" disabled={!values.content.trim()}>
-          입력
-        </button>
-      </form>
-      <div className={cn(styles.commentsList)}>
-        {data?.comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
+  if (status === 'pending') return <div>데이터를 불러오는 중</div>;
+
+  if (data && data.pages.length > 0) {
+    const allComments = data.pages.flatMap((page) => {
+      if ('comments' in page) {
+        return page.comments;
+      }
+      return [];
+    });
+
+    return (
+      <div className={cn(styles.commentArea)}>
+        <p>댓글</p>
+        <form className={cn(styles.commentForm)} onSubmit={handleSubmit}>
+          <textarea
+            className={cn(styles.commentInput)}
+            placeholder="댓글 작성하기"
+            onChange={handleInputChange}
+            value={values.content}
+          ></textarea>
+          <button type="submit" disabled={!values.content.trim()}>
+            입력
+          </button>
+        </form>
+        <div className={cn(styles.commentsList)}>
+          {allComments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+        </div>
+        <div ref={ref}>{isFetchingNextPage ? '불러오는 중...' : ''}</div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Comments;

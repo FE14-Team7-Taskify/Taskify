@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/dashboard.module.scss';
 import Image from 'next/image';
 import Tag from './Tag';
@@ -23,8 +23,8 @@ function Card({ card, column, isPreview = false }: CardProps) {
     item: {
       cardId: card.id,
       fromColumnId: card.columnId,
-      assigneeUserId: card.assignee.id,
-      profileImageUrl: card.assignee.profileImageUrl,
+      assigneeUserId: card.assignee?.id,
+      profileImageUrl: card.assignee?.profileImageUrl,
       title: card.title,
       description: card.description,
       dueDate: card.dueDate,
@@ -35,6 +35,13 @@ function Card({ card, column, isPreview = false }: CardProps) {
       isDragging: monitor.isDragging(),
     }),
   }));
+  const [profileImg, setProfileImg] = useState(
+    card.assignee?.profileImageUrl || '/images/profile.svg',
+  );
+
+  const handleImgError = () => {
+    setProfileImg('/images/profile.svg');
+  };
 
   //overlay
   const { overlay } = useOverlay();
@@ -75,16 +82,22 @@ function Card({ card, column, isPreview = false }: CardProps) {
             </div>
           )}
           <div className={styles.cardInfo}>
-            <span className={styles.date}>
-              <Image src="/icon/calendar.svg" alt="달력 아이콘" width={18} height={18} />
-              {card.dueDate}
-            </span>
+            <div>
+              {card.dueDate && (
+                <span className={styles.date}>
+                  <Image src="/icon/calendar.svg" alt="달력 아이콘" width={18} height={18} />
+                  {card.dueDate}
+                </span>
+              )}
+            </div>
+
             <span className={styles.profileImg}>
               <Image
-                src={card.assignee.profileImageUrl as string}
+                src={profileImg}
                 alt="프로필"
                 width={22}
                 height={22}
+                onError={handleImgError}
               />
             </span>
           </div>
