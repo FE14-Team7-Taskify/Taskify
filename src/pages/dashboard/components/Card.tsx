@@ -76,9 +76,11 @@ function Card({ card, column, isPreview = false }: CardProps) {
       <div className={styles.cardTxt}>
         <p className={styles.title}>{card.title}</p>
         <div className={styles.cardInfoWrap}>
-          {card.tags && (
+          {card.tags && card.tags.length > 0 && (
             <div className={styles.tagWrap}>
-              {card?.tags.map((tag) => <Tag key={tag} name={tag} />)}
+              {card.tags.map((tag) => (
+                <Tag key={tag} name={tag} />
+              ))}
             </div>
           )}
           <div className={styles.cardInfo}>
