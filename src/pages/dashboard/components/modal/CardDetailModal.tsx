@@ -72,27 +72,31 @@ function CardDetailModal({ cardId, column }: Props) {
           </div>
           <h4 className={cn(styles.cardTitle)}>{data.title}</h4>
         </div>
-        <div className={cn(styles.cardMetaBox)}>
-          <div className={cn(styles.meta)}>
-            <span className={cn(styles.metaTitle)}>담당자</span>
-            <div className={cn(styles.metaTxt)}>
-              <Image
-                src={profileImg}
-                width={26}
-                height={26}
-                alt="프로필"
-                onError={handleImgError}
-              />
-              <span>{data?.assignee?.nickname}</span>
-            </div>
+        {(data.assignee || data.dueDate) && (
+          <div className={cn(styles.cardMetaBox)}>
+            {data.assignee && (
+              <div className={cn(styles.meta)}>
+                <span className={cn(styles.metaTitle)}>담당자</span>
+                <div className={cn(styles.metaTxt)}>
+                  <Image
+                    src={profileImg}
+                    width={26}
+                    height={26}
+                    alt="프로필"
+                    onError={handleImgError}
+                  />
+                  <span>{data?.assignee?.nickname}</span>
+                </div>
+              </div>
+            )}
+            {data.dueDate && (
+              <div className={cn(styles.meta)}>
+                <span className={cn(styles.metaTitle)}>마감일</span>
+                <div className={cn(styles.metaTxt)}>{data.dueDate}</div>
+              </div>
+            )}
           </div>
-          {data.dueDate && (
-            <div className={cn(styles.meta)}>
-              <span className={cn(styles.metaTitle)}>마감일</span>
-              <div className={cn(styles.metaTxt)}>{data.dueDate}</div>
-            </div>
-          )}
-        </div>
+        )}
         <div className={cn(styles.cardLabel)}>
           <div className={styles.teskColumn}>{data.columnId === column.id && column.title}</div>
           {data.tags && (

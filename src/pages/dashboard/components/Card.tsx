@@ -91,15 +91,17 @@ function Card({ card, column, isPreview = false }: CardProps) {
               )}
             </div>
 
-            <span className={styles.profileImg}>
-              <Image
-                src={profileImg}
-                alt="프로필"
-                width={22}
-                height={22}
-                onError={handleImgError}
-              />
-            </span>
+            {card.assignee && (
+              <span className={styles.profileImg}>
+                <Image
+                  src={profileImg}
+                  alt="프로필"
+                  width={22}
+                  height={22}
+                  onError={handleImgError}
+                />
+              </span>
+            )}
           </div>
         </div>
       </div>
