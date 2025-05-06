@@ -39,14 +39,12 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
     } else handleUpdateCard();
   }
   function handleUpdateCard(imageUrl?: string) {
-    if (card.assignee) {
-      const { assignee, createdAt, id, updatedAt, ...reqBody } = {
-        ...formValue,
-        assigneeUserId: formValue.assignee?.id,
-        imageUrl,
-      };
-      updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => close() });
-    }
+    const { assignee, createdAt, id, updatedAt, ...reqBody } = {
+      ...formValue,
+      assigneeUserId: formValue.assignee?.id,
+      imageUrl,
+    };
+    updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => close() });
   }
   const updateBtnDisabled = JSON.stringify(card) === JSON.stringify(formValue) && !isImageChanged;
   return (
