@@ -1,3 +1,4 @@
+import { cn } from '@/styles/util/stylesUtil';
 import { HTMLAttributes } from 'react';
 import styles from './modal.module.scss';
 
@@ -5,10 +6,10 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-export default function ModalWrapper({ title, children }: OverlayProps) {
+export default function ModalWrapper({ className = '', title, children }: OverlayProps) {
   return (
     <div className={styles.modalWrapper}>
-      <div className={styles.modal}>
+      <div className={cn(styles.modal, className)}>
         {!!title && <div className={styles.modalHeader}>{title}</div>}
         {children}
       </div>

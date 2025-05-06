@@ -1,46 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import { useInfiniteCardsQuery } from '@/api/cards/cards.query';
+import { UpdateCardRequest } from '@/api/cards/cards.schema';
+import ManageColumnModal from '@/components/modal/ManageColumnModal';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import { cn, cond } from '@/styles/util/stylesUtil';
+import Image from 'next/image';
+import React from 'react';
+import { useDrop } from 'react-dnd';
+import { useInView } from 'react-intersection-observer';
 import styles from '../styles/dashboard.module.scss';
 import { ColumnType } from '../type';
-import Image from 'next/image';
 import Card from './Card';
-import { useInfiniteCardsQuery } from '@/api/cards/cards.query';
-import { useInView } from 'react-intersection-observer';
-import { useDrop } from 'react-dnd';
-import { UpdateCardRequest } from '@/api/cards/cards.schema';
-import { cn, cond } from '@/styles/util/stylesUtil';
-import ManageColumnModal from '@/components/modal/ManageColumnModal';
+import CardCreateModal from './modal/CardCreateModal';
 
 interface Props {
   column: ColumnType;
-  dashboardId: string;
+  dashboardId: number;
   onCardDrop: (request: UpdateCardRequest) => void;
 }
 
 function Column({ column, dashboardId, onCardDrop }: Props) {
-  const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
-
-  const closeModal = () => setIsColumnModalOpen(false);
+  const { overlay, close } = useOverlay();
 
   // Drag and Drop
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+  const [{ isOver }, drop] = useDrop(() => ({
     accept: 'card',
     drop: (item: UpdateCardRequest) => {
-      const updatedItem = {
-        ...item,
-        columnId: column.id,
-      };
+      const updatedItem = { ...item, columnId: column.id };
       onCardDrop(updatedItem);
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
+    collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop() }),
   }));
 
   // 무한 스크롤
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
+  const { ref, inView } = useInView({ threshold: 0 });
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteCardsQuery({
     columnId: column.id,
@@ -52,70 +44,57 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // 모달 연결 (예정)
-  const openEditColumnModal = () => {
-    console.log(`컬럼 수정 모달 - 컬럼 ID : ${column.id}`);
-    setIsColumnModalOpen(true); //모달열기
-  };
+  function handleClickEditColumn() {
+    overlay(<ManageColumnModal boardId={dashboardId} colId={column.id} onClose={close} />);
+  }
 
-  const openAddCardModal = () => {
-    console.log(`할 일 생성 모달 - 대시보드 ID : ${dashboardId} / 컬럼 ID : ${column.id}`);
-  };
+  function handleClickCreateCard() {
+    overlay(<CardCreateModal dashboardId={dashboardId} columnId={column.id} />);
+  }
 
   if (status === 'pending') return <div>데이터를 불러오는 중....</div>;
   if (status === 'error') return <div>에러가 발생했습니다</div>;
 
-  if (data && data.pages.length > 0) {
-    const firstPage = data.pages[0];
+  const firstPage = data.pages[0];
 
-    if ('totalCount' in firstPage) {
-      const allCards = data.pages.flatMap((page) => {
-        if ('cards' in page) {
-          return page.cards;
-        }
-        return [];
-      });
+  if ('totalCount' in firstPage) {
+    const allCards = data.pages.flatMap((page) => {
+      if ('cards' in page) {
+        return page.cards;
+      }
+      return [];
+    });
 
-      return (
-        <div
-          ref={(node) => {
-            if (node) drop(node);
-          }}
-          className={cn(styles.column, cond(isOver, styles.isOver))}
-        >
-          <div className={styles.inner}>
-            <div className={styles.head}>
-              <h3 className={styles.title}>
-                {column.title}
-                <span>{firstPage.totalCount || 0}</span>
-              </h3>
-              <button onClick={openEditColumnModal}>
-                <Image src="/icon/settings.svg" alt="관리" width={24} height={24} />
-              </button>
-            </div>
-            <button onClick={openAddCardModal} className={styles.addBtn}>
-              <span className={styles.imgWrap}>
-                <Image src="/icon/add_color.svg" alt="추가 아이콘" fill />
-              </span>
+    return (
+      <div
+        ref={(node) => {
+          if (node) drop(node);
+        }}
+        className={cn(styles.column, cond(isOver, styles.isOver))}
+      >
+        <div className={styles.inner}>
+          <div className={styles.head}>
+            <h3 className={styles.title}>
+              {column.title}
+              <span>{firstPage.totalCount || 0}</span>
+            </h3>
+            <button onClick={handleClickEditColumn}>
+              <Image src="/icon/settings.svg" alt="관리" width={24} height={24} />
             </button>
-            {allCards.map((card) => (
-              <Card key={card.id} card={card} column={column} />
-            ))}
-            <div ref={ref}>{isFetchingNextPage ? '불러오는 중...' : ''}</div>
           </div>
-          {isColumnModalOpen && (
-            <ManageColumnModal
-              boardId={Number(dashboardId)}
-              colId={column.id}
-              onClose={closeModal}
-            />
-          )}
+          <button onClick={handleClickCreateCard} className={styles.addBtn}>
+            <span className={styles.imgWrap}>
+              <Image src="/icon/add_color.svg" alt="추가 아이콘" fill />
+            </span>
+          </button>
+          {allCards.map((card) => (
+            <Card key={card.id} card={card} column={column} />
+          ))}
+          <div ref={ref}>{isFetchingNextPage && '불러오는 중...'}</div>
         </div>
-      );
-    }
+      </div>
+    );
   }
-
-  return null;
 }
 
 export default Column;
