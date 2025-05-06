@@ -6,7 +6,8 @@
   color: s.$color-white;
 }
 
-.hero {
+/* 메인 섹션 */
+.main {
   text-align: center;
   margin: 2rem 0;
 
@@ -66,26 +67,123 @@
   }
 }
 
-.feature,
-.featureReverse {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4rem;
-  margin: 6rem 0;
+/* 기능 1, 2 */
+.point {
+  margin: 15rem auto;
+  width: 34.3rem;
+  height: 68.6rem;
+  background-color: s.$color-black-171717;
+  @include s.column-flexbox(between, center);
+  border-radius: 8px;
+  gap: 6.5rem;
 
-  .textBox {
-    flex: 1;
-    font-size: 1.6rem;
+  .title {
+    @include s.text-style('2lg', 500, s.$color-gray-9FA6B2);
+    margin-top: 5.5rem;
   }
 
-  .imageBox {
-    flex: 1;
+  .textbox {
+    @include s.column-flexbox(center, center);
+    @include s.text-style('3xl', 700, s.$color-white);
+  }
+
+  > :last-of-type {
+    width: 100%;
+    height: 70%;
+    display: flex;
+  }
+
+  .imageBox1 {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .imageBox2 {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  @include s.mq-md {
+    width: 68.4rem;
+    height: 97.2rem;
+    position: relative;
+
+    .title {
+      @include s.text-style('2xl', 500, s.$color-gray-9FA6B2);
+      position: absolute;
+      left: 6rem;
+    }
+
+    .textbox {
+      @include s.column-flexbox(center, start);
+      @include s.text-style('5xl', 700, s.$color-white);
+      position: absolute;
+      top: 18rem;
+      left: 6rem;
+    }
+
+    > :last-of-type {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .imageBox1 {
+      right: 0;
+      width: 51.9rem;
+      height: 43.5rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .imageBox2 {
+      width: 36rem;
+      height: 41.5rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  @include s.mq-lg {
+    width: 120rem;
+    height: 60rem;
+
+    .imageBox1 {
+      width: 59.4rem;
+      height: 49.7rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .imageBox2 {
+      left: 8.5rem;
+      width: 43rem;
+      height: 50.2rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
 
-.featureReverse {
-  flex-direction: row-reverse;
+.secondPoint {
+  @include s.mq-lg {
+    .title {
+      top: 6.5rem;
+      left: 64rem;
+    }
+
+    .textbox {
+      top: 25rem;
+      left: 64rem;
+    }
+  }
 }
 
 .settings {
