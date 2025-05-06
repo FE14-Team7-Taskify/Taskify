@@ -16,6 +16,6 @@ export type UpdateColumnRequest = { columnId: number; title: string };
 
 export type UpdateColumnResponse = ColumnType;
 
-export type UploadColumnImageRequest = { columnId: number; image: string };
+export type UploadColumnImageRequest = { columnId: number; image: File };
 
 export type UploadColumnImageResponse = { imageUrl: string };
