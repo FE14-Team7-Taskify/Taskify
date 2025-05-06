@@ -187,29 +187,78 @@
 }
 
 .settings {
-  margin: 8rem 0;
-
   h3 {
     text-align: center;
-    font-size: 2rem;
+    @include s.text-style('xl', 700, s.$color-white);
     margin-bottom: 3rem;
   }
 
   .settingCards {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
 
     .card {
-      background-color: #222;
-      padding: 2rem;
-      border-radius: 1rem;
-      width: 30%;
-      text-align: center;
+      background-color: s.$color-black-171717;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 34.3rem;
+      display: flex;
+      flex-direction: column;
 
-      p {
-        font-size: 1.4rem;
+      .imageWrapper {
+        background-color: s.$color-black-4B4B4B;
+        height: 23.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          width: 70%;
+        }
+      }
+
+      .textWrapper {
+        padding: 2rem;
+
+        .cardTitle {
+          @include s.text-style('2lg', 700, s.$color-white);
+          margin-bottom: 0.8rem;
+        }
+
+        .cardDesc {
+          @include s.text-style('lg', 400, s.$color-white);
+        }
+      }
+    }
+  }
+
+  @include s.mq-md {
+    h3 {
+      @include s.text-style('2xl', 700, s.$color-white);
+    }
+    .card {
+      width: 37.8rem;
+    }
+  }
+
+  @include s.mq-lg {
+    width: 120rem;
+    margin: 0 auto;
+    h3 {
+      @include s.text-style('2xl', 700, s.$color-white);
+      text-align: left;
+    }
+
+    .settingCards {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3.2rem;
+
+      .card {
+        width: 37.8rem;
       }
     }
   }

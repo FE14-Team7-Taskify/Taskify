@@ -59,34 +59,49 @@ export default function HomePage() {
 
       {/* 설정 강조 */}
       <section className={styles.settings}>
-        <h3>생산성을 높이는 다양한 설정 ✨</h3>
+        <h3>생산성을 높이는 다양한 설정 ⚡️</h3>
         <div className={styles.settingCards}>
           <div className={styles.card}>
-            <Image
-              src="/images/landing/resource/landing3.svg"
-              alt="테마 설정"
-              width={300}
-              height={200}
-            />
-            <p>다크모드 지원</p>
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/images/landing/resource/landing3.svg"
+                alt="테마 설정"
+                width={300}
+                height={200}
+              />
+            </div>
+            <div className={styles.textWrapper}>
+              <p className={styles.cardTitle}>대시보드 설정</p>
+              <p className={styles.cardDesc}>대시보드 사진과 이름을 변경할 수 있어요.</p>
+            </div>
           </div>
           <div className={styles.card}>
-            <Image
-              src="/images/landing/resource/landing4.svg"
-              alt="카테고리 설정"
-              width={300}
-              height={200}
-            />
-            <p>유연한 분류</p>
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/images/landing/resource/landing4.svg"
+                alt="초대 설정"
+                width={300}
+                height={200}
+              />
+            </div>
+            <div className={styles.textWrapper}>
+              <p className={styles.cardTitle}>초대</p>
+              <p className={styles.cardDesc}>새로운 팀원을 초대할 수 있어요.</p>
+            </div>
           </div>
           <div className={styles.card}>
-            <Image
-              src="/images/landing/resource/landing5.svg"
-              alt="알림 설정"
-              width={300}
-              height={200}
-            />
-            <p>알림으로 일정 체크</p>
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/images/landing/resource/landing5.svg"
+                alt="구성원 설정"
+                width={300}
+                height={200}
+              />
+            </div>
+            <div className={styles.textWrapper}>
+              <p className={styles.cardTitle}>구성원</p>
+              <p className={styles.cardDesc}>구성원을 초대하고 내보낼 수 있어요.</p>
+            </div>
           </div>
         </div>
       </section>
