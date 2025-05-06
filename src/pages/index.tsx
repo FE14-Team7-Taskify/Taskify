@@ -114,9 +114,15 @@ export default function HomePage() {
           <a href="#">FAQ</a>
         </nav>
         <div className={styles.snsIcons}>
-          <Image src="/icon/email.svg" alt="email" width={24} height={24} />
-          <Image src="/icon/facebook.svg" alt="facebook" width={24} height={24} />
-          <Image src="/icon/instagram.svg" alt="instagram" width={24} height={24} />
+          <a href="mailto:you@example.com" target="_blank" rel="noopener noreferrer">
+            <Image src="/icon/email.svg" alt="email" width={24} height={24} />
+          </a>
+          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+            <Image src="/icon/facebook.svg" alt="facebook" width={24} height={24} />
+          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <Image src="/icon/instagram.svg" alt="instagram" width={24} height={24} />
+          </a>
         </div>
       </footer>
     </div>

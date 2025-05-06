@@ -30,7 +30,7 @@
     cursor: pointer;
   }
 
-  @include s.mq-md {
+  @include s.mq-lg {
     h1 {
       @include s.flexbox(center, center);
       gap: 2rem;
@@ -49,7 +49,7 @@
     }
   }
 
-  @include s.mq-lg {
+  @include s.mq-xl {
     h1 {
       @include s.flexbox(center, center);
       @include s.text-style('8xl', 700, s.$color-white);
@@ -103,7 +103,7 @@
     align-items: flex-end;
   }
 
-  @include s.mq-md {
+  @include s.mq-lg {
     width: 68.4rem;
     height: 97.2rem;
     position: relative;
@@ -147,11 +147,32 @@
     }
   }
 
-  @include s.mq-lg {
+  @include s.mq-xl {
     width: 120rem;
     height: 60rem;
+    position: relative;
+
+    .title {
+      @include s.text-style('2xl', 500, s.$color-gray-9FA6B2);
+      position: absolute;
+      left: 6rem;
+    }
+
+    .textbox {
+      @include s.column-flexbox(center, start);
+      @include s.text-style('5xl', 700, s.$color-white);
+      position: absolute;
+      top: 18rem;
+      left: 6rem;
+    }
+
+    > :last-of-type {
+      position: absolute;
+      bottom: 0;
+    }
 
     .imageBox1 {
+      right: 0;
       width: 59.4rem;
       height: 49.7rem;
       > img {
@@ -173,7 +194,7 @@
 }
 
 .secondPoint {
-  @include s.mq-lg {
+  @include s.mq-xl {
     .title {
       top: 6.5rem;
       left: 64rem;
@@ -235,7 +256,7 @@
     }
   }
 
-  @include s.mq-md {
+  @include s.mq-lg {
     h3 {
       @include s.text-style('2xl', 700, s.$color-white);
     }
@@ -244,7 +265,7 @@
     }
   }
 
-  @include s.mq-lg {
+  @include s.mq-xl {
     width: 120rem;
     margin: 0 auto;
     h3 {
@@ -297,7 +318,7 @@
     }
   }
 
-  @include s.mq-md {
+  @include s.mq-lg {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -318,8 +339,5 @@
     .snsIcons {
       margin-top: 0;
     }
-  }
-
-  @include s.mq-lg {
   }
 }
