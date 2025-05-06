@@ -11,7 +11,8 @@
   top: 0;
   left: 0;
   bottom: 0;
-  position: sticky;
+  position: fixed;
+  z-index: 10;
   flex-shrink: 0;
   @include common.flexbox(start, center);
   flex-direction: column;
