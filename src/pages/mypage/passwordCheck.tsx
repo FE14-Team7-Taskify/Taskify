@@ -29,12 +29,13 @@ export default function PasswordCheck() {
       },
       {
         onSuccess: () => {
-          alert('변경 성공!');
+          <OneButtonModal message="비밀번호 변경 성공." onClose={() => setIsModalOpen(false)} />;
           router.refresh();
         },
         onError: (error: any) => {
-          console.log('비밀번호 변경 실패:', error);
+          <OneButtonModal message="비밀번호 변경 실패." onClose={() => setIsModalOpen(false)} />;
           setIsModalOpen(true);
+          console.log(error);
         },
       },
     );
@@ -48,12 +49,12 @@ export default function PasswordCheck() {
 
   const handleSubmit = () => {
     if (!isFormValid) {
-      alert('모든 입력 필드를 채워주세요.');
+      <OneButtonModal message="필드를 채워주세요." onClose={() => setIsModalOpen(false)} />;
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
+      <OneButtonModal message="확인 비밀번호가 다릅니다." onClose={() => setIsModalOpen(false)} />;
       return;
     }
 
