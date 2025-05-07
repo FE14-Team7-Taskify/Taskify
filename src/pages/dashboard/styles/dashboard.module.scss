@@ -47,3 +47,15 @@
     }
   }
 }
+
+.columnCardLoader {
+  @include s.flexbox();
+  gap: 16px;
+  padding: 0px 16px 24px;
+  > div {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: s.$color-gray-D9D9D9;
+  }
+}

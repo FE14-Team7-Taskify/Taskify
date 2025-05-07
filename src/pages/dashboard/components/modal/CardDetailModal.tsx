@@ -9,6 +9,8 @@ import { ColumnType } from '../../type';
 import Tag from '../Tag';
 import Comments from '../Comments';
 import { useRouter } from 'next/router';
+import CardUpdateModal from './CardUpdateModal';
+import OneButtonModal from '@/components/modal/OneButtonModal';
 
 interface Props {
   cardId: number;
@@ -19,11 +21,19 @@ function CardDetailModal({ cardId, column }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
-  const { close } = useOverlay();
+  const { overlay, close } = useOverlay();
   const { data, isLoading, error } = useCardDetailQuery(cardId);
   const mutation = useDeleteCardMutation();
 
   const [kebabOpen, setKebabOpen] = useState(false);
+
+  const [profileImg, setProfileImg] = useState(
+    data?.assignee?.profileImageUrl || '/images/profile.svg',
+  );
+
+  const handleImgError = () => {
+    setProfileImg('/images/profile.svg');
+  };
 
   if (isLoading) return <div>Loading..</div>;
   if (error || !data) return <div>에러</div>;
@@ -31,14 +41,14 @@ function CardDetailModal({ cardId, column }: Props) {
   console.log(data);
 
   const handleEditCard = () => {
-    console.log('할 일 카드 수정 모달');
+    overlay(<CardUpdateModal {...{ dashboardId, ...data }} />);
   };
 
   const handleDeleteCard = () => {
     mutation.mutate(cardId, {
       onSuccess: () => {
         close();
-        alert('카드가 삭제되었습니다.');
+        overlay(<OneButtonModal message="카드가 삭제되었습니다." onClose={close} />);
       },
     });
   };
@@ -62,24 +72,31 @@ function CardDetailModal({ cardId, column }: Props) {
           </div>
           <h4 className={cn(styles.cardTitle)}>{data.title}</h4>
         </div>
-        <div className={cn(styles.cardMetaBox)}>
-          <div className={cn(styles.meta)}>
-            <span className={cn(styles.metaTitle)}>담당자</span>
-            <div className={cn(styles.metaTxt)}>
-              <Image
-                src={data?.assignee.profileImageUrl as string}
-                width={26}
-                height={26}
-                alt="프로필"
-              />
-              <span>{data?.assignee.nickname}</span>
-            </div>
+        {(data.assignee || data.dueDate) && (
+          <div className={cn(styles.cardMetaBox)}>
+            {data.assignee && (
+              <div className={cn(styles.meta)}>
+                <span className={cn(styles.metaTitle)}>담당자</span>
+                <div className={cn(styles.metaTxt)}>
+                  <Image
+                    src={profileImg}
+                    width={26}
+                    height={26}
+                    alt="프로필"
+                    onError={handleImgError}
+                  />
+                  <span>{data?.assignee?.nickname}</span>
+                </div>
+              </div>
+            )}
+            {data.dueDate && (
+              <div className={cn(styles.meta)}>
+                <span className={cn(styles.metaTitle)}>마감일</span>
+                <div className={cn(styles.metaTxt)}>{data.dueDate}</div>
+              </div>
+            )}
           </div>
-          <div className={cn(styles.meta)}>
-            <span className={cn(styles.metaTitle)}>마감일</span>
-            <div className={cn(styles.metaTxt)}>{data.dueDate}</div>
-          </div>
-        </div>
+        )}
         <div className={cn(styles.cardLabel)}>
           <div className={styles.teskColumn}>{data.columnId === column.id && column.title}</div>
           {data.tags && (

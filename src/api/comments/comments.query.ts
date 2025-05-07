@@ -1,8 +1,15 @@
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  queryOptions,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   CreateCommentRequest,
   CreateCommentResponse,
   FindCommentsRequest,
+  FindCommentsResponse,
   UpdateCommentRequest,
   UpdateCommentResponse,
 } from './comments.schema';
@@ -21,9 +28,16 @@ const commentsQuery = {
  * 댓글 목록 조회 쿼리
  */
 export const useCommentsQuery = (params: FindCommentsRequest) => {
-  return useQuery({
-    ...commentsQuery.commentList(params),
-    enabled: !!params.cardId,
+  return useInfiniteQuery<FindCommentsResponse>({
+    queryKey: commentsQuery.commentListKey(params),
+    queryFn: ({ pageParam }) =>
+      commentsService
+        .getComments({ ...params, cursorId: pageParam as number | undefined })
+        .then((res) => res.data),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => {
+      return 'cursorId' in lastPage ? lastPage.cursorId : undefined;
+    },
   });
 };
 

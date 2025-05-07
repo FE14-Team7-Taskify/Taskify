@@ -2,9 +2,9 @@ export type CardType = {
   id: number;
   title: string;
   description: string;
-  tags: string[];
-  dueDate: string;
-  assignee: {
+  tags?: string[];
+  dueDate?: string;
+  assignee?: {
     profileImageUrl?: string | null;
     nickname: string;
     id: number;
@@ -17,13 +17,13 @@ export type CardType = {
 };
 
 export type CreateCardRequest = {
-  assigneeUserId: number;
+  assigneeUserId?: number;
   dashboardId: number;
   columnId: number;
   title: string;
   description: string;
-  dueDate: string;
-  tags: string[];
+  dueDate?: string;
+  tags?: string[];
   imageUrl?: string;
 };
 
@@ -36,11 +36,11 @@ export type FindCardsResponse = { cursorId: number; totalCount: number; cards: C
 export type UpdateCardRequest = {
   cardId: number;
   columnId: number;
-  assigneeUserId: number;
+  assigneeUserId?: number;
   title: string;
   description: string;
-  dueDate: string;
-  tags: string[];
+  dueDate?: string;
+  tags?: string[];
   imageUrl?: string;
 };
 
