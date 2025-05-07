@@ -18,7 +18,7 @@ interface CardUpdateModalProps extends CardType {
 
 export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModalProps) {
   const [file, setFile] = useState<File>();
-  const [formValue, setFormValue] = useState(card);
+  const [formValue, setFormValue] = useState({ ...card, columnTitle: '' });
   const [isImageChanged, setIsImageChanged] = useState(false);
 
   const { close } = useOverlay();
@@ -63,7 +63,9 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
           <ColumnDropdown
             dashboardId={dashboardId}
             columnId={card.columnId}
-            onChangeColumn={(columnId) => setFormValue({ ...formValue, columnId })}
+            onChangeColumn={(columnId, columnTitle) =>
+              setFormValue({ ...formValue, columnId, columnTitle })
+            }
           />
           <UserDropdown
             dashboardId={dashboardId}
