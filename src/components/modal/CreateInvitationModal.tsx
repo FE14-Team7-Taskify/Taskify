@@ -1,8 +1,10 @@
 import { useCreateInvitationMutation } from '@/api/dashboards/dashboards.query';
+import { cn } from '@/styles/util/stylesUtil';
 import { FormEvent, useState } from 'react';
 import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
 import styles from './modal.module.scss';
+import Image from 'next/image';
 
 export default function CreateInvitationModal({
   dashboardId,
@@ -23,7 +25,6 @@ export default function CreateInvitationModal({
   return (
     <TwoButtonModal
       className={styles.invitationCreateModal}
-      title="초대하기"
       btns={{
         onCancel: onClose,
         onConfirm: handleConfirm,
@@ -31,7 +32,13 @@ export default function CreateInvitationModal({
       }}
     >
       <form className={styles.createInvitationModalContent} onSubmit={handleFormSubmit}>
-        <div className={styles.dashboardTitleArea}>
+        <div className={cn(styles.modalHeader, styles.invitationModalHeader)}>
+          <div>초대하기</div>
+          <button className={styles.modalClose} onClick={onClose}>
+            <Image src="/icon/X_lg.svg" alt="초대하기 모달 닫기 버튼 아이콘" fill />
+          </button>
+        </div>
+        <div className={styles.invitationInputArea}>
           <label>이메일</label>
           <Input
             name="title"
