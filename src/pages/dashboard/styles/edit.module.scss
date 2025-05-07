@@ -238,7 +238,9 @@
   @include flexbox(between);
   padding: 14px 20px;
   border-bottom: 1px solid $color-gray-EEEEEE;
+  @include text-style('md');
   @include mq-md {
+    @include text-style('lg');
     padding: 16px 28px;
   }
   > .btnMemberRemove,
