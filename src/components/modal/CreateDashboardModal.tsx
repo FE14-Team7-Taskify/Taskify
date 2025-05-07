@@ -4,6 +4,7 @@ import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
 import ColorChips from './dashboard/ColorChips';
 import styles from './modal.module.scss';
+import useSidebar from '@/hooks/useSidebar';
 
 export default function CreateDashboardModal({ onClose }: { onClose: () => void }) {
   const [value, setValue] = useState<{ title: string; color: string }>({
@@ -20,8 +21,14 @@ export default function CreateDashboardModal({ onClose }: { onClose: () => void 
   }
 
   const mutation = useCreateDashboardMutation();
+  const { page, setPage, updateSidebarList } = useSidebar();
   function handleConfirm() {
-    mutation.mutate(value, { onSuccess: () => onClose() });
+    mutation.mutate(value, {
+      onSuccess: () => {
+        page > 1 ? setPage(1) : updateSidebarList();
+        onClose();
+      },
+    });
   }
   return (
     <TwoButtonModal

@@ -19,6 +19,7 @@
 }
 .btnPrimary {
   @include baseButton;
+
   height: 54px;
   font-weight: 600;
   color: $color-white !important;
@@ -29,6 +30,7 @@
 }
 .btnOutlined {
   @include baseButton;
+
   height: 52px;
   max-width: 320px;
   border: 1px solid $color-gray-D9D9D9;
@@ -256,6 +258,20 @@
     @include mq-md {
       width: 84px;
       @include text-style('md', 500, $color-violet-5534DA);
+    }
+  }
+}
+
+.deleteDashboardModal {
+  justify-content: flex-end !important;
+  padding: 24px !important;
+  gap: 24px !important;
+  .message {
+    align-self: stretch;
+    text-align: center;
+    @include text-style('md', 400);
+    @include mq-md {
+      @include text-style('lg', 400);
     }
   }
 }

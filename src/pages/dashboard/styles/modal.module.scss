@@ -44,13 +44,13 @@
         border-radius: 16px;
         background-color: $color-violet-8;
         color: $color-violet-5534DA;
-      }
-      > .columnChip::before {
-        content: '';
-        width: 6px;
-        height: 6px;
-        background-color: $color-violet-5534DA;
-        border-radius: 100%;
+        & ::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          background-color: $color-violet-5534DA;
+          border-radius: 100%;
+        }
       }
       > .profileImageWrapper {
         overflow: hidden;
@@ -291,9 +291,9 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 23px;
+    cursor: pointer;
     @include mq-md {
       background-size: 30px;
     }
-    cursor: pointer;
   }
 }

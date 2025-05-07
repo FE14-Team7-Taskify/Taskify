@@ -98,11 +98,13 @@ export const useUpdateDashboardMutation = (dashboardId: number) => {
  * 대시보드 삭제 뮤테이션
  */
 export const useDeleteDashboardMutation = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   return useMutation<void, Error, number>({
     mutationFn: (dashboardId) =>
       dashboardsService.deleteDashboard(dashboardId).then((res) => res.data),
     onSuccess: () => {
+      router.push('/mydashboard');
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
     },
   });
