@@ -57,16 +57,27 @@
     @include text-style('lg', 600, $color-white);
   }
 }
-.createDashboardModalContent {
-  @include gridbox(stretch);
-  gap: 16px;
-  margin: 8px 0 16px;
+.columnCreateModal {
   @include mq-md {
-    margin: 8px 0 24px;
+    padding: 24px !important;
   }
-  > .dashboardTitleArea {
+}
+.dashboardCreateModal {
+  padding: 20px 16px !important;
+  @include mq-md {
+    padding: 32px !important;
+  }
+  .createDashboardModalContent {
     @include gridbox(stretch);
-    gap: 8px;
+    gap: 16px;
+    margin: 8px 0 16px;
+    @include mq-md {
+      margin: 8px 0 24px;
+    }
+    > .dashboardTitleArea {
+      @include gridbox(stretch);
+      gap: 8px;
+    }
   }
 }
 .dashboardColorArea {
