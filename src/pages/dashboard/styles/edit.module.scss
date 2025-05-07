@@ -1,0 +1,258 @@
+@use '@/styles/index.scss' as *;
+
+.headingFont {
+  @include text-style('xl', 700);
+  @include mq-md {
+    @include text-style('2xl', 700);
+  }
+}
+@mixin baseButton {
+  @include flexbox();
+  gap: 6px;
+  border-radius: 8px;
+  @include text-style('lg', 500);
+  @include mq-md {
+    gap: 8px;
+    height: 62px;
+    @include text-style('2lg', 500);
+  }
+}
+.btnPrimary {
+  @include baseButton;
+  height: 54px;
+  font-weight: 600;
+  color: $color-white !important;
+  background-color: $color-violet-5534DA;
+}
+.btnPrimary:disabled {
+  background-color: $color-gray-9FA6B2;
+}
+.btnOutlined {
+  @include baseButton;
+  height: 52px;
+  max-width: 320px;
+  border: 1px solid $color-gray-D9D9D9;
+  background-color: $color-gray-FAFAFA;
+  @include mq-md {
+    height: 62px;
+  }
+}
+.dashboardEdit {
+  @include flexbox(start, stretch);
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 12px;
+  @include mq-md {
+    gap: 19px;
+    padding: 20px;
+  }
+  @include mq-md {
+    gap: 34px;
+  }
+  > .btnGoBack {
+    @include text-style('md');
+    @include flexbox(start);
+    gap: 6px;
+    > img {
+      transform: rotate(180deg);
+    }
+    @include mq-md {
+      @include text-style('lg');
+      gap: 8px;
+      > img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  > .editArea {
+    @include flexbox(start, stretch);
+    flex-direction: column;
+    gap: 24px;
+    max-width: 620px;
+    > .cardsWrapper {
+      @include flexbox(start, stretch);
+      flex-direction: column;
+      gap: 16px;
+      > div {
+        padding: 22px 0 16px;
+        background-color: $color-white;
+        border-radius: 8px;
+        @include gridbox(stretch);
+        gap: 18px;
+        @include mq-md {
+          gap: 27px;
+        }
+        .header {
+          @include flexbox(start);
+          padding: 0 20px;
+          @include mq-md {
+            padding: 0 28px;
+          }
+          > h2 {
+            flex-grow: 1;
+          }
+        }
+        .paginationArea {
+          @include text-style('xs');
+          @include flexbox(start);
+          gap: 12px;
+          @include mq-md {
+            @include text-style('md');
+            gap: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+.dashboardCard {
+  gap: 32px !important;
+  padding: 20px 16px !important;
+  @include mq-md {
+    gap: 40px !important;
+    padding: 32px 28px !important;
+  }
+  > .cardDetail {
+    @include gridbox(stretch);
+    gap: 24px;
+    > .cardInputs {
+      @include gridbox(stretch);
+      gap: 16px;
+      > .inputField {
+        @include gridbox(stretch);
+        gap: 8px;
+        > label {
+          @include mq-md {
+            @include text-style('2lg');
+          }
+        }
+      }
+    }
+  }
+}
+.membersCard {
+  > .membersTable {
+    > .header {
+      color: $color-gray-9FA6B2;
+    }
+    > .tableContent {
+      > .memberRow {
+        > .profileWrapper {
+          @include flexbox(start);
+          gap: 8px;
+          @include mq-md {
+            gap: 12px;
+          }
+          > .imageWrapper {
+            width: 34px;
+            height: 34px;
+            border-radius: 100%;
+            overflow: hidden;
+            border: 1px solid $color-gray-EEEEEE;
+            @include mq-md {
+              width: 38px;
+              height: 38px;
+            }
+            > img {
+              position: relative !important;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.invitationsCard {
+  > .headerArea {
+    @include gridbox(stretch, center);
+    grid-template-columns: 1fr 176px;
+    grid-template-areas:
+      'cardHeader pagination'
+      'tableHeader btn';
+    gap: 12px;
+    @include mq-md {
+      grid-template-columns: 1fr 1fr 133px;
+      grid-template-areas:
+        'cardHeader pagination btn'
+        'tableHeader . .';
+      gap: 28px 16px;
+    }
+    > .cardHeader {
+      grid-area: cardHeader;
+      padding-right: 0 !important;
+    }
+    > .paginationArea {
+      grid-area: pagination;
+      justify-content: flex-end !important;
+      padding-right: 20px;
+      @include mq-md {
+        padding-right: 0px;
+      }
+    }
+    > .btnArea {
+      grid-area: btn;
+      @include flexbox(end);
+      padding-right: 20px;
+      @include mq-md {
+        padding-right: 28px;
+      }
+      .btnPrimary {
+        border-radius: 4px;
+        width: 86px;
+        height: 26px;
+        @include text-style('xs', 500, $color-white);
+        @include mq-md {
+          width: 105px;
+          font-size: 14px;
+          height: 32px;
+        }
+        > img {
+          @include mq-md {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+    > .tableHeader {
+      grid-area: tableHeader;
+      color: $color-gray-9FA6B2;
+    }
+  }
+  > .tableEmpty {
+    width: 100%;
+    text-align: center;
+    color: $color-gray-9FA6B2;
+    padding: 40px 0;
+    @include mq-md {
+      padding: 80px 0;
+    }
+  }
+}
+.memberRow,
+.invitationRow {
+  @include flexbox(between);
+  padding: 14px 20px;
+  border-bottom: 1px solid $color-gray-EEEEEE;
+  @include mq-md {
+    padding: 16px 28px;
+  }
+  > .btnMemberRemove,
+  > .btnInvitationRemove {
+    @include flexbox();
+    width: 52px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: $color-white;
+    border: 1px solid $color-gray-D9D9D9;
+    @include text-style('xs', 500, $color-violet-5534DA);
+    @include mq-md {
+      width: 84px;
+      @include text-style('md', 500, $color-violet-5534DA);
+    }
+  }
+}
