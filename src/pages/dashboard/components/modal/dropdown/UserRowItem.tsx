@@ -28,7 +28,7 @@ export default function UserRowItem({
           <img src={profileImageUrl} alt={`${nickname} 프로필 이미지`} />
         ) : (
           <Image
-            src="/icon/profile.svg"
+            src="/images/profile.svg"
             alt="담당자 프로필 이미지 미리보기"
             width={26}
             height={26}

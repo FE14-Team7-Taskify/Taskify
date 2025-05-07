@@ -2,9 +2,8 @@ import { useCreateDashboardMutation } from '@/api/dashboards/dashboards.query';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
+import ColorChips from './dashboard/ColorChips';
 import styles from './modal.module.scss';
-
-const COLORS = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA'];
 
 export default function CreateDashboardModal({ onClose }: { onClose: () => void }) {
   const [value, setValue] = useState<{ title: string; color: string }>({
@@ -26,6 +25,7 @@ export default function CreateDashboardModal({ onClose }: { onClose: () => void 
   }
   return (
     <TwoButtonModal
+      className={styles.dashboardCreateModal}
       title="새로운 대시보드"
       btns={{
         onCancel: onClose,
@@ -38,19 +38,7 @@ export default function CreateDashboardModal({ onClose }: { onClose: () => void 
           <label>대시보드 이름</label>
           <Input name="title" onChange={handleInputChange} />
         </div>
-        <div className={styles.dashboardColorArea}>
-          {COLORS.map((color) => (
-            <input
-              key={color}
-              type="radio"
-              name="color"
-              value={color}
-              onChange={handleInputChange}
-              className={styles[`color-${color.replace('#', '')}`]}
-              checked={value.color === color}
-            />
-          ))}
-        </div>
+        <ColorChips color={value.color} onChange={handleInputChange} />
       </form>
     </TwoButtonModal>
   );
