@@ -12,12 +12,12 @@ export default function PasswordCheck() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
   const [isMismatch, setIsMismatch] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const router = useRouter();
   const { mutate } = useChangePasswordMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isFormValid = !!(currentPassword && newPassword && confirmPassword);
 
   const changePassword = (currentPassword: string, newPassword: string) => {
     console.log('비밀번호 변경 요청 시작');
@@ -29,29 +29,35 @@ export default function PasswordCheck() {
       },
       {
         onSuccess: () => {
-          alert('변경 성공!');
+          <OneButtonModal message="비밀번호 변경 성공." onClose={() => setIsModalOpen(false)} />;
           router.refresh();
         },
         onError: (error: any) => {
+
+          <OneButtonModal message="비밀번호 변경 실패." onClose={() => setIsModalOpen(false)} />;
+
           console.log('비밀번호 변경 실패:', error);
           setIsModalOpen(true);
+          console.log(error);
         },
       },
     );
   };
 
   useEffect(() => {
-    if (currentPassword && newPassword && confirmPassword) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
+    if (isTouched) {
+      setIsMismatch(newPassword !== confirmPassword);
     }
-  }, [currentPassword, newPassword, confirmPassword]);
+  }, [newPassword, confirmPassword, isTouched]);
 
   const handleSubmit = () => {
-    if (!isFormValid) return;
+    if (!isFormValid) {
+      <OneButtonModal message="필드를 채워주세요." onClose={() => setIsModalOpen(false)} />;
+      return;
+    }
 
     if (newPassword !== confirmPassword) {
+      <OneButtonModal message="확인 비밀번호가 다릅니다." onClose={() => setIsModalOpen(false)} />;
       return;
     }
 
@@ -95,10 +101,11 @@ export default function PasswordCheck() {
                   type="password"
                   placeholder="새 비밀번호 확인"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
                   onBlur={() => {
                     setIsTouched(true);
-                    setIsMismatch(newPassword !== confirmPassword);
                   }}
                   className={`${styles.inputBox} ${isTouched && isMismatch ? styles.errorInput : ''}`}
                 />

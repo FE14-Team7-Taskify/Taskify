@@ -58,7 +58,7 @@ export default function ManageColumnModal({ boardId, colId, onClose }: ManageCol
   return (
     <>
       <TwoButtonModal
-        title="칼럼 관리"
+        title="컬럼 관리"
         btns={{
           rightText: '수정',
           leftText: '삭제',

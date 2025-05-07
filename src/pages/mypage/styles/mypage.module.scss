@@ -1,20 +1,21 @@
 @use '@/styles/index.scss' as s;
 
 .backButton {
-  display: flex;
-  align-items: center;
+  @include s.flexbox(start, center);
+
   gap: 8px;
   background: none;
   border: none;
   padding: 0;
-  font-size: 2rem;
-  color: #4b5563;
   cursor: pointer;
   margin-left: 20px;
+
+  @include s.text-style('1xl', 400, s.$color-gray-9FA6B2);
 
   .text {
     text-decoration: none;
     transition: text-decoration 0.2s;
+    color: black;
   }
 
   &:hover .text {
@@ -23,78 +24,75 @@
 }
 
 .headfont {
-  font-size: 2rem;
+  @include s.text-style('2xl', 700);
   margin-bottom: 20px;
   position: relative;
-  left: -20px; // profileBox의 padding-left 무효화
-  top: -30px; // profileBox의 padding-top 무효화
+  left: -20px;
+  top: -30px;
 }
 
 .profileBox {
-  background-color: #ffffff;
+  background-color: s.$color-white;
   max-width: 600px;
   padding: 50px;
   margin-left: 15px;
   margin-top: 15px;
-  display: flex;
-  flex-direction: column;
 }
 
 .profileButton {
   width: 150px;
   height: 150px;
-  background-color: s.$color-gray-D9D9D9;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
 
   &:hover {
-    background-color: s.$color-gray-9FA6B2;
+    @include s.text-style('2xl', 700);
   }
 
   &:active {
     transform: scale(0.97);
   }
-  @media (max-width: 767px) {
+
+  @media (max-width: s.$breakpoint-md) {
     margin-left: 20px;
   }
 }
 
+.profileButtonImg {
+  width: '50%';
+  height: '50%';
+  object-fit: cover;
+}
 .rowWrapper {
-  display: flex;
-  align-items: flex-start;
+  @include s.flexbox(start, start);
+
   gap: 16px;
+
   @media (max-width: 767px) {
     flex-direction: column;
     margin-left: -50px;
   }
 }
 .formBox {
-  display: flex; // 이게 중요!
-  gap: 8px; // 각 입력 필드 간 여백
+  display: flex;
+  gap: 8px;
   flex-direction: column;
-}
-
-.inputBox {
-  box-sizing: border-box;
-  border: 2px solid #333;
-  padding: 16px;
-  width: 100% !important;
-  height: 20%;
 }
 
 .passwordBox {
   margin-top: 50px;
   margin-left: 15px;
-  background-color: #ffffff;
+  background-color: s.$color-white;
   max-width: 600px;
   padding: 50px;
 }
@@ -105,24 +103,27 @@
   width: 100%;
 }
 
+.inputBox {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100% !important;
+  height: 20%;
+  margin-top: 10px;
+}
+
 .passwordInputBox {
   margin-top: -30px;
+
   @media (max-width: 767px) {
     margin-left: -20px;
   }
 }
-.inputBox {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 4px;
-}
 
 .errorInput {
-  border-color: red;
+  border-color: s.$color-red-D6173A;
 }
 
 .errorText {
-  color: red;
-  font-size: 0.875rem;
+  @include s.text-style('sm', 400, s.$color-red-D6173A);
   margin-top: 4px;
 }
