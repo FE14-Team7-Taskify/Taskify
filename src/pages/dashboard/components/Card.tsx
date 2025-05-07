@@ -12,7 +12,7 @@ import { ColumnType } from '@/api/columns/columns.schema';
 
 interface CardProps {
   card: CardType;
-  column: ColumnType;
+  column?: ColumnType;
   isPreview?: boolean;
 }
 
@@ -53,7 +53,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
   // 할 일 카드 모달
   const handleCardClick = () => {
     if (isPreview) return;
-    overlay(<CardDetailModal cardId={card.id} column={column} />);
+    overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
   };
 
   return (
