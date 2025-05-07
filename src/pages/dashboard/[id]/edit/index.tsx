@@ -8,16 +8,14 @@ import MembersCard from '../../components/edit/MembersCard';
 import styles from '../../styles/edit.module.scss';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import DeleteDashboardModal from '../../components/edit/DeleteDashboardModal';
-import useSidebar from '@/hooks/useSidebar';
 
 export default function DashboardEdit() {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = typeof id === 'string' && !isNaN(Number(id)) ? Number(id) : 0;
-  const { data, isError, refetch: updateDashboardDetail } = useDashboardDetailQuery(dashboardId);
+  const { data, isError, refetch } = useDashboardDetailQuery(dashboardId);
 
   const { overlay, close } = useOverlay();
-  const { updateSidebarList } = useSidebar();
 
   if (!dashboardId) return <div>잘못된 접근입니다.</div>;
   if (isError || !data) return <div>에러가 발생했습니다.</div>;
@@ -26,15 +24,15 @@ export default function DashboardEdit() {
     router.push(`/dashboard/${dashboardId}`);
   }
   async function handleUpdateDashboard() {
-    updateDashboardDetail();
-    await updateSidebarList();
+    // updateDashboardDetail();
+    // await updateSidebarList();
   }
   function handleClickRemove() {
-    async function onClose() {
-      await updateSidebarList();
-      await close();
-    }
-    overlay(<DeleteDashboardModal dashboardId={dashboardId} close={onClose} />);
+    // async function onClose() {
+    //   await updateSidebarList();
+    //   await close();
+    // }
+    overlay(<DeleteDashboardModal dashboardId={dashboardId} close={close} />);
   }
 
   return (

@@ -1,21 +1,24 @@
 import { useOverlay } from '@/contexts/OverlayProvider';
-import useSidebar from '@/hooks/useSidebar';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '../common/button/pagination/Pagination';
 import CreateDashboardModal from '../modal/CreateDashboardModal';
 import styles from './sidebar.module.scss';
+import { useSidebarDashboardsQuery } from '@/api/dashboards/dashboards.query';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
   const { overlay, close } = useOverlay();
+  const [page, setPage] = useState(1);
 
-  const { isSuccess, totalCount, dashboards, updateSidebarList, page, setPage } = useSidebar();
+  const { isSuccess, data } = useSidebarDashboardsQuery(page);
+  const totalCount = data?.totalCount || 0;
+  const dashboards = data?.dashboards || [];
 
-  const totalPage = Math.ceil((totalCount || 10) / 10);
+  const totalPage = Math.ceil(totalCount / 10) || 1;
   const firstDashboardId = dashboards?.[0]?.id;
   const nextPathname = firstDashboardId ? `/dashboard/${firstDashboardId}` : '/mydashboard';
   function handleClickLogo() {
@@ -23,11 +26,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   }
 
   function handelClickCreateBtn() {
-    async function onClose() {
-      await updateSidebarList();
-      close();
-    }
-    overlay(<CreateDashboardModal onClose={onClose} />);
+    overlay(<CreateDashboardModal onClose={close} />);
   }
 
   function handleClickCard(dashboardId: number) {
