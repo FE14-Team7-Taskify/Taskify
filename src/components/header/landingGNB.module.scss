@@ -10,12 +10,11 @@
   right: 0;
   z-index: 5;
   background-color: common.$color-black;
-  border-bottom: 1px solid common.$color-gray-D9D9D9;
   padding: 0 24px;
-  @include common.mq-md() {
+  @include common.mq-lg() {
     padding: 0 40px;
   }
-  @include common.mq-lg() {
+  @include common.mq-xl() {
     padding: 0 80px;
   }
 
@@ -26,7 +25,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-image: url('../../../public/images/logo/landingLogo-small.svg');
-    @include common.mq-md() {
+    @include common.mq-lg() {
       background-image: url('../../../public/images/logo/landingLogo-large.svg');
       width: 121px;
       height: 39px;
