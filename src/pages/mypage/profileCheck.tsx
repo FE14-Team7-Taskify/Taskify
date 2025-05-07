@@ -13,20 +13,18 @@ type ProfileChackProps = {
 };
 
 export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackProps) {
-  const DEFAULT_PROFILE_IMAGE = '/default-profile.png';
-
   const { changeProfile } = useProfileChange();
   const [confirmNickname, setConfirmNickname] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState(DEFAULT_PROFILE_IMAGE);
+  const [previewUrl, setPreviewUrl] = useState('/icon/add_box_lg.svg');
 
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleChangeProfile = async () => {
-    let uploadedImageUrl = imgUrl || DEFAULT_PROFILE_IMAGE;
+    let uploadedImageUrl = imgUrl || '';
     const accessToken = localStorage.getItem('accessToken');
 
     if (!accessToken) {
@@ -49,7 +47,7 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             },
           },
         );
-        uploadedImageUrl = res.data.profileImageUrl || DEFAULT_PROFILE_IMAGE;
+        uploadedImageUrl = res.data.profileImageUrl || '';
         setPreviewUrl(uploadedImageUrl);
       } catch (err) {
         console.error('업로드 실패:', err);
@@ -97,9 +95,7 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             style={{ display: 'none' }}
           />
           <button className={styles.profileButton} onClick={handleClick}>
-            {previewUrl && (
-              <img src={previewUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            )}
+            {previewUrl && <img src={previewUrl} className={styles.profileButtonImg} />}
           </button>
         </div>
         <div className={styles.profileTextBox}>
@@ -115,7 +111,7 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
               />
             </div>
           </div>
-          <div>
+          <div style={{ marginTop: 10 }}>
             <div>닉네임</div>
             <Input
               type="text"
