@@ -1,3 +1,4 @@
+import { useOverlay } from '@/contexts/OverlayProvider';
 import styles from './dashboardHeader.module.scss';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -6,15 +7,16 @@ import { useEffect, useState } from 'react';
 import { useDashboardDetailQuery } from '@/api/dashboards/dashboards.query';
 import { useDashboardMembersQuery } from '@/api/members/members.query';
 import { MemberType } from '@/api/members/members.schema';
+import CreateInvitationModal from '../modal/CreateInvitationModal';
 
 export default function DashboardHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const match = pathname?.match(/^\/dashboard\/(\d+)(\/|$)/);
   const dashboardId = match ? Number(match[1]) : undefined;
-
   const user = useUser();
   const setUser = useSetUser();
+  const { overlay, close } = useOverlay();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -64,7 +66,8 @@ export default function DashboardHeader() {
   };
 
   function handleInvite() {
-    console.log('초대하기 모달');
+    if (!dashboardId) return;
+    overlay(<CreateInvitationModal dashboardId={dashboardId} onClose={close} />);
   }
 
   const visibleCount = isDesktop ? 4 : 2;
