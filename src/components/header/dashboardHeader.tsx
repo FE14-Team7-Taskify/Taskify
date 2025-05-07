@@ -112,7 +112,7 @@ export default function DashboardHeader() {
               className={`${styles.memberImageWrapper} ${!isDesktop && idx > 1 ? styles.hideOnMobile : ''} ${styles[`zIndex${idx}`]}`}
             >
               <Image
-                src={member.profileImageUrl || '/icon/profile.svg'}
+                src={member.profileImageUrl || '/images/profile.svg'}
                 className={styles.profileImg}
                 alt={member.nickname}
                 width={34}
@@ -142,7 +142,7 @@ export default function DashboardHeader() {
           <div className={styles.userNameWrapper}>
             <div className={styles.userProfile}>
               <Image
-                src={user?.profileImageUrl || '/icon/profile.svg'}
+                src={user?.profileImageUrl || '/images/profile.svg'}
                 alt="프로필 이미지"
                 className={styles.profileImg}
                 width={34}

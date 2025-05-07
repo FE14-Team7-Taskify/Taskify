@@ -51,7 +51,7 @@ export default function Header({ title }: { title: string }) {
         <div className={styles.userNameWrapper}>
           <div className={styles.userProfile}>
             <Image
-              src={user?.profileImageUrl || '/icon/profile.svg'}
+              src={user?.profileImageUrl || '/images/profile.svg'}
               alt="프로필 이미지"
               className={styles.profileImg}
               width={34}
