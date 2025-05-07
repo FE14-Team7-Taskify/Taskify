@@ -9,15 +9,16 @@ import { cn } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from '../../styles/edit.module.scss';
+import CreateInvitationModal from '@/components/modal/CreateInvitationModal';
 
 export default function InvitationsCard({ dashboardId }: { dashboardId: number }) {
   const [param, setParam] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { isSuccess, data } = useInvitationsQuery({ dashboardId, ...param });
   const totalPage = Math.ceil((data?.totalCount || param.size) / param.size);
 
-  const { overlay } = useOverlay();
+  const { overlay, close } = useOverlay();
   function handleClickInvite() {
-    // 초대하기 모달 팝업 처리
+    overlay(<CreateInvitationModal dashboardId={dashboardId} onClose={close} />);
   }
 
   const mutation = useDeleteInvitationMutation();

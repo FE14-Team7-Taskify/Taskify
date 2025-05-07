@@ -23,7 +23,7 @@ export default function CreateInvitationModal({
   return (
     <TwoButtonModal
       className={styles.invitationCreateModal}
-      title="새로운 대시보드"
+      title="초대하기"
       btns={{
         onCancel: onClose,
         onConfirm: handleConfirm,
@@ -32,10 +32,11 @@ export default function CreateInvitationModal({
     >
       <form className={styles.createInvitationModalContent} onSubmit={handleFormSubmit}>
         <div className={styles.dashboardTitleArea}>
-          <label>대시보드 이름</label>
+          <label>이메일</label>
           <Input
             name="title"
             value={email}
+            placeholder="이메일을 입력하세요"
             onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
           />
         </div>
