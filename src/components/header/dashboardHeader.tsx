@@ -81,30 +81,33 @@ export default function DashboardHeader() {
       )}
 
       <div className={styles.userContainer}>
-        <button
-          className={styles.headerButton}
-          onClick={() => handleNavigate(`/dashboard/${dashboardId}/edit`)}
-        >
-          <Image
-            src="/icon/settings.svg"
-            alt="관리"
-            width={20}
-            height={20}
-            className={styles.ButtonIcon}
-          />
-          관리
-        </button>
-        <button className={styles.headerButton} onClick={handleInvite}>
-          <Image
-            src="/icon/add_box.svg"
-            alt="초대하기"
-            width={20}
-            height={20}
-            className={styles.ButtonIcon}
-          />
-          초대하기
-        </button>
-
+        {dashboard && dashboard.createdByMe && (
+          <>
+            <button
+              className={styles.headerButton}
+              onClick={() => handleNavigate(`/dashboard/${dashboardId}/edit`)}
+            >
+              <Image
+                src="/icon/settings.svg"
+                alt="관리"
+                width={20}
+                height={20}
+                className={styles.ButtonIcon}
+              />
+              관리
+            </button>
+            <button className={styles.headerButton} onClick={handleInvite}>
+              <Image
+                src="/icon/add_box.svg"
+                alt="초대하기"
+                width={20}
+                height={20}
+                className={styles.ButtonIcon}
+              />
+              초대하기
+            </button>
+          </>
+        )}
         <div className={styles.invitedPeople}>
           {visibleMembers.map((member, idx) => (
             <div
