@@ -1,5 +1,5 @@
 import { useCreateInvitationMutation } from '@/api/dashboards/dashboards.query';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
 import styles from './modal.module.scss';
@@ -14,6 +14,9 @@ export default function CreateInvitationModal({
   const [email, setEmail] = useState<string>('');
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const mutation = useCreateInvitationMutation();
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
   function handleConfirm() {
     mutation.mutate({ dashboardId, email }, { onSuccess: () => onClose() });
   }
@@ -27,14 +30,16 @@ export default function CreateInvitationModal({
         rightDisabled: !emailRegex.test(email),
       }}
     >
-      <div className={styles.dashboardTitleArea}>
-        <label>대시보드 이름</label>
-        <Input
-          name="title"
-          value={email}
-          onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
-        />
-      </div>
+      <form className={styles.createInvitationModalContent} onSubmit={handleFormSubmit}>
+        <div className={styles.dashboardTitleArea}>
+          <label>대시보드 이름</label>
+          <Input
+            name="title"
+            value={email}
+            onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
+          />
+        </div>
+      </form>
     </TwoButtonModal>
   );
 }
