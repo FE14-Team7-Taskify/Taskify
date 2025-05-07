@@ -11,6 +11,7 @@ import DatetimePicker from './inputs/DatetimePicker';
 import ImageInput from './inputs/ImageInput';
 import TagInput from './inputs/TagInput';
 import TextFields from './inputs/TextFields';
+import CardDetailModal from './CardDetailModal';
 
 interface CardUpdateModalProps extends CardType {
   dashboardId: number;
@@ -21,7 +22,7 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
   const [formValue, setFormValue] = useState({ ...card, columnTitle: '' });
   const [isImageChanged, setIsImageChanged] = useState(false);
 
-  const { close } = useOverlay();
+  const { overlay } = useOverlay();
   const imageMutate = useUploadColumnImageMutation();
   const updateMutate = useUpdateCardMutation();
 
@@ -44,7 +45,16 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       assigneeUserId: formValue.assignee?.id,
       imageUrl,
     };
-    updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => close() });
+    updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => onClose });
+  }
+  function onClose() {
+    overlay(
+      <CardDetailModal
+        cardId={formValue.id}
+        columnId={card.columnId}
+        columnTitle={card.columnTitle}
+      />,
+    );
   }
   const updateBtnDisabled = JSON.stringify(card) === JSON.stringify(formValue) && !isImageChanged;
   return (
@@ -52,7 +62,7 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       className={styles.cardUpdateModal}
       title="할 일 수정"
       btns={{
-        onCancel: close,
+        onCancel: onClose,
         onConfirm: handleClickUpdate,
         rightText: '수정',
         rightDisabled: updateBtnDisabled,
