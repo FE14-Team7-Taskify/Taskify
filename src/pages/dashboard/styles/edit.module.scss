@@ -39,6 +39,7 @@
 }
 .dashboardEdit {
   @include flexbox(start, stretch);
+  background-color: $color-gray-FAFAFA;
   flex-direction: column;
   gap: 10px;
   padding: 16px 12px;
