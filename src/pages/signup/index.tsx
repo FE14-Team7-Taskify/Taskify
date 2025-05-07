@@ -11,13 +11,35 @@ import { useRouter } from 'next/router';
 import { ClipLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
 
+const VALIDATION_RULES = {
+  email: {
+    validate: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+    errorMessage: '이메일 형식으로 작성해주세요',
+  },
+  nickname: {
+    validate: (value: string) => value.length <= 10,
+    errorMessage: '10자 이하로 작성해주세요',
+  },
+  password: {
+    validate: (value: string) => value.length >= 8,
+    errorMessage: '8자 이상 입력해주세요',
+  },
+  confirmPassword: {
+    validate: (value: string, password: string) => value === password,
+    errorMessage: '비밀번호가 일치하지 않습니다',
+  },
+} as const;
+// 타입화 하기
+const INIT_FORM_VALUES = {
+  email: '',
+  nickname: '',
+  password: '',
+  confirmPassword: '',
+};
+type FormFields = keyof typeof INIT_FORM_VALUES;
+
 export default function Signup() {
-  const [values, setValues] = useState({
-    email: '',
-    nickname: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [signupForm, setSignupForm] = useState(INIT_FORM_VALUES);
   const [errors, setErrors] = useState({
     email: '',
     nickname: '',
@@ -52,53 +74,45 @@ export default function Signup() {
     }
   }, [user]);
 
-  if (user === undefined)
+  if (user === undefined) {
     return (
       <div className={styles.spinnerWrapper}>
         <ClipLoader color="#4b6ef3" size={40} />
       </div>
     );
+  }
 
   function isFormValid() {
     return (
-      values.email !== '' &&
-      emailRegex.test(values.email) &&
-      values.nickname !== '' &&
-      values.nickname.length <= 10 &&
-      values.password.length >= 8 &&
-      values.confirmPassword === values.password
+      signupForm.email !== '' &&
+      emailRegex.test(signupForm.email) &&
+      signupForm.nickname !== '' &&
+      signupForm.nickname.length <= 10 &&
+      signupForm.password.length >= 8 &&
+      signupForm.confirmPassword === signupForm.password
     );
   }
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setValues((prev) => ({
+    setSignupForm((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    // password 일치 검사 이후 password 변경 시, confirmPassword와 비교해서 에러 갱신
     if (name === 'password' && confirmPasswordTouched) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: values.confirmPassword === value ? '' : '비밀번호가 일치하지 않습니다',
+        confirmPassword: signupForm.confirmPassword === value ? '' : '비밀번호가 일치하지 않습니다',
       }));
     }
   }
 
-  function validateField(name: string, value: string) {
-    switch (name) {
-      case 'email':
-        return emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요';
-      case 'nickname':
-        return value.length <= 10 ? '' : '10자 이하로 작성해주세요';
-      case 'password':
-        return value.length >= 8 ? '' : '8자 이상 입력해주세요';
-      case 'confirmPassword':
-        return value === values.password ? '' : '비밀번호가 일치하지 않습니다';
-      default:
-        return '';
-    }
+  function validateField(name: FormFields, value: string) {
+    const rule = VALIDATION_RULES[name];
+    if (!rule) return '';
+    if (!rule || rule.validate(value, signupForm.password)) return '';
+    return rule.errorMessage;
   }
 
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
@@ -107,7 +121,7 @@ export default function Signup() {
 
     setErrors((prev) => ({
       ...prev,
-      [name]: validateField(name, value),
+      [name]: validateField(name as FormFields, value),
     }));
   }
 
@@ -120,7 +134,7 @@ export default function Signup() {
     if (!isFormValid()) return;
 
     signupMutation.mutate(
-      { email: values.email, nickname: values.nickname, password: values.password },
+      { email: signupForm.email, nickname: signupForm.nickname, password: signupForm.password },
       {
         onSuccess: () =>
           overlay(
@@ -149,10 +163,10 @@ export default function Signup() {
         </div>
 
         <InputForm
-          email={values.email}
-          nickname={values.nickname}
-          password={values.password}
-          confirmPassword={values.confirmPassword}
+          email={signupForm.email}
+          nickname={signupForm.nickname}
+          password={signupForm.password}
+          confirmPassword={signupForm.confirmPassword}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
           errors={errors}

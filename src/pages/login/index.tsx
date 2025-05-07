@@ -11,10 +11,23 @@ import { useRouter } from 'next/router';
 import { ClipLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
 
+const VALIDATION_RULES = {
+  email: {
+    validate: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+    errorMessage: '이메일 형식으로 작성해주세요',
+  },
+  password: {
+    validate: (value: string) => value.length >= 8,
+    errorMessage: '8자 이상 입력해주세요',
+  },
+} as const;
+
+const INIT_FORM_VALUES = { email: '', password: '' };
+type FormFields = keyof typeof INIT_FORM_VALUES;
+
 export default function Login() {
-  const [values, setValues] = useState({ email: '', password: '' });
+  const [loginForm, setLoginForm] = useState(INIT_FORM_VALUES);
   const [errors, setErrors] = useState({ email: '', password: '' });
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const loginMutation = useLoginMutation();
   const { close, overlay } = useOverlay();
   const user = useUser();
@@ -49,27 +62,28 @@ export default function Login() {
 
   function isFormValid() {
     return (
-      values.email !== '' && values.password !== '' && errors.email === '' && errors.password === ''
+      loginForm.email !== '' &&
+      loginForm.password !== '' &&
+      errors.email === '' &&
+      errors.password === ''
     );
   }
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+    setLoginForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function validateField(name: string, value: string) {
-    switch (name) {
-      case 'email':
-        return emailRegex.test(value) ? '' : '이메일 형식으로 작성해주세요';
-      case 'password':
-        return value.length >= 8 ? '' : '8자 이상 작성해주세요';
-    }
+  function validateField(name: FormFields, value: string) {
+    const rule = VALIDATION_RULES[name];
+    if (!rule) return '';
+    if (!rule || rule.validate(value)) return '';
+    return rule.errorMessage;
   }
 
   function handleInputBlur(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name as FormFields, value) }));
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -77,7 +91,7 @@ export default function Login() {
     if (!isFormValid()) return;
 
     loginMutation.mutate(
-      { email: values.email, password: values.password },
+      { email: loginForm.email, password: loginForm.password },
       {
         onSuccess: () => {
           localStorage.setItem('justLoggedIn', 'true');
@@ -104,8 +118,8 @@ export default function Login() {
           </div>
 
           <InputForm
-            email={values.email}
-            password={values.password}
+            email={loginForm.email}
+            password={loginForm.password}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
             errors={errors}

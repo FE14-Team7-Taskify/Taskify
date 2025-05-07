@@ -99,7 +99,7 @@
       border: 2px solid common.$color-white;
       position: relative;
       margin-left: -12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       @include common.flexbox(center, center);
 
       @include common.mq-md() {
@@ -140,7 +140,7 @@
       justify-content: center;
       border: 2px solid common.$color-white;
       margin-left: -12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
       @include common.mq-md() {
         width: 38px;
