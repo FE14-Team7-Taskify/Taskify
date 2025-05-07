@@ -2,8 +2,8 @@ import { useCreateDashboardMutation } from '@/api/dashboards/dashboards.query';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
-import styles from './modal.module.scss';
 import ColorChips from './dashboard/ColorChips';
+import styles from './modal.module.scss';
 
 export default function CreateDashboardModal({ onClose }: { onClose: () => void }) {
   const [value, setValue] = useState<{ title: string; color: string }>({
@@ -25,6 +25,7 @@ export default function CreateDashboardModal({ onClose }: { onClose: () => void 
   }
   return (
     <TwoButtonModal
+      className={styles.dashboardCreateModal}
       title="새로운 대시보드"
       btns={{
         onCancel: onClose,
