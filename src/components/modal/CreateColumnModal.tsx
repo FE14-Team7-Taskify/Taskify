@@ -2,6 +2,7 @@ import TwoButtonModal from './TwoButtonModal';
 import Input from '../common/Input';
 import { useEffect, useState } from 'react';
 import { useColumnsQuery, useCreateColumnMutation } from '@/api/columns/columns.query';
+import styles from './ManageColumnModal.module.scss';
 
 type CreacteColumnProps = {
   boardId: number;
@@ -42,7 +43,7 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
 
   return (
     <TwoButtonModal
-      title="새 칼럼 생성"
+      title="새 컬럼 생성"
       btns={{
         rightText: '생성',
         leftText: '취소',
@@ -51,7 +52,12 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
       }}
     >
       <div>이름</div>
-      <Input name="title" onChange={(e) => setColumnTitle(e.target.value)} />
+      <Input
+        name="title"
+        placeholder="새로운 프로젝트"
+        onChange={(e) => setColumnTitle(e.target.value)}
+        className={styles.createInput}
+      />
     </TwoButtonModal>
   );
 }
