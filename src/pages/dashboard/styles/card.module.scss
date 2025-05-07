@@ -68,7 +68,6 @@
     }
 
     .tagWrap {
-      margin-top: 10px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
@@ -77,6 +76,7 @@
     .cardInfoWrap {
       display: flex;
       flex-direction: column;
+      margin-top: 10px;
       @include s.mq-sm() {
         flex-direction: row;
         gap: 16px;

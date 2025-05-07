@@ -11,6 +11,7 @@
 
   @include s.mq-lg() {
     padding-right: 204px;
+    min-width: 488px;
   }
 
   .cardHeader {
@@ -26,7 +27,6 @@
       justify-content: space-between;
       margin-right: -194px;
     }
-
     .btnWrap {
       position: relative;
       display: flex;
@@ -103,7 +103,6 @@
       gap: 16px;
       min-width: 181px;
     }
-
     .meta {
       flex: 1;
       display: flex;
@@ -185,6 +184,7 @@
 
   .description {
     margin-top: 16px;
+    white-space: pre-line;
     @include s.text-style('xs', 400, s.$color-black);
 
     @include s.mq-md() {
