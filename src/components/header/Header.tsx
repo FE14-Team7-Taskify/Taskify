@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import styles from './header.module.scss';
+import Image from 'next/image';
 import { useSetUser, useUser } from '@/contexts/AuthProvider';
 import { useEffect, useState } from 'react';
 
-export default function Header() {
+export default function Header({ title }: { title: string }) {
   const router = useRouter();
   const user = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,21 +13,24 @@ export default function Header() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as HTMLElement;
-      if (!target.closest('[data-dropdown]')) {
+      const isDropdownArea = target.closest('[data-dropdown]');
+      const isToggleButton = target.closest('[data-toggle]');
+      if (!isDropdownArea && !isToggleButton) {
         setIsDropdownOpen(false);
       }
     }
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isDropdownOpen]);
+  }, []);
+
   const handleNavigate = (path: string) => {
     setIsDropdownOpen(false);
     router.push(path);
   };
+
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
@@ -37,11 +41,23 @@ export default function Header() {
 
   return (
     <div className={styles.headerWrapper}>
-      <div className={styles.headerTitle}>내 대시보드</div>
+      <div className={styles.headerTitle}>{title}</div>
 
-      <button className={styles.dropdown} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+      <button
+        className={styles.dropdown}
+        data-toggle
+        onClick={() => setIsDropdownOpen((prev) => !prev)}
+      >
         <div className={styles.userNameWrapper}>
-          <div className={styles.userFirstName}>{user?.nickname[0]}</div>
+          <div className={styles.userProfile}>
+            <Image
+              src={user?.profileImageUrl || '/icon/profile.svg'}
+              alt="프로필 이미지"
+              className={styles.profileImg}
+              width={34}
+              height={34}
+            />
+          </div>{' '}
           <div className={styles.userName}>{user?.nickname}</div>
         </div>
       </button>

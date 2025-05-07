@@ -14,7 +14,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   const { overlay, close } = useOverlay();
 
   const [page, setPage] = useState<number>(1);
-  const { isSuccess, data } = useDashboardsQuery({
+  const { isSuccess, data, refetch } = useDashboardsQuery({
     navigationMethod: 'pagination',
     size: 10,
     page,
@@ -28,7 +28,11 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
   }
 
   function handelClickCreateBtn() {
-    overlay(<CreateDashboardModal onClose={close} />);
+    function onClose() {
+      page > 1 ? setPage(1) : refetch();
+      close();
+    }
+    overlay(<CreateDashboardModal onClose={onClose} />);
   }
 
   function handleClickCard(dashboardId: number) {

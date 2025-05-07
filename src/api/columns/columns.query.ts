@@ -68,12 +68,8 @@ export const useDeleteColumnMutation = (dashboardId: number) => {
 /**
  * 카드 이미지 업로드 뮤테이션
  */
-export const useUploadColumnImageMutation = (dashboardId: number) => {
-  const queryClient = useQueryClient();
-  return useMutation<void, Error, UploadColumnImageRequest>({
+export const useUploadColumnImageMutation = () => {
+  return useMutation<{ imageUrl: string }, Error, UploadColumnImageRequest>({
     mutationFn: (data) => columnsService.uploadCardImage(data).then((res) => res.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: columnsQuery.all(dashboardId) });
-    },
   });
 };

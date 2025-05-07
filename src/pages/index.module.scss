@@ -1,0 +1,343 @@
+@use '@/styles/index.scss' as s;
+
+.container {
+  padding: 4rem 2rem;
+  background-color: s.$color-black;
+  color: s.$color-white;
+}
+
+/* 메인 섹션 */
+.main {
+  text-align: center;
+  margin: 2rem 0;
+
+  h1 {
+    @include s.column-flexbox(center, center);
+    @include s.text-style('4xl', 700, s.$color-white);
+    margin: 2rem 0 9rem 0;
+
+    .highlight {
+      @include s.text-style('4xl', 700, s.$color-violet-5534DA);
+    }
+  }
+
+  .cta {
+    width: 23.5rem;
+    height: 4.6rem;
+    @include s.text-style('md', 500, s.$color-white);
+    background-color: s.$color-violet-5534DA;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  @include s.mq-lg {
+    h1 {
+      @include s.flexbox(center, center);
+      gap: 2rem;
+      flex-direction: row;
+      @include s.text-style('6xl', 700, s.$color-white);
+
+      .highlight {
+        @include s.text-style('7xl', 700, s.$color-violet-5534DA);
+      }
+    }
+
+    .cta {
+      width: 28rem;
+      height: 5.4rem;
+      @include s.text-style('2lg', 500, s.$color-white);
+    }
+  }
+
+  @include s.mq-xl {
+    h1 {
+      @include s.flexbox(center, center);
+      @include s.text-style('8xl', 700, s.$color-white);
+
+      .highlight {
+        @include s.text-style('9xl', 700, s.$color-violet-5534DA);
+      }
+    }
+
+    .cta {
+      width: 28rem;
+      height: 5.4rem;
+      @include s.text-style('2lg', 500, s.$color-white);
+    }
+  }
+}
+
+/* 기능 1, 2 */
+.point {
+  margin: 15rem auto;
+  width: 34.3rem;
+  height: 68.6rem;
+  background-color: s.$color-black-171717;
+  @include s.column-flexbox(between, center);
+  border-radius: 8px;
+  gap: 6.5rem;
+
+  .title {
+    @include s.text-style('2lg', 500, s.$color-gray-9FA6B2);
+    margin-top: 5.5rem;
+  }
+
+  .textbox {
+    @include s.column-flexbox(center, center);
+    @include s.text-style('3xl', 700, s.$color-white);
+  }
+
+  > :last-of-type {
+    width: 100%;
+    height: 70%;
+    display: flex;
+  }
+
+  .imageBox1 {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .imageBox2 {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  @include s.mq-lg {
+    width: 68.4rem;
+    height: 97.2rem;
+    position: relative;
+
+    .title {
+      @include s.text-style('2xl', 500, s.$color-gray-9FA6B2);
+      position: absolute;
+      left: 6rem;
+    }
+
+    .textbox {
+      @include s.column-flexbox(center, start);
+      @include s.text-style('5xl', 700, s.$color-white);
+      position: absolute;
+      top: 18rem;
+      left: 6rem;
+    }
+
+    > :last-of-type {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .imageBox1 {
+      right: 0;
+      width: 51.9rem;
+      height: 43.5rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .imageBox2 {
+      width: 36rem;
+      height: 41.5rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  @include s.mq-xl {
+    width: 120rem;
+    height: 60rem;
+    position: relative;
+
+    .title {
+      @include s.text-style('2xl', 500, s.$color-gray-9FA6B2);
+      position: absolute;
+      left: 6rem;
+    }
+
+    .textbox {
+      @include s.column-flexbox(center, start);
+      @include s.text-style('5xl', 700, s.$color-white);
+      position: absolute;
+      top: 18rem;
+      left: 6rem;
+    }
+
+    > :last-of-type {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .imageBox1 {
+      right: 0;
+      width: 59.4rem;
+      height: 49.7rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .imageBox2 {
+      left: 8.5rem;
+      width: 43rem;
+      height: 50.2rem;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.secondPoint {
+  @include s.mq-xl {
+    .title {
+      top: 6.5rem;
+      left: 64rem;
+    }
+
+    .textbox {
+      top: 25rem;
+      left: 64rem;
+    }
+  }
+}
+
+/* 설정 UI */
+.settings {
+  h3 {
+    text-align: center;
+    @include s.text-style('xl', 700, s.$color-white);
+    margin-bottom: 3rem;
+  }
+
+  .settingCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+
+    .card {
+      background-color: s.$color-black-171717;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 34.3rem;
+      display: flex;
+      flex-direction: column;
+
+      .imageWrapper {
+        background-color: s.$color-black-4B4B4B;
+        height: 23.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          width: 70%;
+        }
+      }
+
+      .textWrapper {
+        padding: 2rem;
+
+        .cardTitle {
+          @include s.text-style('2lg', 700, s.$color-white);
+          margin-bottom: 0.8rem;
+        }
+
+        .cardDesc {
+          @include s.text-style('lg', 400, s.$color-white);
+        }
+      }
+    }
+  }
+
+  @include s.mq-lg {
+    h3 {
+      @include s.text-style('2xl', 700, s.$color-white);
+    }
+    .card {
+      width: 37.8rem;
+    }
+  }
+
+  @include s.mq-xl {
+    width: 120rem;
+    margin: 0 auto;
+    h3 {
+      @include s.text-style('2xl', 700, s.$color-white);
+      text-align: left;
+    }
+
+    .settingCards {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3.2rem;
+
+      .card {
+        width: 37.8rem;
+      }
+    }
+  }
+}
+
+/* 푸터 UI */
+.footer {
+  margin-top: 15rem;
+  padding-top: 2rem;
+  text-align: center;
+
+  p {
+    @include s.text-style('lg', 700, s.$color-gray-9FA6B2);
+  }
+
+  nav {
+    margin-top: 1rem;
+
+    a {
+      @include s.text-style('lg', 700, s.$color-gray-9FA6B2);
+      margin: 0 0.8rem;
+      text-decoration: none;
+    }
+  }
+
+  .snsIcons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  @include s.mq-lg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 6rem 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 0;
+
+      a {
+        margin: 0 1.2rem;
+      }
+    }
+
+    .snsIcons {
+      margin-top: 0;
+    }
+  }
+}
