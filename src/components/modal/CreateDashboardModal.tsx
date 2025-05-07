@@ -3,8 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import Input from '../common/Input';
 import TwoButtonModal from './TwoButtonModal';
 import styles from './modal.module.scss';
-
-const COLORS = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA'];
+import ColorChips from './dashboard/ColorChips';
 
 export default function CreateDashboardModal({ onClose }: { onClose: () => void }) {
   const [value, setValue] = useState<{ title: string; color: string }>({
@@ -38,19 +37,7 @@ export default function CreateDashboardModal({ onClose }: { onClose: () => void 
           <label>대시보드 이름</label>
           <Input name="title" onChange={handleInputChange} />
         </div>
-        <div className={styles.dashboardColorArea}>
-          {COLORS.map((color) => (
-            <input
-              key={color}
-              type="radio"
-              name="color"
-              value={color}
-              onChange={handleInputChange}
-              className={styles[`color-${color.replace('#', '')}`]}
-              checked={value.color === color}
-            />
-          ))}
-        </div>
+        <ColorChips color={value.color} onChange={handleInputChange} />
       </form>
     </TwoButtonModal>
   );
