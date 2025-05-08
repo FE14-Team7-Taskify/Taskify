@@ -38,7 +38,7 @@ export default function UserDropdown({
   useEffect(() => {
     if (isSuccess && !!data?.totalCount && data.totalCount > param.size)
       setParam({ ...param, size: data.totalCount });
-  }, [isSuccess, data?.totalCount]);
+  }, [isSuccess, data?.totalCount, param]);
 
   /**
    * ref 설정 통한 포커싱 설정
@@ -90,6 +90,7 @@ export default function UserDropdown({
             {isSuccess &&
               FilteredMembers.map(({ userId, nickname, profileImageUrl }: MemberType) => (
                 <UserRowItem
+                  key={userId}
                   isActive={assignee?.id === userId}
                   {...{ id: userId, nickname, profileImageUrl, handleItemClick }}
                 />

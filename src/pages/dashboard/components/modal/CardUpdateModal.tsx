@@ -45,12 +45,13 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       assigneeUserId: formValue.assignee?.id,
       imageUrl,
     };
-    updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => onClose() });
+    updateMutate.mutate({ ...reqBody, cardId: id }, { onSuccess: () => onClose });
   }
   function onClose() {
     overlay(
       <CardDetailModal
         cardId={formValue.id}
+
         columnId={formValue.columnId}
         columnTitle={formValue.columnTitle}
       />,
@@ -61,7 +62,6 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
       ...card,
       columnTitle: formValue.columnTitle,
     }) === JSON.stringify(formValue) && !isImageChanged;
-
   return (
     <TwoButtonModal
       className={styles.cardUpdateModal}
@@ -102,7 +102,7 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
           imageUrl={formValue.imageUrl}
           setFile={(file) => {
             setFile(file);
-            setIsImageChanged(true);
+            !!file && setIsImageChanged(true);
           }}
         />
       </div>

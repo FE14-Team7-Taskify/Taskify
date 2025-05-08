@@ -51,7 +51,7 @@ export default function Login() {
         router.replace('/mydashboard');
       }
     }
-  }, [user]);
+  }, [user, router]);
 
   if (user === undefined)
     return (

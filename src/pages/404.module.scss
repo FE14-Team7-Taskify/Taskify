@@ -1,0 +1,38 @@
+@use '@/styles/index.scss' as s;
+
+.container {
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 96px;
+  font-weight: 800;
+  color: s.$color-violet-5534DA; // Taskify purple
+}
+
+.message {
+  font-size: 24px;
+}
+
+.button {
+  display: inline-block;
+  background-color: s.$color-violet-5534DA;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}

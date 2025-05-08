@@ -1,6 +1,5 @@
 import { cn } from '@/styles/util/stylesUtil';
 import { ButtonHTMLAttributes } from 'react';
-import styles from './myPageButton.module.scss';
 
 export default function Button({
   className = '',

@@ -12,7 +12,7 @@ const OverlayContext = createContext<OverlayContextProps>({
 
 export function OverlayProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [overlay, setOverlay] = useState<any>();
+  const [overlay, setOverlay] = useState<JSX.Element | undefined>();
   return (
     <OverlayContext value={{ setIsOpen, setOverlay }}>
       {children}
