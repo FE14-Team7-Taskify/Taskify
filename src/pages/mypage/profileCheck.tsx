@@ -20,6 +20,7 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState('/icon/add_box_lg.svg');
+  const [modalMessage, setModalMessage] = useState('');
 
   const handleClick = () => {
     fileInputRef.current?.click();

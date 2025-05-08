@@ -18,7 +18,7 @@ export default function PasswordCheck() {
   const { mutate } = useChangePasswordMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isFormValid = !!(currentPassword && newPassword && confirmPassword);
-
+  const [modalMessage, setModalMessage] = useState('');
   const changePassword = (currentPassword: string, newPassword: string) => {
     console.log('비밀번호 변경 요청 시작');
 
@@ -29,11 +29,11 @@ export default function PasswordCheck() {
       },
       {
         onSuccess: () => {
-          <OneButtonModal message="비밀번호 변경 성공." onClose={() => setIsModalOpen(false)} />;
-          router.refresh();
+          setModalMessage('비밀번호 변경 성공.');
+          setIsModalOpen(true);
         },
         onError: (error: unknown) => {
-          <OneButtonModal message="비밀번호 변경 실패." onClose={() => setIsModalOpen(false)} />;
+          setModalMessage('비밀번호 변경 실패.');
 
           console.log('비밀번호 변경 실패:', error);
           setIsModalOpen(true);
@@ -51,12 +51,12 @@ export default function PasswordCheck() {
 
   const handleSubmit = () => {
     if (!isFormValid) {
-      <OneButtonModal message="필드를 채워주세요." onClose={() => setIsModalOpen(false)} />;
+      setModalMessage('필드를 채워주세요.');
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      <OneButtonModal message="확인 비밀번호가 다릅니다." onClose={() => setIsModalOpen(false)} />;
+      setModalMessage('확인 비밀번호가 다릅니다.');
       return;
     }
 
@@ -123,7 +123,13 @@ export default function PasswordCheck() {
           </Button>
         </div>
         {isModalOpen && (
-          <OneButtonModal message="실패했습니다." onClose={() => setIsModalOpen(false)} />
+          <OneButtonModal
+            message={modalMessage}
+            onClose={() => {
+              setIsModalOpen(false);
+              router.refresh();
+            }}
+          />
         )}
       </div>
     </div>
