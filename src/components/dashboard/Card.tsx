@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/dashboard.module.scss';
+import styles from '../../pages/dashboard/styles/dashboard.module.scss';
 import Image from 'next/image';
 import Tag from '../../pages/dashboard/components/Tag';
 import { useDrag } from 'react-dnd';
