@@ -58,9 +58,8 @@ function Card({ card, column, isPreview = false }: CardProps) {
     }
   };
 
-  if (typeof window === 'undefined' || !card || !card.id) {
-    return null;
-  }
+  const shouldRender = typeof window !== 'undefined' && card && card.id;
+  if (!shouldRender) return null;
 
   return (
     <div
