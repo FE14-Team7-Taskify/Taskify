@@ -1,0 +1,61 @@
+@charset 'uft-8';
+@use '@/styles/index.scss' as s;
+@use './column.module.scss';
+@use './card.module.scss';
+@use './tag.module.scss';
+
+.dashboard {
+  background-color: s.$color-gray-FAFAFA;
+  min-height: 100vh;
+  overflow: auto;
+  @include s.mq-lg() {
+    display: flex;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    @include s.mq-lg() {
+      flex-direction: row;
+      flex-grow: 1;
+    }
+
+    .addColumn {
+      padding: 0 12px 49px;
+
+      @include s.mq-sm() {
+        padding: 20px;
+      }
+      @include s.mq-lg() {
+        width: 354px;
+        flex-shrink: 0;
+        padding-top: 76px;
+      }
+
+      .addBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        height: 66px;
+        background-color: s.$color-white;
+        border: 1px solid s.$color-gray-D9D9D9;
+        border-radius: 8px;
+        @include s.text-style('lg', 700, s.$color-black-333236);
+      }
+    }
+  }
+}
+
+.columnCardLoader {
+  @include s.flexbox();
+  gap: 16px;
+  padding: 0px 16px 24px;
+  > div {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: s.$color-gray-D9D9D9;
+  }
+}

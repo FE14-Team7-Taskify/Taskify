@@ -1,15 +1,8 @@
-import path from 'path';
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig: import('next').NextConfig = {
   reactStrictMode: true,
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'src/styles')],
-    prependData: `
-      @use "@/styles/colors" as *;
-      @use "@/styles/typography" as *;
-      @use "@/styles/breakpoints" as *;
-    `,
+  images: {
+    domains: ['sprint-fe-project.s3.ap-northeast-2.amazonaws.com'],
   },
 };
 

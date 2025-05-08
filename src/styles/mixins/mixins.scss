@@ -1,0 +1,132 @@
+@use '@/styles/variables/variables.scss' as *;
+// 반응형 미디어 쿼리 믹스인
+@mixin mq-sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin mq-md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin mq-lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin mq-xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+// 간단한 텍스트 스타일 믹스인
+@mixin text-style-xs {
+  font-size: $font-size-xs;
+  line-height: $line-height-xs;
+}
+
+@mixin text-style-sm {
+  font-size: $font-size-sm;
+  line-height: $line-height-sm;
+}
+
+@mixin text-style-md {
+  font-size: $font-size-md;
+  line-height: $line-height-md;
+}
+
+@mixin text-style-lg {
+  font-size: $font-size-lg;
+  line-height: $line-height-lg;
+}
+
+@mixin text-style-2lg {
+  font-size: $font-size-2lg;
+  line-height: $line-height-2lg;
+}
+
+@mixin text-style-xl {
+  font-size: $font-size-xl;
+  line-height: $line-height-xl;
+}
+
+@mixin text-style-2xl {
+  font-size: $font-size-2xl;
+  line-height: $line-height-2xl;
+}
+
+@mixin text-style-3xl {
+  font-size: $font-size-3xl;
+  line-height: $line-height-3xl;
+}
+
+@mixin text-style-4xl {
+  font-size: $font-size-4xl;
+  line-height: $line-height-4xl;
+}
+
+@mixin text-style-5xl {
+  font-size: $font-size-5xl;
+  line-height: $line-height-5xl;
+}
+
+@mixin text-style-6xl {
+  font-size: $font-size-6xl;
+  line-height: $line-height-6xl;
+}
+
+@mixin text-style-7xl {
+  font-size: $font-size-7xl;
+  line-height: $line-height-7xl;
+}
+
+@mixin text-style-8xl {
+  font-size: $font-size-8xl;
+  line-height: $line-height-8xl;
+}
+
+@mixin text-style-9xl {
+  font-size: $font-size-9xl;
+  line-height: $line-height-9xl;
+}
+
+// 통합 텍스트 스타일 믹스인
+@mixin text-style($size, $weight: 400, $color: $color-black-333236) {
+  @if ($size == 'xs') {
+    @include text-style-xs;
+  } @else if ($size == 'sm') {
+    @include text-style-sm;
+  } @else if ($size == 'md') {
+    @include text-style-md;
+  } @else if ($size == 'lg') {
+    @include text-style-lg;
+  } @else if ($size == '2lg') {
+    @include text-style-2lg;
+  } @else if ($size == 'xl') {
+    @include text-style-xl;
+  } @else if ($size == '2xl') {
+    @include text-style-2xl;
+  } @else if ($size == '3xl') {
+    @include text-style-3xl;
+  } @else if ($size == '4xl') {
+    @include text-style-4xl;
+  } @else if ($size == '5xl') {
+    @include text-style-5xl;
+  } @else if ($size == '6xl') {
+    @include text-style-6xl;
+  } @else if ($size == '7xl') {
+    @include text-style-7xl;
+  } @else if ($size == '8xl') {
+    @include text-style-8xl;
+  } @else if ($size == '9xl') {
+    @include text-style-9xl;
+  }
+
+  font-weight: $weight;
+  color: $color;
+}

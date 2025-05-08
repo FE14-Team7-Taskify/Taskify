@@ -1,0 +1,46 @@
+@use '@/styles/index.scss' as common;
+
+.headerWrapper {
+  @include common.flexbox(between, center);
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background-color: common.$color-black;
+  padding: 0 24px;
+  @include common.mq-lg() {
+    padding: 0 40px;
+  }
+  @include common.mq-xl() {
+    padding: 0 80px;
+  }
+
+  .logoArea {
+    flex-shrink: 0;
+    width: 24px;
+    height: 27px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../../../public/images/logo/landingLogo-small.svg');
+    @include common.mq-lg() {
+      background-image: url('../../../public/images/logo/landingLogo-large.svg');
+      width: 121px;
+      height: 39px;
+    }
+  }
+}
+
+.authButtonContainer {
+  color: common.$color-white;
+  @include common.text-style-md();
+  gap: 24px;
+  @include common.flexbox(center);
+
+  @include common.mq-md() {
+    @include common.text-style-lg();
+    gap: 36px;
+  }
+}

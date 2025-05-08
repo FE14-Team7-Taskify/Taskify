@@ -1,0 +1,45 @@
+@use '@/styles/index.scss' as s;
+
+.inputFormContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  @include s.mq-md {
+    gap: 16px;
+  }
+}
+
+.inputForm {
+  width: 100%;
+}
+.errorMessage {
+  @include s.text-style('md', 400, s.$color-red-D6173A);
+  margin-top: 8px;
+}
+.errorInput {
+  border: 1px solid s.$color-red-D6173A;
+}
+
+.inputFormWrapper {
+  position: relative;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  cursor: pointer;
+}
+.inputFormAgreement {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.authButton {
+  margin-top: 8px;
+}

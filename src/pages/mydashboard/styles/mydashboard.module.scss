@@ -1,0 +1,17 @@
+@charset 'uft-8';
+@use '@/styles/index.scss' as common;
+@use './card.module.scss';
+@use './table.module.scss';
+
+.container {
+  overflow: hidden;
+  max-width: 1022px;
+  @include common.flexbox(start, start);
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  @include common.mq-md() {
+    gap: 48px;
+    padding: 40px;
+  }
+}

@@ -1,0 +1,49 @@
+@use '@/styles/index.scss' as s;
+
+.authContainer {
+  max-width: 400px;
+  width: 100%;
+  margin: 72px auto;
+  padding: 0 12px;
+  color: s.$color-black-333236;
+
+  @include s.mq-md {
+    max-width: 520px;
+  }
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  cursor: pointer;
+
+  .logoTitle {
+    @include s.text-style('2lg', 500, s.$color-black-333236);
+
+    @include s.mq-md {
+      @include s.text-style-xl();
+    }
+  }
+}
+
+.switchAuthWrapper {
+  @include s.text-style('lg', 400, s.$color-black-333236);
+  margin-top: 24px;
+  text-align: center;
+}
+
+.switchAuth {
+  color: s.$color-violet_5534DA;
+  text-decoration: underline;
+}
+
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

@@ -1,11 +1,33 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-const api = axios.create({
+const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+const requestInterceptor = async (config: InternalAxiosRequestConfig) => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) config.headers['Authorization'] = `Bearer ${accessToken}`;
+  return config;
+};
+
+api.interceptors.request.use(requestInterceptor);
+
+const responseInterceptorForError = async (error: AxiosError) => {
+  if (error.response?.status === 401) {
+    // 토큰 만료시 localStorage 비우기
+    const requestInterceptor = (config: InternalAxiosRequestConfig) => {
+      config.headers['Authorization'] = '';
+      localStorage.clear();
+      return config;
+    };
+    api.interceptors.request.use(requestInterceptor);
+  }
+  return Promise.reject(error);
+};
+
+api.interceptors.response.use((res) => res, responseInterceptorForError);
 
 export default api;

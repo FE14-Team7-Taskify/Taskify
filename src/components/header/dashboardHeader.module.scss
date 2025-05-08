@@ -1,0 +1,273 @@
+@use '@/styles/index.scss' as common;
+
+.headerWrapper {
+  @include common.flexbox(between, center);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  width: 100%;
+  height: 70px;
+  background-color: common.$color-white;
+  border-bottom: 1px solid common.$color-gray-D9D9D9;
+  padding: 13px 8px 13px 84px;
+
+  @include common.mq-md() {
+    padding: 15px 32px 15px 200px;
+  }
+  @include common.mq-lg() {
+    padding: 15px 80px 15px 340px;
+  }
+
+  .dashboardTitle {
+    @include common.text-style('xl', 700);
+    display: none;
+
+    @include common.mq-lg() {
+      @include common.flexbox(center, center);
+      gap: 8px;
+    }
+
+    .dashboardCrown {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background-image: url('/icon/crown.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+}
+
+.userContainer {
+  @include common.flexbox(center, center);
+  position: relative;
+  margin-left: auto;
+
+  .headerButton {
+    padding: 6px 12px;
+    white-space: nowrap;
+    border: 1px solid common.$color-gray-D9D9D9;
+    border-radius: 8px;
+    margin-left: 6px;
+    background-color: common.$color-white;
+    cursor: pointer;
+    @include common.text-style('md', 500, common.$color-gray_787486);
+    @include common.flexbox(center, center);
+    gap: 8px;
+
+    @include common.mq-md() {
+      padding: 8px 16px;
+      margin-left: 12px;
+    }
+
+    @include common.mq-lg() {
+      padding: 10px 16px;
+      margin-left: 16px;
+    }
+
+    .ButtonIcon {
+      vertical-align: middle;
+      display: none;
+
+      @include common.mq-md() {
+        display: block;
+      }
+    }
+  }
+
+  .invitedPeople {
+    position: relative;
+    height: 34px;
+    @include common.flexbox(center, center);
+    margin: 0 16px;
+
+    @include common.mq-md() {
+      margin: 0 24px 0 32px;
+    }
+
+    @include common.mq-lg() {
+      margin: 0 40px 0 36px;
+    }
+
+    .memberImageWrapper {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: common.$color-white;
+      border: 2px solid common.$color-white;
+      position: relative;
+      margin-left: -12px;
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      @include common.flexbox(center, center);
+
+      @include common.mq-md() {
+        width: 38px;
+        height: 38px;
+      }
+
+      &.hideOnMobile {
+        display: none;
+
+        @include common.mq-lg() {
+          display: flex;
+        }
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      .profileImg {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        border-radius: 50%;
+      }
+    }
+
+    .extraCount {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: #f4d7da;
+      color: #d25b68;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid common.$color-white;
+      margin-left: -12px;
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      @include common.mq-md() {
+        width: 38px;
+        height: 38px;
+      }
+
+      &.hideOnDesktop {
+        display: flex;
+
+        @include common.mq-lg() {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .divider {
+    border-left: 1px solid common.$color-gray-D9D9D9;
+    height: 38px;
+    margin-right: 16px;
+
+    @include common.mq-md() {
+      margin-right: 24px;
+    }
+
+    @include common.mq-lg() {
+      margin-right: 36px;
+    }
+  }
+
+  .userNameWrapper {
+    @include common.text-style('lg', 500);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .userProfile {
+      width: 34px;
+      height: 34px;
+      border: 2px solid common.$color-white;
+      border-radius: 50%;
+      background-color: common.$color-white;
+      box-shadow: 0 0 5px rgba(132, 132, 132, 0.4);
+      overflow: hidden;
+      @include common.flexbox(center, center);
+
+      @include common.mq-md() {
+        width: 38px;
+        height: 38px;
+      }
+
+      .profileImg {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        border-radius: 50%;
+      }
+    }
+
+    .userName {
+      display: none;
+
+      @include common.mq-md() {
+        display: block;
+      }
+    }
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: white;
+    padding: 6px;
+    border: 1px solid common.$color-gray-D9D9D9;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-5px);
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+
+    &.open {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    &.closed {
+      opacity: 0;
+      transform: translateY(-5px);
+      visibility: hidden;
+    }
+
+    @include common.mq-md() {
+      right: 15px;
+    }
+
+    @include common.mq-lg() {
+      right: 30px;
+    }
+
+    button {
+      padding: 4px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+      @include common.text-style-md();
+
+      &:hover {
+        color: common.$color-violet-5534DA;
+        background-color: common.$color-violet-8;
+      }
+    }
+  }
+}
+
+@for $i from 0 through 9 {
+  .zIndex#{$i} {
+    z-index: #{10 + $i};
+  }
+}

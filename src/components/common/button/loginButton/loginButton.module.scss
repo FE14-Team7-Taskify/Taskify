@@ -1,0 +1,22 @@
+@use '@/styles/index.scss' as s;
+
+.Button {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  background-color: s.$color-violet-5534DA;
+  @include s.text-style('2lg', 500, s.$color-white);
+
+  &:hover {
+    background-color: rgba(s.$color-violet-5534DA, 0.8);
+  }
+
+  &:disabled {
+    background-color: s.$color-gray-9FA6B2;
+    cursor: default;
+    pointer-events: none;
+  }
+}

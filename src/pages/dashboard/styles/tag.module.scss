@@ -1,0 +1,11 @@
+@use '@/styles/index.scss' as s;
+
+.tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  @include s.text-style('xs', 400);
+
+  @include s.mq-sm() {
+    @include s.text-style('md', 400);
+  }
+}

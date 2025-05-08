@@ -1,0 +1,8 @@
+@use '@/styles/index.scss' as s;
+
+.Label {
+  @include s.text-style('lg', 400, s.$color-black-333236);
+
+  display: block;
+  width: 100%;
+}

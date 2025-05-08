@@ -1,0 +1,188 @@
+@use '@/styles/index.scss' as *;
+
+.modalWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  @include flexbox();
+  .modal {
+    @include flexbox(center, stretch);
+    flex-direction: column;
+    gap: 16px;
+    min-width: 272px;
+    min-height: 164px;
+    max-width: 327px;
+    padding: 24px 16px;
+    border-radius: 16px;
+    background: $color-white;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    @include text-style('lg', 500, $color-black-333236);
+    @include mq-md {
+      gap: 24px;
+      max-width: 568px;
+      padding: 32px 40px;
+      @include text-style-xl();
+    }
+    .modalHeader {
+      @include text-style('xl', 700, $color-black-333236);
+      @include mq-md {
+        @include text-style('2xl', 700, $color-black-333236);
+      }
+    }
+  }
+}
+.messagesWrapper {
+  text-align: center;
+  @include mq-md {
+    @include text-style-xl();
+  }
+}
+.modalBtns {
+  @include flexbox();
+  > .btnCenter {
+    @include flexbox();
+    min-width: 138px;
+    height: 5.4rem;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: $color-violet-5534DA;
+    @include text-style('lg', 600, $color-white);
+    @include mq-md {
+      min-width: 240px;
+    }
+  }
+}
+.columnCreateModal {
+  @include mq-md {
+    padding: 24px !important;
+  }
+}
+.dashboardCreateModal {
+  padding: 20px 16px !important;
+  @include mq-md {
+    padding: 32px !important;
+  }
+  .createDashboardModalContent {
+    @include gridbox(stretch);
+    gap: 16px;
+    margin: 8px 0 16px;
+    @include mq-md {
+      margin: 8px 0 24px;
+    }
+    > .dashboardTitleArea {
+      @include gridbox(stretch);
+      gap: 8px;
+    }
+  }
+}
+.dashboardColorArea {
+  @include flexbox(start);
+  gap: 8px;
+  > input[type='radio'] {
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+  > input[type='radio']:checked {
+    background-image: url('../../../public/icon/confirm.svg');
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center;
+  }
+  .color-7AC555 {
+    background-color: #7ac555;
+  }
+  .color-760DDE {
+    background-color: #760dde;
+  }
+  .color-FFA500 {
+    background-color: #ffa500;
+  }
+  .color-76A5EA {
+    background-color: #76a5ea;
+  }
+  .color-E876EA {
+    background-color: #e876ea;
+  }
+}
+.invitationCreateModal {
+  padding: 24px 16px !important;
+  @include mq-md {
+    padding: 24px !important;
+  }
+  > .createInvitationModalContent {
+    @include gridbox(stretch);
+    gap: 16px;
+    @include mq-md {
+      gap: 24px;
+    }
+    > .invitationModalHeader {
+      @include flexbox(between);
+      > .modalClose {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        @include mq-md {
+          width: 36px;
+          height: 36px;
+        }
+        > img {
+          object-fit: cover;
+        }
+      }
+    }
+    > .invitationInputArea {
+      @include gridbox(stretch);
+      gap: 8px;
+      > label {
+        @include text-style('lg');
+        @include mq-md {
+          @include text-style('2lg');
+        }
+      }
+    }
+  }
+}
+.dashboardColorArea {
+  @include flexbox(start);
+  gap: 8px;
+  > input[type='radio'] {
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+  > input[type='radio']:checked {
+    background-image: url('../../../public/icon/confirm.svg');
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center;
+  }
+  .color-7AC555 {
+    background-color: #7ac555;
+  }
+  .color-760DDE {
+    background-color: #760dde;
+  }
+  .color-FFA500 {
+    background-color: #ffa500;
+  }
+  .color-76A5EA {
+    background-color: #76a5ea;
+  }
+  .color-E876EA {
+    background-color: #e876ea;
+  }
+}

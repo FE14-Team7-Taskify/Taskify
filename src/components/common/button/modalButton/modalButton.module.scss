@@ -1,0 +1,37 @@
+@use '@/styles/index.scss' as *;
+
+.wrapper {
+  display: flex;
+  gap: 1rem; // 버튼 사이 간격
+  justify-content: center;
+  align-items: center;
+}
+
+.cancelButton {
+  background-color: $color-white;
+  border: 1px solid $color-gray-D9D9D9;
+  @include text-style('lg', 500, $color-gray-787486);
+}
+
+.confirmButton {
+  border: none;
+  background-color: $color-violet-5534DA;
+  @include text-style('lg', 600, $color-white);
+}
+
+.button {
+  width: 14.4rem;
+  height: 5.4rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+
+  @include mq-sm {
+    width: 25.6rem;
+  }
+}
+.button:disabled {
+  background-color: $color-gray-9FA6B2;
+}
