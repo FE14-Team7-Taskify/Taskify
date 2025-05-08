@@ -1,10 +1,12 @@
 import { useCreateInvitationMutation } from '@/api/dashboards/dashboards.query';
+import { useOverlay } from '@/contexts/OverlayProvider';
 import { cn } from '@/styles/util/stylesUtil';
+import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 import Input from '../common/Input';
+import OneButtonModal from './OneButtonModal';
 import TwoButtonModal from './TwoButtonModal';
 import styles from './modal.module.scss';
-import Image from 'next/image';
 
 export default function CreateInvitationModal({
   dashboardId,
@@ -16,11 +18,20 @@ export default function CreateInvitationModal({
   const [email, setEmail] = useState<string>('');
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const mutation = useCreateInvitationMutation();
+  const { overlay, close } = useOverlay();
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
   }
   function handleConfirm() {
-    mutation.mutate({ dashboardId, email }, { onSuccess: () => onClose() });
+    mutation.mutate(
+      { dashboardId, email },
+      {
+        onSuccess: () => onClose(),
+        onError: (err) =>
+          err.response?.data?.message &&
+          overlay(<OneButtonModal message={err.response.data.message} onClose={close} />),
+      },
+    );
   }
   return (
     <TwoButtonModal

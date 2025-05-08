@@ -1,4 +1,5 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import {
   CreateDashboardRequest,
@@ -94,7 +95,11 @@ export const useInvitationsQuery = (params: GetInvitationsRequest) => {
 export const useCreateDashboardMutation = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  return useMutation<CreateDashboardResponse, Error, CreateDashboardRequest>({
+  return useMutation<
+    CreateDashboardResponse,
+    AxiosError<{ message: string }>,
+    CreateDashboardRequest
+  >({
     mutationFn: (data) => dashboardsService.createDashboard(data).then((res) => res.data),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all(), exact: false });
@@ -107,7 +112,11 @@ export const useCreateDashboardMutation = () => {
  */
 export const useUpdateDashboardMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation<UpdateDashboardResponse, Error, UpdateDashboardRequest>({
+  return useMutation<
+    UpdateDashboardResponse,
+    AxiosError<{ message: string }>,
+    UpdateDashboardRequest
+  >({
     mutationFn: (data) => dashboardsService.updateDashboard(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all(), exact: false });
@@ -121,7 +130,7 @@ export const useUpdateDashboardMutation = () => {
 export const useDeleteDashboardMutation = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  return useMutation<void, Error, number>({
+  return useMutation<void, AxiosError<{ message: string }>, number>({
     mutationFn: (dashboardId) =>
       dashboardsService.deleteDashboard(dashboardId).then((res) => res.data),
     onSuccess: () => {
@@ -135,7 +144,11 @@ export const useDeleteDashboardMutation = () => {
  */
 export const useCreateInvitationMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation<CreateInvitationResponse, Error, CreateInvitationRequest>({
+  return useMutation<
+    CreateInvitationResponse,
+    AxiosError<{ message: string }>,
+    CreateInvitationRequest
+  >({
     mutationFn: (data) => dashboardsService.createInvitation(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
@@ -147,7 +160,7 @@ export const useCreateInvitationMutation = () => {
  */
 export const useDeleteInvitationMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation<void, Error, DeleteInvitationRequest>({
+  return useMutation<void, AxiosError<{ message: string }>, DeleteInvitationRequest>({
     mutationFn: (data) => dashboardsService.deleteInvitation(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });

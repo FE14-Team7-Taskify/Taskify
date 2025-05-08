@@ -7,6 +7,9 @@ import {
   useUpdateColumnMutation,
   useColumnsQuery,
 } from '@/api/columns/columns.query';
+import { useOverlay } from '@/contexts/OverlayProvider';
+import OneButtonModal from './OneButtonModal';
+import Image from 'next/image';
 
 type ManageColumnProps = {
   boardId: number;
@@ -20,7 +23,7 @@ export default function ManageColumnModal({ boardId, colId, onClose }: ManageCol
   const [columTitle, setColumnTitle] = useState('');
   const columnListMutation = useColumnsQuery(boardId);
   const currentColumn = columnListMutation.data?.data?.find((col) => col.id === colId)?.title;
-  const [isModalPopOpen, setIsModalPopOpen] = useState(false);
+  const { overlay, close } = useOverlay();
 
   function handleUpdateColumn() {
     updateColumnMutation.mutate(
@@ -30,66 +33,68 @@ export default function ManageColumnModal({ boardId, colId, onClose }: ManageCol
       },
       {
         onSuccess: () => {
-          alert('컬럼이 수정되었습니다.');
+          overlay(<OneButtonModal message="컬럼이 수정되었습니다" onClose={onClose} />);
         },
         onError: () => {
-          alert('컬럼 수정 실패');
+          overlay(<OneButtonModal message="컬럼 수정에 실패하였습니다" onClose={close} />);
         },
       },
     );
   }
 
   function handleDeletePopColumn() {
-    setIsModalPopOpen(true);
+    overlay(
+      <TwoButtonModal
+        className={styles.columnModal}
+        btns={{
+          rightText: '삭제',
+          leftText: '취소',
+          onConfirm: handleDeleteColumn,
+          onCancel: onClose,
+        }}
+      >
+        <div className={styles.message}>칼럼의 모든 카드가 삭제됩니다.</div>
+      </TwoButtonModal>,
+    );
   }
 
   function handleDeleteColumn() {
     deleteColumnMutation.mutate(colId, {
       onSuccess: () => {
-        alert('칼럼 삭제');
-        onClose();
+        overlay(<OneButtonModal message="컬럼이 삭제되었습니다" onClose={onClose} />);
       },
       onError: () => {
-        alert('컬럼 삭제 실패');
+        overlay(<OneButtonModal message="컬럼 삭제에 실패했습니다" onClose={close} />);
       },
     });
   }
 
   return (
-    <>
-      <TwoButtonModal
-        title="컬럼 관리"
-        btns={{
-          rightText: '수정',
-          leftText: '삭제',
-          onConfirm: handleUpdateColumn,
-          onCancel: handleDeletePopColumn,
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button onClick={onClose} className={styles.XButton}>
-            ×
+    <TwoButtonModal
+      className={styles.columnModal}
+      btns={{
+        rightText: '수정',
+        leftText: '삭제',
+        onConfirm: handleUpdateColumn,
+        onCancel: handleDeletePopColumn,
+      }}
+    >
+      <div className={styles.columnModalContent}>
+        <div className={styles.modalHeader}>
+          <div className={styles.header}>컬럼 관리</div>
+          <button onClick={onClose}>
+            <Image src="/icon/X_lg.svg" alt="모달 닫기 버튼 아이콘" width={24} height={24} />
           </button>
         </div>
-        <div>이름</div>
-        <Input
-          name="title"
-          placeholder={String(currentColumn)}
-          onChange={(e) => setColumnTitle(e.target.value)}
-          className={styles.editInput}
-        />
-      </TwoButtonModal>
-      {isModalPopOpen && (
-        <TwoButtonModal
-          title="칼럼의 모든 카드가 삭제됩니다."
-          btns={{
-            rightText: '삭제',
-            leftText: '취소',
-            onConfirm: handleDeleteColumn,
-            onCancel: onClose,
-          }}
-        ></TwoButtonModal>
-      )}
-    </>
+        <div className={styles.modalInput}>
+          <label>이름</label>
+          <Input
+            name="title"
+            placeholder={String(currentColumn)}
+            onChange={(e) => setColumnTitle(e.target.value)}
+          />
+        </div>
+      </div>
+    </TwoButtonModal>
   );
 }

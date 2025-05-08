@@ -16,9 +16,10 @@ interface Props {
   column: ColumnType;
   dashboardId: number;
   onCardDrop: (request: UpdateCardRequest) => void;
+  handleClickEditColumn: (column: ColumnType) => void;
 }
 
-function Column({ column, dashboardId, onCardDrop }: Props) {
+function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Props) {
   const { overlay, close } = useOverlay();
 
   // Drag and Drop
@@ -43,10 +44,6 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  function handleClickEditColumn() {
-    overlay(<ManageColumnModal boardId={dashboardId} colId={column.id} onClose={close} />);
-  }
 
   function handleClickCreateCard() {
     overlay(<CardCreateModal dashboardId={dashboardId} columnId={column.id} />);
@@ -78,7 +75,7 @@ function Column({ column, dashboardId, onCardDrop }: Props) {
               {column.title}
               <span>{firstPage.totalCount || 0}</span>
             </h3>
-            <button onClick={handleClickEditColumn}>
+            <button onClick={() => handleClickEditColumn(column)}>
               <Image src="/icon/settings.svg" alt="관리" width={24} height={24} />
             </button>
           </div>
