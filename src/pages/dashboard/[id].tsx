@@ -1,3 +1,5 @@
+'use client';
+
 import { useUpdateCardMutation } from '@/api/cards/cards.query';
 import { UpdateCardRequest } from '@/api/cards/cards.schema';
 import { useColumnsQuery } from '@/api/columns/columns.query';
