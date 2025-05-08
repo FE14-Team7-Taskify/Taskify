@@ -114,3 +114,41 @@
     background-color: #e876ea;
   }
 }
+.invitationCreateModal {
+  padding: 24px 16px !important;
+  @include mq-md {
+    padding: 24px !important;
+  }
+  > .createInvitationModalContent {
+    @include gridbox(stretch);
+    gap: 16px;
+    @include mq-md {
+      gap: 24px;
+    }
+    > .invitationModalHeader {
+      @include flexbox(between);
+      > .modalClose {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        @include mq-md {
+          width: 36px;
+          height: 36px;
+        }
+        > img {
+          object-fit: cover;
+        }
+      }
+    }
+    > .invitationInputArea {
+      @include gridbox(stretch);
+      gap: 8px;
+      > label {
+        @include text-style('lg');
+        @include mq-md {
+          @include text-style('2lg');
+        }
+      }
+    }
+  }
+}
