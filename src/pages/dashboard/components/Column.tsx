@@ -99,4 +99,5 @@ function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Prop
   }
 }
 
-export default Column;
+import dynamic from 'next/dynamic';
+export default dynamic(() => Promise.resolve(Column), { ssr: false });

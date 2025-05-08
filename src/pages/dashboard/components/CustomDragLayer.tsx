@@ -3,6 +3,7 @@
 import React, { CSSProperties } from 'react';
 import { useDragLayer } from 'react-dnd';
 import Card from './Card';
+import dynamic from 'next/dynamic';
 
 const getItemStyles = (currentOffset: { x: number; y: number } | null): CSSProperties => {
   if (!currentOffset) {
@@ -28,7 +29,6 @@ function CustomDragLayer() {
     currentOffset: monitor.getSourceClientOffset(),
   }));
 
-  if (typeof window === 'undefined') return null;
   if (!isDragging || !item || !currentOffset) return null;
 
   const previewCard = {
@@ -56,4 +56,4 @@ function CustomDragLayer() {
   );
 }
 
-export default CustomDragLayer;
+export default dynamic(() => Promise.resolve(CustomDragLayer), { ssr: false });

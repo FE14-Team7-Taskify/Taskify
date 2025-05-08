@@ -19,7 +19,7 @@ interface InputFormProps {
   onAgreementChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function InputForm({
+function InputForm({
   email,
   nickname,
   password,
@@ -138,3 +138,6 @@ export default function InputForm({
     </form>
   );
 }
+
+import dynamic from 'next/dynamic';
+export default dynamic(() => Promise.resolve(InputForm), { ssr: false });
