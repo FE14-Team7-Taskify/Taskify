@@ -76,6 +76,7 @@ export default function ManageColumnModal({ boardId, colId, onClose }: ManageCol
           name="title"
           placeholder={String(currentColumn)}
           onChange={(e) => setColumnTitle(e.target.value)}
+          className={styles.editInput}
         />
       </TwoButtonModal>
       {isModalPopOpen && (

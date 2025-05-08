@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import styles from '../../styles/cardDetailModal.module.scss';
 import { cn } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
-import { ColumnType } from '../../type';
 import Tag from '../Tag';
 import Comments from '../Comments';
 import { useRouter } from 'next/router';
@@ -14,10 +13,11 @@ import OneButtonModal from '@/components/modal/OneButtonModal';
 
 interface Props {
   cardId: number;
-  column: ColumnType;
+  columnId: number;
+  columnTitle: string;
 }
 
-function CardDetailModal({ cardId, column }: Props) {
+function CardDetailModal({ cardId, columnId, columnTitle }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = typeof id === 'string' ? Number(id) : 0;
@@ -37,8 +37,6 @@ function CardDetailModal({ cardId, column }: Props) {
 
   if (isLoading) return <div>Loading..</div>;
   if (error || !data) return <div>에러</div>;
-
-  console.log(data);
 
   const handleEditCard = () => {
     overlay(<CardUpdateModal {...{ dashboardId, ...data }} />);
@@ -98,7 +96,7 @@ function CardDetailModal({ cardId, column }: Props) {
           </div>
         )}
         <div className={cn(styles.cardLabel)}>
-          <div className={styles.teskColumn}>{data.columnId === column.id && column.title}</div>
+          <div className={styles.teskColumn}>{data.columnId === columnId && columnTitle}</div>
           {data.tags && (
             <div className={cn(styles.tagWrap)}>
               {data.tags.map((tag) => (

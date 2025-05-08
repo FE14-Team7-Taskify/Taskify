@@ -1,3 +1,4 @@
+import { useOverlay } from '@/contexts/OverlayProvider';
 import styles from './dashboardHeader.module.scss';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -6,15 +7,16 @@ import { useEffect, useState } from 'react';
 import { useDashboardDetailQuery } from '@/api/dashboards/dashboards.query';
 import { useDashboardMembersQuery } from '@/api/members/members.query';
 import { MemberType } from '@/api/members/members.schema';
+import CreateInvitationModal from '../modal/CreateInvitationModal';
 
 export default function DashboardHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const match = pathname?.match(/^\/dashboard\/(\d+)(\/|$)/);
   const dashboardId = match ? Number(match[1]) : undefined;
-
   const user = useUser();
   const setUser = useSetUser();
+  const { overlay, close } = useOverlay();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -64,7 +66,8 @@ export default function DashboardHeader() {
   };
 
   function handleInvite() {
-    console.log('초대하기 모달');
+    if (!dashboardId) return;
+    overlay(<CreateInvitationModal dashboardId={dashboardId} onClose={close} />);
   }
 
   const visibleCount = isDesktop ? 4 : 2;
@@ -81,30 +84,33 @@ export default function DashboardHeader() {
       )}
 
       <div className={styles.userContainer}>
-        <button
-          className={styles.headerButton}
-          onClick={() => handleNavigate(`/dashboard/${dashboardId}/edit`)}
-        >
-          <Image
-            src="/icon/settings.svg"
-            alt="관리"
-            width={20}
-            height={20}
-            className={styles.ButtonIcon}
-          />
-          관리
-        </button>
-        <button className={styles.headerButton} onClick={handleInvite}>
-          <Image
-            src="/icon/add_box.svg"
-            alt="초대하기"
-            width={20}
-            height={20}
-            className={styles.ButtonIcon}
-          />
-          초대하기
-        </button>
-
+        {dashboard && dashboard.createdByMe && (
+          <>
+            <button
+              className={styles.headerButton}
+              onClick={() => handleNavigate(`/dashboard/${dashboardId}/edit`)}
+            >
+              <Image
+                src="/icon/settings.svg"
+                alt="관리"
+                width={20}
+                height={20}
+                className={styles.ButtonIcon}
+              />
+              관리
+            </button>
+            <button className={styles.headerButton} onClick={handleInvite}>
+              <Image
+                src="/icon/add_box.svg"
+                alt="초대하기"
+                width={20}
+                height={20}
+                className={styles.ButtonIcon}
+              />
+              초대하기
+            </button>
+          </>
+        )}
         <div className={styles.invitedPeople}>
           {visibleMembers.map((member, idx) => (
             <div
