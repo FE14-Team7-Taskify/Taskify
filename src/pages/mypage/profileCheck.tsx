@@ -96,15 +96,7 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             style={{ display: 'none' }}
           />
           <button className={styles.profileButton} onClick={handleClick}>
-            {previewUrl && (
-              <Image
-                src={previewUrl}
-                alt="프로필 이미지 미리보기"
-                className={styles.profileButtonImg}
-                width={120}
-                height={120}
-              />
-            )}
+            {previewUrl && <img src={previewUrl} className={styles.profileButtonImg} />}
           </button>
         </div>
         <div className={styles.profileTextBox}>

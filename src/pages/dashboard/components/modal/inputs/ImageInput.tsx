@@ -30,15 +30,7 @@ export default function ImageInput({
     <div className={cn(styles.inputWrapper, styles.imageInputWrapper)}>
       <label htmlFor="image-input">이미지</label>
       <div className={styles.imageWrapper}>
-        {!!thumbnail && (
-          <Image
-            src={thumbnail}
-            alt="이미지 미리보기"
-            className={styles.thumbnail}
-            width={120}
-            height={120}
-          />
-        )}
+        {!!thumbnail && <img src={thumbnail} className={styles.thumbnail} alt="이미지 미리보기" />}
         <input type="file" accept="image/*" id="image-input" onChange={handleChangeFile} />
         {!!thumbnail && (
           <button onClick={handleRemoveImage}>

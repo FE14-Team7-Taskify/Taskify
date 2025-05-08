@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from '../../styles/card.module.scss';
 
-type DashboardCardProps = DashboardType;
+interface DashboardCardProps extends DashboardType {}
 
 export default function DashboardCard({ id, color, title, createdByMe }: DashboardCardProps) {
   const router = useRouter();

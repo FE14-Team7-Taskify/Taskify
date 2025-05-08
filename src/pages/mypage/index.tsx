@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import styles from './styles/mypage.module.scss';
 import PasswordCheck from './passwordCheck';

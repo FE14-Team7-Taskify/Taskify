@@ -25,7 +25,7 @@ export default function UserRowItem({
     >
       <div className={styles.profileImageWrapper}>
         {!!profileImageUrl ? (
-          <Image src={profileImageUrl} alt={`${nickname} 프로필 이미지`} width={26} height={26} />
+          <img src={profileImageUrl} alt={`${nickname} 프로필 이미지`} />
         ) : (
           <Image
             src="/images/profile.svg"

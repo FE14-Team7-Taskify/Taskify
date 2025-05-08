@@ -1,4 +1,3 @@
-// dashboards.query.ts
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import {

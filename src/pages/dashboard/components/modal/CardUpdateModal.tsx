@@ -51,12 +51,17 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
     overlay(
       <CardDetailModal
         cardId={formValue.id}
-        columnId={card.columnId}
-        columnTitle={card.columnTitle}
+
+        columnId={formValue.columnId}
+        columnTitle={formValue.columnTitle}
       />,
     );
   }
-  const updateBtnDisabled = JSON.stringify(card) === JSON.stringify(formValue) && !isImageChanged;
+  const updateBtnDisabled =
+    JSON.stringify({
+      ...card,
+      columnTitle: formValue.columnTitle,
+    }) === JSON.stringify(formValue) && !isImageChanged;
   return (
     <TwoButtonModal
       className={styles.cardUpdateModal}
