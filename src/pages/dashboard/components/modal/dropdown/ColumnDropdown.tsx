@@ -26,7 +26,7 @@ export default function ColumnDropdown({
     const currentColumn = data?.data.find((el) => el.id === columnId);
     setColumn(currentColumn);
     if (currentColumn) onChangeColumn(currentColumn.id, currentColumn.title);
-  }, [isSuccess, data?.data]);
+  }, [isSuccess, data?.data, columnId, onChangeColumn]);
 
   function handleItemClick(column: ColumnType) {
     if (!column) return;

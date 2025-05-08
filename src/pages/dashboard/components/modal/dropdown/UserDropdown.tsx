@@ -38,7 +38,7 @@ export default function UserDropdown({
   useEffect(() => {
     if (isSuccess && !!data?.totalCount && data.totalCount > param.size)
       setParam({ ...param, size: data.totalCount });
-  }, [isSuccess, data?.totalCount]);
+  }, [isSuccess, data?.totalCount, param]);
 
   /**
    * ref 설정 통한 포커싱 설정
