@@ -14,14 +14,14 @@ export default function PasswordCheck() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isMismatch, setIsMismatch] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
   const router = useRouter();
   const { mutate } = useChangePasswordMutation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const isFormValid = !!(currentPassword && newPassword && confirmPassword);
 
   const changePassword = (currentPassword: string, newPassword: string) => {
-    console.log('비밀번호 변경 요청 시작');
-
     mutate(
       {
         password: currentPassword,
@@ -29,16 +29,14 @@ export default function PasswordCheck() {
       },
       {
         onSuccess: () => {
-          <OneButtonModal message="비밀번호 변경 성공." onClose={() => setIsModalOpen(false)} />;
+          setModalMessage('비밀번호 변경 성공.');
+          setIsModalOpen(true);
           router.refresh();
         },
         onError: (error: any) => {
-
-          <OneButtonModal message="비밀번호 변경 실패." onClose={() => setIsModalOpen(false)} />;
-
-          console.log('비밀번호 변경 실패:', error);
+          setModalMessage('비밀번호 변경 실패.');
           setIsModalOpen(true);
-          console.log(error);
+          console.log('비밀번호 변경 실패:', error);
         },
       },
     );
@@ -52,12 +50,14 @@ export default function PasswordCheck() {
 
   const handleSubmit = () => {
     if (!isFormValid) {
-      <OneButtonModal message="필드를 채워주세요." onClose={() => setIsModalOpen(false)} />;
+      setModalMessage('필드를 채워주세요.');
+      setIsModalOpen(true);
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      <OneButtonModal message="확인 비밀번호가 다릅니다." onClose={() => setIsModalOpen(false)} />;
+      setModalMessage('확인 비밀번호가 다릅니다.');
+      setIsModalOpen(true);
       return;
     }
 
@@ -124,7 +124,13 @@ export default function PasswordCheck() {
           </Button>
         </div>
         {isModalOpen && (
-          <OneButtonModal message="실패했습니다." onClose={() => setIsModalOpen(false)} />
+          <OneButtonModal
+            message={modalMessage}
+            onClose={() => {
+              setIsModalOpen(false);
+              router.refresh();
+            }}
+          />
         )}
       </div>
     </div>
