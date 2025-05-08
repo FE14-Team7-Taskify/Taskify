@@ -23,10 +23,11 @@ export default function ColumnDropdown({
   const { isSuccess, data } = useColumnsQuery(dashboardId);
 
   useEffect(() => {
+    if (!data?.data) return;
     const currentColumn = data?.data.find((el) => el.id === columnId);
     setColumn(currentColumn);
     if (currentColumn) onChangeColumn(currentColumn.id, currentColumn.title);
-  }, [isSuccess, data?.data, columnId, onChangeColumn]);
+  }, [data?.data, columnId]);
 
   function handleItemClick(column: ColumnType) {
     if (!column) return;
