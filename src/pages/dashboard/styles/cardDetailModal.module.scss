@@ -21,7 +21,7 @@
     padding-bottom: 8px;
     z-index: 100;
 
-    @include s.mq-sm() {
+    @include s.mq-md() {
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
