@@ -19,10 +19,9 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
-  //overlay
+  // Hooks must be at the top and unconditional
   const { overlay } = useOverlay();
 
-  // Drag and Drop
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'card',
     item: {
@@ -45,22 +44,22 @@ function Card({ card, column, isPreview = false }: CardProps) {
     card.assignee?.profileImageUrl || '/images/profile.svg',
   );
 
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview]);
+
   const handleImgError = () => {
     setProfileImg('/images/profile.svg');
   };
 
-  useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true });
-  }, [preview]);
+  // Early render check AFTER hooks
+  if (typeof window === 'undefined' || !card || !card.id) return null;
 
   // 할 일 카드 모달
   const handleCardClick = () => {
     if (isPreview || !column) return;
     overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
   };
-
-  if (typeof window === 'undefined') return null;
-  if (!card || !card.id) return null;
 
   return (
     <div
