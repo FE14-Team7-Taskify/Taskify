@@ -46,11 +46,6 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
     }
   }
 
-  // useEffect(() => {
-  //   console.log('컬럼리스트!:', columnListMutation.data?.data.length);
-  //   console.log('컬럼리스트!:', columnListMutation.data?.data);
-  // });
-
   return (
     <TwoButtonModal
       className={styles.columnModal}
