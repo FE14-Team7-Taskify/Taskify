@@ -16,11 +16,25 @@ import { dashboardsService } from './dashboards.service';
 
 export const dashboardsQuery = {
   all: () => ['dashboards'],
-  dashboardListKey: (params: FindDashboardsRequest) => [...dashboardsQuery.all(), params],
+  // ✅ 기존
+  dashboardListKey: (params: FindDashboardsRequest) => [...dashboardsQuery.all(), 'list', params],
   dashboardList: (params: FindDashboardsRequest) =>
     queryOptions({
       queryKey: dashboardsQuery.dashboardListKey(params),
       queryFn: () => dashboardsService.getDashboards(params),
+    }),
+  // ✅ 새로 추가: 사이드바 전용 쿼리
+  sidebarKey: (page: number) => [...dashboardsQuery.all(), 'sidebar', page],
+  sidebarList: (page: number) =>
+    queryOptions({
+      queryKey: dashboardsQuery.sidebarKey(page),
+      queryFn: () =>
+        dashboardsService.getDashboards({
+          navigationMethod: 'pagination',
+          size: 10,
+          page,
+        }),
+      select: (res) => res.data,
     }),
   dashboardDetailKey: (dashboardId: number) => [...dashboardsQuery.all(), 'detail', dashboardId],
   dashboardDetail: (dashboardId: number) =>
@@ -45,6 +59,14 @@ export const dashboardsQuery = {
 export const useDashboardsQuery = (params: FindDashboardsRequest) =>
   useQuery({
     ...dashboardsQuery.dashboardList(params),
+    select: (res) => res.data,
+  });
+/**
+ * 사이드바 대시보드 목록 조회 쿼리
+ */
+export const useSidebarDashboardsQuery = (page: number) =>
+  useQuery({
+    ...dashboardsQuery.sidebarList(page),
     select: (res) => res.data,
   });
 /**
@@ -76,7 +98,7 @@ export const useCreateDashboardMutation = () => {
   return useMutation<CreateDashboardResponse, Error, CreateDashboardRequest>({
     mutationFn: (data) => dashboardsService.createDashboard(data).then((res) => res.data),
     onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
+      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all(), exact: false });
       router.push(`/dashboard/${result.id}`);
     },
   });
@@ -89,8 +111,8 @@ export const useUpdateDashboardMutation = (dashboardId: number) => {
   return useMutation<UpdateDashboardResponse, Error, UpdateDashboardRequest>({
     mutationFn: (data) => dashboardsService.updateDashboard(data).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
-      queryClient.invalidateQueries({ queryKey: dashboardsQuery.dashboardDetailKey(dashboardId) });
+      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all(), exact: false });
+      // queryClient.invalidateQueries({ queryKey: dashboardsQuery.dashboardDetailKey(dashboardId) });
     },
   });
 };
@@ -98,12 +120,14 @@ export const useUpdateDashboardMutation = (dashboardId: number) => {
  * 대시보드 삭제 뮤테이션
  */
 export const useDeleteDashboardMutation = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   return useMutation<void, Error, number>({
     mutationFn: (dashboardId) =>
       dashboardsService.deleteDashboard(dashboardId).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all() });
+      queryClient.invalidateQueries({ queryKey: dashboardsQuery.all(), exact: false });
+      router.push('/mydashboard');
     },
   });
 };

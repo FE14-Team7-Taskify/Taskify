@@ -9,10 +9,12 @@ export default function DashBoardCard({
   dashboardId,
   title,
   color,
+  updateDashboardDetail,
 }: {
   dashboardId: number;
   title: string;
   color: string;
+  updateDashboardDetail: () => void;
 }) {
   const [value, setValue] = useState({ title, color });
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -23,8 +25,7 @@ export default function DashBoardCard({
   const btnDisabled = !value.title || (value.title === title && value.color === color);
   const mutation = useUpdateDashboardMutation(dashboardId);
   function handleUpdateDashboard() {
-    mutation.mutate({ dashboardId, ...value });
-    // TODO: 사이드바 목록 재조회 트리거 추가
+    mutation.mutate({ dashboardId, ...value }, { onSuccess: updateDashboardDetail });
   }
 
   return (

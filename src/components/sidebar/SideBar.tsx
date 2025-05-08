@@ -1,4 +1,3 @@
-import { useDashboardsQuery } from '@/api/dashboards/dashboards.query';
 import { useOverlay } from '@/contexts/OverlayProvider';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import Image from 'next/image';
@@ -8,31 +7,26 @@ import { useEffect, useState } from 'react';
 import Pagination from '../common/button/pagination/Pagination';
 import CreateDashboardModal from '../modal/CreateDashboardModal';
 import styles from './sidebar.module.scss';
+import { useSidebarDashboardsQuery } from '@/api/dashboards/dashboards.query';
 
 export default function SideBar({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
   const { overlay, close } = useOverlay();
+  const [page, setPage] = useState(1);
 
-  const [page, setPage] = useState<number>(1);
-  const { isSuccess, data, refetch } = useDashboardsQuery({
-    navigationMethod: 'pagination',
-    size: 10,
-    page,
-  });
+  const { isSuccess, data } = useSidebarDashboardsQuery(page);
+  const totalCount = data?.totalCount || 0;
+  const dashboards = data?.dashboards || [];
 
-  const totalPage = Math.ceil((data?.totalCount || 10) / 10);
-  const firstDashboardId = data?.dashboards?.[0]?.id;
+  const totalPage = Math.ceil(totalCount / 10) || 1;
+  const firstDashboardId = dashboards?.[0]?.id;
   const nextPathname = firstDashboardId ? `/dashboard/${firstDashboardId}` : '/mydashboard';
   function handleClickLogo() {
     router.push(nextPathname);
   }
 
   function handelClickCreateBtn() {
-    function onClose() {
-      page > 1 ? setPage(1) : refetch();
-      close();
-    }
-    overlay(<CreateDashboardModal onClose={onClose} />);
+    overlay(<CreateDashboardModal onClose={close} />);
   }
 
   function handleClickCard(dashboardId: number) {
@@ -47,7 +41,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
 
   useEffect(() => {
     if (isSuccess && pathname === '/') router.replace(nextPathname);
-  }, [pathname, isSuccess, data, router]);
+  }, [pathname, isSuccess, router]);
 
   return (
     <div className={styles.sidebarWrapper}>
@@ -72,7 +66,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
           <div className={styles.cardsContent}>
             <div className={styles.cardList}>
               {isSuccess &&
-                data.dashboards?.map((dashboard) => (
+                dashboards.map((dashboard) => (
                   <button
                     key={`sidebar-dashboard-row-${dashboard.id}`}
                     className={cn(
@@ -99,7 +93,7 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
                 ))}
             </div>
             <div className={styles.cardPagination}>
-              {isSuccess && !!data.dashboards.length && (
+              {isSuccess && !!dashboards.length && (
                 <Pagination totalPage={totalPage} currentPage={page} setPage={setPage} />
               )}
             </div>

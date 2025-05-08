@@ -46,15 +46,15 @@
   > .btnCenter {
     @include flexbox();
     min-width: 138px;
-    @include mq-md {
-      min-width: 240px;
-    }
     height: 5.4rem;
     cursor: pointer;
     border-radius: 8px;
     border: none;
     background-color: $color-violet-5534DA;
     @include text-style('lg', 600, $color-white);
+    @include mq-md {
+      min-width: 240px;
+    }
   }
 }
 .columnCreateModal {
