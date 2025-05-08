@@ -89,9 +89,9 @@ function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Prop
               <Image src="/icon/add_color.svg" alt="추가 아이콘" fill />
             </span>
           </button>
-          {allCards.map((card) => (
-            <Card key={card.id} card={card} column={column} />
-          ))}
+          {allCards.map((card) =>
+            card?.id ? <Card key={card.id} card={card} column={column} /> : null,
+          )}
           <div ref={ref}>{isFetchingNextPage && '불러오는 중...'}</div>
         </div>
       </div>
