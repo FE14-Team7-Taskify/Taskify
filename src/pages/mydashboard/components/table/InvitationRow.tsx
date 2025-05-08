@@ -11,7 +11,7 @@ export default function InvitationRow(invitation: InvitationType) {
     <div className={styles.invitationRow}>
       <div>
         <label>이름</label>
-        <div className={styles.invitationTitle}>{invitation.dashboard.title}</div>
+        <div className={styles.invitationTitle}>{invitation.dashboard?.title ?? '제목 없음'}</div>
       </div>
       <div>
         <label>초대자</label>

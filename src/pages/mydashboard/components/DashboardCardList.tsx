@@ -21,12 +21,11 @@ export default function DashboardCardList() {
         <CreateDashboardButton />
         {isSuccess &&
           dashboardsResult.dashboards
-            ?.filter(Boolean)
-            .map((dashboard: DashboardType) =>
-              dashboard && typeof dashboard.title === 'string' ? (
-                <DashboardCard key={dashboard.id} {...dashboard} />
-              ) : null,
-            )}
+            ?.filter(
+              (dashboard): dashboard is DashboardType =>
+                !!dashboard && typeof dashboard.title === 'string',
+            )
+            .map((dashboard) => <DashboardCard key={dashboard.id} {...dashboard} />)}
       </div>
       {isSuccess && dashboardsResult.dashboards?.length > 0 && (
         <div className={styles.paginationArea}>
