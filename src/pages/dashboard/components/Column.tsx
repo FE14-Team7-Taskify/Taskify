@@ -1,3 +1,5 @@
+'use client';
+
 import { useInfiniteCardsQuery } from '@/api/cards/cards.query';
 import { UpdateCardRequest } from '@/api/cards/cards.schema';
 import ManageColumnModal from '@/components/modal/ManageColumnModal';

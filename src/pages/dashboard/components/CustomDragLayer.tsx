@@ -1,3 +1,5 @@
+'use client';
+
 import React, { CSSProperties } from 'react';
 import { useDragLayer } from 'react-dnd';
 import Card from './Card';
