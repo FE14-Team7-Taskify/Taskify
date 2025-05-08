@@ -17,7 +17,7 @@ const VALIDATION_RULES = {
     errorMessage: '이메일 형식으로 작성해주세요',
   },
   nickname: {
-    validate: (value: string) => value.length <= 10,
+    validate: (value: string) => value.length <= 10 && value !== '',
     errorMessage: '10자 이하로 작성해주세요',
   },
   password: {
