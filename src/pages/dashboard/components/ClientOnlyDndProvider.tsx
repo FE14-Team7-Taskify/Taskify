@@ -1,9 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import CustomDragLayer from './CustomDragLayer';
+
+const CustomDragLayer = dynamic(() => import('./CustomDragLayer'), { ssr: false });
 
 interface Props {
   children: ReactNode;

@@ -11,8 +11,10 @@ import { useDrop } from 'react-dnd';
 import { useInView } from 'react-intersection-observer';
 import styles from '../styles/dashboard.module.scss';
 import { ColumnType } from '@/api/columns/columns.schema';
-import Card from './Card';
 import CardCreateModal from './modal/CardCreateModal';
+import dynamic from 'next/dynamic';
+
+const Card = dynamic(() => import('./Card'), { ssr: false });
 
 interface Props {
   column: ColumnType;

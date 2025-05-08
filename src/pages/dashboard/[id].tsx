@@ -10,9 +10,16 @@ import { useOverlay } from '@/contexts/OverlayProvider';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Column from './components/Column';
 import CardCreateModal from './components/modal/CardCreateModal';
 import styles from './styles/dashboard.module.scss';
+
+const ClientOnlyDndProvider = dynamic(() => import('./components/ClientOnlyDndProvider'), {
+  ssr: false,
+});
+
+const Column = dynamic(() => import('./components/Column'), {
+  ssr: false,
+});
 
 export default function DashBoard() {
   const router = useRouter();
@@ -23,10 +30,6 @@ export default function DashBoard() {
 
   const updateCardMutation = useUpdateCardMutation();
   const { overlay, close } = useOverlay();
-
-  const ClientOnlyDndProvider = dynamic(() => import('./components/ClientOnlyDndProvider'), {
-    ssr: false,
-  });
 
   function handleCardDrop(request: UpdateCardRequest) {
     updateCardMutation.mutate(request);

@@ -2,8 +2,9 @@
 
 import React, { CSSProperties } from 'react';
 import { useDragLayer } from 'react-dnd';
-import Card from './Card';
 import dynamic from 'next/dynamic';
+
+const Card = dynamic(() => import('./Card'), { ssr: false });
 
 const getItemStyles = (currentOffset: { x: number; y: number } | null): CSSProperties => {
   if (!currentOffset) {
