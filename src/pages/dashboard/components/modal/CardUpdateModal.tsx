@@ -58,9 +58,10 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
   }
   const updateBtnDisabled =
     JSON.stringify({
-      columnTitle: formValue.columnTitle,
       ...card,
+      columnTitle: formValue.columnTitle,
     }) === JSON.stringify(formValue) && !isImageChanged;
+
   return (
     <TwoButtonModal
       className={styles.cardUpdateModal}
@@ -101,7 +102,7 @@ export default function CardUpdateModal({ dashboardId, ...card }: CardUpdateModa
           imageUrl={formValue.imageUrl}
           setFile={(file) => {
             setFile(file);
-            !!file && setIsImageChanged(true);
+            setIsImageChanged(true);
           }}
         />
       </div>
