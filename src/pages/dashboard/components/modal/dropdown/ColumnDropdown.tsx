@@ -11,7 +11,7 @@ export type ColumnType = {
 interface ColumnDropdownProps {
   dashboardId: number;
   columnId: number;
-  onChangeColumn: (columnId: number) => void;
+  onChangeColumn: (columnId: number, columnTitle: string) => void;
 }
 export default function ColumnDropdown({
   dashboardId,
@@ -25,11 +25,12 @@ export default function ColumnDropdown({
   useEffect(() => {
     const currentColumn = data?.data.find((el) => el.id === columnId);
     setColumn(currentColumn);
+    if (currentColumn) onChangeColumn(currentColumn.id, currentColumn.title);
   }, [isSuccess, data?.data]);
 
   function handleItemClick(column: ColumnType) {
     if (!column) return;
-    onChangeColumn(column.id);
+    onChangeColumn(column.id, column.title);
     setColumn(column);
     setIsOpen(false);
   }
