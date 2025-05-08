@@ -59,8 +59,12 @@ function Card({ card, column, isPreview = false }: CardProps) {
   };
 
   // Early render check AFTER hooks
-  if (typeof window === 'undefined' || !card || !card.id) return null;
+  let shouldRender = true;
+  if (typeof window === 'undefined' || !card || !card.id) {
+    shouldRender = false;
+  }
 
+  if (!shouldRender) return null;
   return (
     <div
       ref={(node) => {
