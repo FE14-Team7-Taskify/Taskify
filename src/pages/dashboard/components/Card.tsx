@@ -27,7 +27,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
 
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'card',
-    item: {
+    item: () => ({
       cardId: card.id,
       fromColumnId: card.columnId,
       assigneeUserId: card.assignee?.id,
@@ -37,7 +37,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
       dueDate: card.dueDate,
       tags: card.tags,
       imageUrl: card.imageUrl,
-    },
+    }),
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
