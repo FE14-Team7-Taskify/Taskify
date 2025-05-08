@@ -19,8 +19,8 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
-  if (typeof window === 'undefined') return null;
-  if (!card || !card.id) return null;
+  //overlay
+  const { overlay } = useOverlay();
 
   // Drag and Drop
   const [{ isDragging }, drag, preview] = useDrag(() => ({
@@ -40,6 +40,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
       isDragging: monitor.isDragging(),
     }),
   }));
+
   const [profileImg, setProfileImg] = useState(
     card.assignee?.profileImageUrl || '/images/profile.svg',
   );
@@ -47,9 +48,6 @@ function Card({ card, column, isPreview = false }: CardProps) {
   const handleImgError = () => {
     setProfileImg('/images/profile.svg');
   };
-
-  //overlay
-  const { overlay } = useOverlay();
 
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });
@@ -60,6 +58,9 @@ function Card({ card, column, isPreview = false }: CardProps) {
     if (isPreview || !column) return;
     overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
   };
+
+  if (typeof window === 'undefined') return null;
+  if (!card || !card.id) return null;
 
   return (
     <div

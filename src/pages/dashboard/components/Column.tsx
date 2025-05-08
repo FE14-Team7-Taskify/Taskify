@@ -22,9 +22,6 @@ interface Props {
 }
 
 function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Props) {
-  if (typeof window === 'undefined') return null;
-  if (!column || !column.id) return null;
-
   const { overlay, close } = useOverlay();
 
   // Drag and Drop
@@ -53,6 +50,9 @@ function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Prop
   function handleClickCreateCard() {
     overlay(<CardCreateModal dashboardId={dashboardId} columnId={column.id} />);
   }
+
+  if (typeof window === 'undefined') return null;
+  if (!column || !column.id) return null;
 
   if (status === 'pending') return <div>데이터를 불러오는 중....</div>;
   if (status === 'error') return <div>에러가 발생했습니다</div>;
