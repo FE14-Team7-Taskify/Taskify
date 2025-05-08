@@ -14,7 +14,7 @@ import { ColumnType } from '@/api/columns/columns.schema';
 import CardCreateModal from './modal/CardCreateModal';
 import dynamic from 'next/dynamic';
 
-const Card = dynamic(() => import('./Card'), { ssr: false });
+const Card = dynamic(() => import('../../../components/dashboard/Card'), { ssr: false });
 
 interface Props {
   column: ColumnType;

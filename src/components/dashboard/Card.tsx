@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/dashboard.module.scss';
 import Image from 'next/image';
-import Tag from './Tag';
+import Tag from '../../pages/dashboard/components/Tag';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { CardType } from '@/api/cards/cards.schema';
 import { cn, cond } from '@/styles/util/stylesUtil';
 import { useOverlay } from '@/contexts/OverlayProvider';
-import CardDetailModal from './modal/CardDetailModal';
+import CardDetailModal from '../../pages/dashboard/components/modal/CardDetailModal';
 import { ColumnType } from '@/api/columns/columns.schema';
 
 interface CardProps {
