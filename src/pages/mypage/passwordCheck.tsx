@@ -50,7 +50,6 @@ export default function PasswordCheck() {
   const handleSubmit = () => {
     if (!isFormValid) {
       setModalMessage('필드를 채워주세요.');
-      setShouldRefreshOnClose(true);
       setIsModalOpen(true);
       return;
     }
