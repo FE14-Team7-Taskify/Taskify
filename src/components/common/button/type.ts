@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, HtmlHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
 export type BaseButtonProps = {
   onClick?: () => void;

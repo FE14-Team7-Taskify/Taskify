@@ -20,9 +20,13 @@ export function useProfileChange() {
           alert('프로필이 변경되었습니다!');
           router.refresh(); // 페이지 새로고침
         },
-        onError: (error: any) => {
-          alert(`프로필 변경 실패: ${error?.response?.data?.message || error.message}`);
-          console.log('변경 실패!');
+        onError: (error: unknown) => {
+          if (error && typeof error === 'object' && 'message' in error) {
+            alert(`프로필 변경 실패: ${(error as { message?: string })?.message}`);
+          } else {
+            alert('프로필 변경 실패: 알 수 없는 오류');
+          }
+          console.log('변경 실패!', error);
         },
       },
     );

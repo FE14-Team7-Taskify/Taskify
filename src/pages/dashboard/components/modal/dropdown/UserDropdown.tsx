@@ -90,6 +90,7 @@ export default function UserDropdown({
             {isSuccess &&
               FilteredMembers.map(({ userId, nickname, profileImageUrl }: MemberType) => (
                 <UserRowItem
+                  key={userId}
                   isActive={assignee?.id === userId}
                   {...{ id: userId, nickname, profileImageUrl, handleItemClick }}
                 />

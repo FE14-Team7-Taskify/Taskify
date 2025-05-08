@@ -49,14 +49,14 @@ export default function CardCreateModal({ dashboardId, columnId }: CardCreateMod
     } else handleCreateCard();
   }
   function handleCreateCard(imageUrl?: string) {
-    const { assignee, ...reqBody } = {
+    const reqBody = {
       ...formValue,
       dashboardId,
       columnId,
       assigneeUserId: formValue.assignee?.id,
       imageUrl,
     };
-    createMutate.mutate({ ...reqBody }, { onSuccess: () => close() });
+    createMutate.mutate(reqBody, { onSuccess: () => close() });
   }
   const createBtnDisabled = !formValue.title || !formValue.description;
   return (

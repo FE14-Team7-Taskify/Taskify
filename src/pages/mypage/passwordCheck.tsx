@@ -32,8 +32,7 @@ export default function PasswordCheck() {
           <OneButtonModal message="비밀번호 변경 성공." onClose={() => setIsModalOpen(false)} />;
           router.refresh();
         },
-        onError: (error: any) => {
-
+        onError: (error: unknown) => {
           <OneButtonModal message="비밀번호 변경 실패." onClose={() => setIsModalOpen(false)} />;
 
           console.log('비밀번호 변경 실패:', error);

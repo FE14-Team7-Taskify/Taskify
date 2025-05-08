@@ -106,7 +106,7 @@ export const useCreateDashboardMutation = () => {
 /**
  * 대시보드 수정 뮤테이션
  */
-export const useUpdateDashboardMutation = (dashboardId: number) => {
+export const useUpdateDashboardMutation = () => {
   const queryClient = useQueryClient();
   return useMutation<UpdateDashboardResponse, Error, UpdateDashboardRequest>({
     mutationFn: (data) => dashboardsService.updateDashboard(data).then((res) => res.data),

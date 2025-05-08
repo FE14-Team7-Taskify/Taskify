@@ -47,7 +47,11 @@ export default function ColumnDropdown({
           <div className={styles.dropdownListWrapper}>
             {isSuccess &&
               data?.data.map(({ id, title }) => (
-                <ColumnRowItem isActive={column?.id === id} {...{ id, title, handleItemClick }} />
+                <ColumnRowItem
+                  key={id}
+                  isActive={column?.id === id}
+                  {...{ id, title, handleItemClick }}
+                />
               ))}
           </div>
         )}

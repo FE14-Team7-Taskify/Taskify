@@ -1,7 +1,7 @@
 import styles from './ManageColumnModal.module.scss';
 import TwoButtonModal from './TwoButtonModal';
 import Input from '../common/Input';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   useDeleteColumnMutation,
   useUpdateColumnMutation,

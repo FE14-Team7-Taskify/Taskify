@@ -36,9 +36,11 @@ export default function MembersCard({ dashboardId }: { dashboardId: number }) {
                 <div className={styles.profileWrapper}>
                   <div className={styles.imageWrapper}>
                     {member.profileImageUrl ? (
-                      <img
+                      <Image
                         src={member.profileImageUrl}
                         alt={`구성원 ${member.nickname} 프로필 이미지`}
+                        width={26}
+                        height={26}
                       />
                     ) : (
                       <Image src="/icon/profile.svg" alt="구성원 프로필 미리보기" fill />

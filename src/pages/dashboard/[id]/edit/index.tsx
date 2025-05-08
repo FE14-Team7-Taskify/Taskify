@@ -13,7 +13,7 @@ export default function DashboardEdit() {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = typeof id === 'string' && !isNaN(Number(id)) ? Number(id) : 0;
-  const { data, isError, refetch } = useDashboardDetailQuery(dashboardId);
+  const { data, isError } = useDashboardDetailQuery(dashboardId);
 
   const { overlay, close } = useOverlay();
 
