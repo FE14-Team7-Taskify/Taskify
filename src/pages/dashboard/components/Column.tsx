@@ -8,7 +8,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import { useInView } from 'react-intersection-observer';
 import styles from '../styles/dashboard.module.scss';
-import { ColumnType } from '../types/type';
+import { ColumnType } from '@/api/columns/columns.schema';
 import Card from './Card';
 import CardCreateModal from './modal/CardCreateModal';
 
