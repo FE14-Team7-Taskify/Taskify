@@ -52,7 +52,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
 
   // 할 일 카드 모달
   const handleCardClick = () => {
-    if (isPreview) return;
+    if (isPreview || !column) return;
     overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
   };
 
