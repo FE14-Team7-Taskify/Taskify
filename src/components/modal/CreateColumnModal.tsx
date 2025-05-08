@@ -18,8 +18,17 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
   const { overlay, close } = useOverlay();
 
   function handleCreateColumn() {
-    const columnLength = columnListMutation.data?.data.length;
-    if ((columnLength ?? 0) < 10) {
+    const columns = columnListMutation.data?.data ?? [];
+    const columnLength = columns.length;
+
+    const isDuplicated = columns.some((column) => column.title.trim() === columTitle.trim());
+
+    if (isDuplicated) {
+      overlay(<OneButtonModal message="중복된 컬럼 이름입니다." onClose={close} />);
+      return;
+    }
+
+    if (columnLength < 10) {
       createColumnMutation.mutate(
         {
           title: columTitle,
@@ -29,7 +38,6 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
           onSuccess: () => {
             overlay(<OneButtonModal message="컬럼이 생성되었습니다" onClose={onClose} />);
           },
-
           onError: () => {
             overlay(<OneButtonModal message="컬럼 생성에 실패하였습니다" onClose={close} />);
           },
@@ -38,11 +46,10 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
     } else {
       overlay(
         <OneButtonModal
-          message="컬럼이 10개를 넘었습니다.\n컬럼을 수정하거나 삭제 후 생성해주세요."
+          message="컬럼이 10개를 넘었습니다. 컬럼을 수정하거나 삭제 후 생성해주세요."
           onClose={close}
         />,
       );
-      // alert('컬럼이 10개입니다! 삭제 후 생성 요망!');
     }
   }
 
@@ -54,6 +61,7 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
         leftText: '취소',
         onConfirm: handleCreateColumn,
         onCancel: onClose,
+        rightDisabled: !columTitle.trim(),
       }}
     >
       <div className={styles.columnModalContent}>
