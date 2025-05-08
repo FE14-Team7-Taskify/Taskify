@@ -12,7 +12,12 @@ export default function DashboardCard({ id, color, title, createdByMe }: Dashboa
   return (
     <button className={styles.dashboardCard} onClick={handleClickCard}>
       <div className={styles.dashboardTitleArea}>
-        <div className={cn(styles.dashboardColor, styles[`color-${color.replace('#', '')}`])} />
+        <div
+          className={cn(
+            styles.dashboardColor,
+            styles[`color-${color?.replace?.('#', '') ?? 'default'}`],
+          )}
+        />
         <div className={cn(styles.dashboardNm, cond(createdByMe, styles.dashboardCrown))}>
           {title}
         </div>
