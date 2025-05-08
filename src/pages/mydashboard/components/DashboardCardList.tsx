@@ -25,7 +25,9 @@ export default function DashboardCardList() {
               (dashboard): dashboard is DashboardType =>
                 !!dashboard && typeof dashboard.title === 'string',
             )
-            .map((dashboard) => <DashboardCard key={dashboard.id} {...dashboard} />)}
+            .map((dashboard) =>
+              dashboard?.id ? <DashboardCard key={dashboard.id} {...dashboard} /> : null,
+            )}
       </div>
       {isSuccess && dashboardsResult.dashboards?.length > 0 && (
         <div className={styles.paginationArea}>

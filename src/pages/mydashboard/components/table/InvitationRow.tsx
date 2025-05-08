@@ -15,7 +15,7 @@ export default function InvitationRow(invitation: InvitationType) {
       </div>
       <div>
         <label>초대자</label>
-        <div>{invitation.inviter.nickname}</div>
+        <div>{invitation.inviter?.nickname ?? '알 수 없음'}</div>
       </div>
       <div>
         <div className={styles.invitationBtns}>
