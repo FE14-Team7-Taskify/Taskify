@@ -35,7 +35,7 @@ export default function InvitationTable() {
     );
     if (targetRef.current) observer.observe(targetRef.current as Element);
     return () => observer.disconnect();
-  }, [targetRef.current, invitationsResult?.pages]);
+  }, [invitationsResult?.pages, params]);
 
   return (
     <div className={styles.invitationsContainer}>

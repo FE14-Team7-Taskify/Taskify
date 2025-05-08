@@ -72,7 +72,7 @@ export default function Signup() {
         router.replace('/mydashboard');
       }
     }
-  }, [user]);
+  }, [user, router]);
 
   if (user === undefined) {
     return (

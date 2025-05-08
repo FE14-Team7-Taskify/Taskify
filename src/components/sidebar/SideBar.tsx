@@ -41,16 +41,12 @@ export default function SideBar({ children }: { children?: React.ReactNode }) {
 
   useEffect(() => {
     if (isSuccess && pathname === '/') router.replace(nextPathname);
-  }, [pathname, isSuccess, router]);
+  }, [pathname, isSuccess, router, nextPathname]);
 
   return (
     <div className={styles.sidebarWrapper}>
       <div className={styles.sidebarContainer}>
-        <button
-          className={styles.logoArea}
-          aria-description="로고 이미지 영역"
-          onClick={handleClickLogo}
-        />
+        <button className={styles.logoArea} onClick={handleClickLogo} />
         <div className={styles.cardsContainer}>
           <div className={styles.cardsHeader}>
             <h6>Dash Boards</h6>
