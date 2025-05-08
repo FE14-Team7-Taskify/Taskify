@@ -19,6 +19,9 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
+  if (typeof window === 'undefined') return null;
+  if (!card || !card.id) return null;
+
   // Drag and Drop
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'card',

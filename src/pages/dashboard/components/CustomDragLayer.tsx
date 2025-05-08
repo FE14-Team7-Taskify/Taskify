@@ -28,6 +28,7 @@ function CustomDragLayer() {
     currentOffset: monitor.getSourceClientOffset(),
   }));
 
+  if (typeof window === 'undefined') return null;
   if (!isDragging || !item || !currentOffset) return null;
 
   const previewCard = {

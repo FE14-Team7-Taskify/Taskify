@@ -22,6 +22,9 @@ interface Props {
 }
 
 function Column({ column, dashboardId, onCardDrop, handleClickEditColumn }: Props) {
+  if (typeof window === 'undefined') return null;
+  if (!column || !column.id) return null;
+
   const { overlay, close } = useOverlay();
 
   // Drag and Drop
