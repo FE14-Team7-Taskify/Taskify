@@ -19,6 +19,9 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
+  // Early render check AFTER hooks
+  if (typeof window === 'undefined' || !card || !card.id) return null;
+
   // Hooks must be at the top and unconditional
   const { overlay } = useOverlay();
 
@@ -51,9 +54,6 @@ function Card({ card, column, isPreview = false }: CardProps) {
   const handleImgError = () => {
     setProfileImg('/images/profile.svg');
   };
-
-  // Early render check AFTER hooks
-  if (typeof window === 'undefined' || !card || !card.id) return null;
 
   // 할 일 카드 모달
   const handleCardClick = () => {

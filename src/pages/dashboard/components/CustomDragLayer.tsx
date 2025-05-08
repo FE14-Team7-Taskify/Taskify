@@ -52,7 +52,7 @@ function CustomDragLayer() {
 
   return (
     <div style={getItemStyles(currentOffset)}>
-      <Card card={previewCard} isPreview />
+      {previewCard.id ? <Card card={previewCard} isPreview /> : null}
     </div>
   );
 }
