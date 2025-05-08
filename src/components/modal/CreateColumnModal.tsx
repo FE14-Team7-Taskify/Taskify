@@ -3,6 +3,8 @@ import Input from '../common/Input';
 import { useEffect, useState } from 'react';
 import { useColumnsQuery, useCreateColumnMutation } from '@/api/columns/columns.query';
 import styles from './ManageColumnModal.module.scss';
+import OneButtonModal from './OneButtonModal';
+import { useOverlay } from '@/contexts/OverlayProvider';
 
 type CreacteColumnProps = {
   boardId: number;
@@ -13,6 +15,7 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
   const createColumnMutation = useCreateColumnMutation(boardId);
   const columnListMutation = useColumnsQuery(boardId);
   const [columTitle, setColumnTitle] = useState('');
+  const { overlay, close } = useOverlay();
 
   function handleCreateColumn() {
     const columnLength = columnListMutation.data?.data.length;
@@ -24,26 +27,33 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
         },
         {
           onSuccess: () => {
-            alert('컬럼이 생성되었습니다.');
+            overlay(<OneButtonModal message="컬럼이 생성되었습니다" onClose={onClose} />);
           },
+
           onError: () => {
-            alert('컬럼 생성 실패');
+            overlay(<OneButtonModal message="컬럼 생성에 실패하였습니다" onClose={close} />);
           },
         },
       );
     } else {
-      alert('컬럼이 10개입니다! 삭제 후 생성 요망!');
+      overlay(
+        <OneButtonModal
+          message="컬럼이 10개를 넘었습니다.\n컬럼을 수정하거나 삭제 후 생성해주세요."
+          onClose={close}
+        />,
+      );
+      // alert('컬럼이 10개입니다! 삭제 후 생성 요망!');
     }
   }
 
-  useEffect(() => {
-    console.log('컬럼리스트!:', columnListMutation.data?.data.length);
-    console.log('컬럼리스트!:', columnListMutation.data?.data);
-  });
+  // useEffect(() => {
+  //   console.log('컬럼리스트!:', columnListMutation.data?.data.length);
+  //   console.log('컬럼리스트!:', columnListMutation.data?.data);
+  // });
 
   return (
     <TwoButtonModal
-      title="새 컬럼 생성"
+      className={styles.columnModal}
       btns={{
         rightText: '생성',
         leftText: '취소',
@@ -51,13 +61,17 @@ export default function CreateColumnModal({ boardId, onClose }: CreacteColumnPro
         onCancel: onClose,
       }}
     >
-      <div>이름</div>
-      <Input
-        name="title"
-        placeholder="새로운 프로젝트"
-        onChange={(e) => setColumnTitle(e.target.value)}
-        className={styles.createInput}
-      />
+      <div className={styles.columnModalContent}>
+        <div className={styles.modalHeader}>새 컬럼 생성</div>
+        <div className={styles.modalInput}>
+          <label>이름</label>
+          <Input
+            name="title"
+            placeholder="새로운 프로젝트"
+            onChange={(e) => setColumnTitle(e.target.value)}
+          />
+        </div>
+      </div>
     </TwoButtonModal>
   );
 }
