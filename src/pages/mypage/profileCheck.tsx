@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useProfileChange } from './profileChange';
+import useProfileChange from './profileChange';
 import styles from './styles/mypage.module.scss';
 import buttonStyles from '@/components/common/button/myPageButton/myPageButton.module.scss';
 import axios from 'axios';
