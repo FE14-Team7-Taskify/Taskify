@@ -7,6 +7,8 @@ import buttonStyles from '@/components/common/button/myPageButton/myPageButton.m
 import axios from 'axios';
 import Button from '@/components/common/button/myPageButton/MypageButton';
 import Input from '@/components/common/Input';
+import OneButtonModal from '@/components/modal/OneButtonModal';
+import { useRouter } from 'next/navigation';
 
 type ProfileChackProps = {
   email: string;
@@ -20,7 +22,9 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState('/icon/add_box_lg.svg');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const router = useRouter();
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -59,7 +63,16 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
       }
     }
 
-    changeProfile(confirmNickname || nickname, uploadedImageUrl);
+    changeProfile(confirmNickname || nickname, uploadedImageUrl, {
+      onSuccess: () => {
+        setModalMessage('프로필이 변경되었습니다!');
+        setIsModalOpen(true);
+      },
+      onError: (error: string) => {
+        setModalMessage(error);
+        setIsModalOpen(true);
+      },
+    });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,6 +149,15 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             저장
           </Button>
         </div>
+        {isModalOpen && (
+          <OneButtonModal
+            message={modalMessage}
+            onClose={() => {
+              setIsModalOpen(false);
+              router.refresh();
+            }}
+          />
+        )}
       </div>
     </div>
   );
