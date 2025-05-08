@@ -19,24 +19,20 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
-  if (typeof window === 'undefined' || !card || !card.id) {
-    return null;
-  }
-
   const { overlay } = useOverlay();
 
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'card',
     item: () => ({
-      cardId: card.id,
-      fromColumnId: card.columnId,
-      assigneeUserId: card.assignee?.id,
-      profileImageUrl: card.assignee?.profileImageUrl,
-      title: card.title,
-      description: card.description,
-      dueDate: card.dueDate,
-      tags: card.tags,
-      imageUrl: card.imageUrl,
+      cardId: card?.id,
+      fromColumnId: card?.columnId,
+      assigneeUserId: card?.assignee?.id,
+      profileImageUrl: card?.assignee?.profileImageUrl,
+      title: card?.title,
+      description: card?.description,
+      dueDate: card?.dueDate,
+      tags: card?.tags,
+      imageUrl: card?.imageUrl,
     }),
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -44,7 +40,7 @@ function Card({ card, column, isPreview = false }: CardProps) {
   }));
 
   const [profileImg, setProfileImg] = useState(
-    card.assignee?.profileImageUrl || '/images/profile.svg',
+    card?.assignee?.profileImageUrl || '/images/profile.svg',
   );
 
   useEffect(() => {
@@ -55,11 +51,16 @@ function Card({ card, column, isPreview = false }: CardProps) {
     setProfileImg('/images/profile.svg');
   };
 
-  // 할 일 카드 모달
   const handleCardClick = () => {
     if (isPreview || !column) return;
-    overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
+    if (card?.id && column?.id && column?.title) {
+      overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
+    }
   };
+
+  if (typeof window === 'undefined' || !card || !card.id) {
+    return null;
+  }
 
   return (
     <div
