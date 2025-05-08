@@ -3,7 +3,7 @@
 import { useUpdateMyInfoMutation } from '@/api/users/users.query';
 import { useRouter } from 'next/navigation';
 
-export default function useProfileChange() {
+export function useProfileChange() {
   const router = useRouter();
   const { mutate } = useUpdateMyInfoMutation();
 

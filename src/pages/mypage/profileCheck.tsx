@@ -1,6 +1,7 @@
+//profileCheck.tsx
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import useProfileChange from './profileChange';
+import { useProfileChange } from '@/hooks/useProfileChange';
 import styles from './styles/mypage.module.scss';
 import buttonStyles from '@/components/common/button/myPageButton/myPageButton.module.scss';
 import axios from 'axios';
@@ -96,7 +97,15 @@ export default function ProfileChack({ email, imgUrl, nickname }: ProfileChackPr
             style={{ display: 'none' }}
           />
           <button className={styles.profileButton} onClick={handleClick}>
-            {previewUrl && <img src={previewUrl} className={styles.profileButtonImg} />}
+            {previewUrl && (
+              <Image
+                src={previewUrl}
+                alt="프로필 이미지 미리보기"
+                className={styles.profileButtonImg}
+                width={120}
+                height={120}
+              />
+            )}
           </button>
         </div>
         <div className={styles.profileTextBox}>
