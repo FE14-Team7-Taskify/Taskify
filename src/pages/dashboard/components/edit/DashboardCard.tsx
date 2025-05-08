@@ -23,7 +23,7 @@ export default function DashBoardCard({
   }
 
   const btnDisabled = !value.title || (value.title === title && value.color === color);
-  const mutation = useUpdateDashboardMutation(dashboardId);
+  const mutation = useUpdateDashboardMutation();
   function handleUpdateDashboard() {
     mutation.mutate({ dashboardId, ...value }, { onSuccess: updateDashboardDetail });
   }
