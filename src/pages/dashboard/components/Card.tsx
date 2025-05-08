@@ -19,9 +19,6 @@ interface CardProps {
 }
 
 function Card({ card, column, isPreview = false }: CardProps) {
-  // Early render check AFTER hooks
-  if (typeof window === 'undefined' || !card || !card.id) return null;
-
   // Hooks must be at the top and unconditional
   const { overlay } = useOverlay();
 
@@ -60,6 +57,9 @@ function Card({ card, column, isPreview = false }: CardProps) {
     if (isPreview || !column) return;
     overlay(<CardDetailModal cardId={card.id} columnId={column.id} columnTitle={column.title} />);
   };
+
+  // Early render check AFTER hooks
+  if (typeof window === 'undefined' || !card || !card.id) return null;
 
   return (
     <div
