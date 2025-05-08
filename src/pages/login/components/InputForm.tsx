@@ -26,6 +26,10 @@ export default function InputForm({
 }: InputFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
+  if (email === undefined || password === undefined) {
+    return null;
+  }
+
   function togglePasswordVisibility() {
     setShowPassword((prev) => !prev);
   }

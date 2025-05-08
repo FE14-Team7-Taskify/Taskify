@@ -20,9 +20,9 @@ export default function DashboardCardList() {
       <div className={styles.cardListWrapper}>
         <CreateDashboardButton />
         {isSuccess &&
-          dashboardsResult.dashboards?.map((dashboard: DashboardType) => (
-            <DashboardCard key={dashboard.id} {...dashboard} />
-          ))}
+          dashboardsResult.dashboards
+            ?.filter(Boolean)
+            .map((dashboard: DashboardType) => <DashboardCard key={dashboard.id} {...dashboard} />)}
       </div>
       {isSuccess && dashboardsResult.dashboards?.length > 0 && (
         <div className={styles.paginationArea}>
