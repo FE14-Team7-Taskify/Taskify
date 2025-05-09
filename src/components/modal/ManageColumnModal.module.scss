@@ -1,18 +1,19 @@
 @use '@/styles/index.scss' as *;
+.modalHeader {
+  position: relative;
+  padding: 1rem 2rem;
+}
 
-.XButton {
-  border: none;
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.modalHeader button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   background: none;
+  border: none;
   cursor: pointer;
-  margin-top: -80px;
-
-  @include text-style('3xl'); // 3rem == 48px
-}
-
-.editInput {
-  margin-top: -10px;
-}
-
-.createInput {
-  margin-top: -10px;
 }
